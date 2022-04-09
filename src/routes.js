@@ -43,8 +43,8 @@ var routes = [
     layout: "/tutor",
   },
   {
-    path: "/complaints",
-    name: "Complaints",
+    path: "/contact-us",
+    name: "Contact",
     icon: "ni ni-pin-3 text-orange",
     component: Complaints,
     layout: "/tutee",

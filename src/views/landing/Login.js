@@ -109,7 +109,7 @@ class Login extends React.Component {
                           </label>
                         </div>
                         <div className="text-center">
-                          <a href="/select">
+                          <Link to="/select">
                             <Button
                               className="my-4"
                               color="primary"
@@ -117,7 +117,7 @@ class Login extends React.Component {
                             >
                               Sign in
                             </Button>
-                          </a>
+                          </Link>
                         </div>
                       </Form>
                     </CardBody>
