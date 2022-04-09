@@ -24,7 +24,25 @@ const TuteeTutorRequestModal = (props) => {
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-
+  let disabledTimeslots = [
+    {
+        startDate: '12:00:00 AM',
+        format: 'MMMM Do YYYY, h:mm:ss A',
+    },
+    {
+        startDate: 'May 1st 2017, 3:00:00 PM',
+        format: 'MMMM Do YYYY, h:mm:ss A',
+    },
+    {
+        startDate: 'May 5th 2017, 6:00:00 PM',
+        format: 'MMMM Do YYYY, h:mm:ss A',
+    },
+];
+let timeslots = [
+  ['12', '13'], // 1:00 AM - 2:00 AM
+  ['13', '14'], // 1:00 AM - 2:00 AM
+  ['14', '15'], // 1:00 AM - 2:00 AM
+];
   return (
     <>
       <Button variant="primary" onClick={handleShow}>
@@ -41,6 +59,8 @@ const TuteeTutorRequestModal = (props) => {
                   <ReactTimeslotCalendar
                     maxTimeslots ={4}
                     initialDate={moment().format()}
+                    disabledTimeslots={disabledTimeslots}
+                    timeslots={timeslots}
                   />
                 </Col>
 

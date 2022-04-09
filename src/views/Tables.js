@@ -16,7 +16,7 @@
 
 */
 // reactstrap components
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import {
   Badge,
@@ -39,6 +39,9 @@ import {
 } from "reactstrap";
 import {Modal, Button} from 'react-bootstrap'
 // core components
+import { selectAllTutors, fetchTutors } from '../stores/tutorReducer';
+
+import { useSelector, useDispatch} from 'react-redux';
 import Header from "components/Headers/Header.js";
 import TableComponent from "components/Tutee/TuteeTutorTable/Table";
 import TuteeTutorRequestModal from "components/Tutee/TuteeTutorRequestModal/TuteeTutorRequestModal";
@@ -47,7 +50,6 @@ function Example() {
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-
   return (
     <>
       <Button variant="primary" onClick={handleShow}>
@@ -73,6 +75,10 @@ function Example() {
 }
 
 const Tables = () => {
+  const dispatch = useDispatch();
+  useEffect(()=>{
+    dispatch(fetchTutors());
+  },[]);
   const [currenttutor, setCurrentTutor] = useState({});  
   const [show, setShow] = useState(false);  
   const TutorSelected = (tutor)=>{

@@ -26,8 +26,8 @@ const FakePerson = {
     "https://media-exp1.licdn.com/dms/image/C4D03AQH1GTxdf7M7Ow/profile-displayphoto-shrink_400_400/0/1593820411981?e=1654732800&v=beta&t=KdVIhnoyk0SDSybEGXYvOL4Aahw7JsWalKw3AFNIcqg",
   name: "Alex Huang",
   email: "alex.huang@yale.edu",
-  hourlyRate: 15,
-  ratings: 60,
+  hourly_rate: 15,
+  numRatings: 60,
 };
 
 const TableComponent = (props) => {
@@ -88,7 +88,7 @@ const OnlineOffline = ({ status }) => {
 
 const TableRow = (props) => {
   const {TutorSelected} = props;
-  const { picture, name, email, hourlyRate, ratings, status } = props.person;
+  const { picture, first_name,last_name, email, hourly_rate, numRatings, status } = props.person;
   console.log(props.person);
   const onTutorClick = ()=>{console.log("tutor", props.person);
   TutorSelected(props.person);};
@@ -97,25 +97,25 @@ const TableRow = (props) => {
       <th scope="row">
         <Media className="align-items-center">
           <a
-            className="avatar rounded-circle mr-3"
+            className="avatar rounded-circle mr-3" 
             href="#pablo"
             onClick={(e) => e.preventDefault()}
           >
-            <img alt="..." src={picture} />
+            <img style={{width:'100%',height:'100%'}} alt="..." src={picture} />
           </a>
           <Media>
-            <span className="mb-0 text-sm">{name}</span>
+            <span className="mb-0 text-sm">{first_name} {last_name}</span>
           </Media>
         </Media>
       </th>
 
       <td>{email}</td>
-      <td>{hourlyRate}$/hr</td>
+      <td>{hourly_rate}$/hr</td>
       <td>
         <div className="d-flex align-items-center">
-          <span className="mr-2">{ratings}%</span>
+          <span className="mr-2">{numRatings}%</span>
           <div>
-            <Progress max="100" value={ratings} barClassName="bg-danger" />
+            <Progress max="100" value={numRatings} barClassName="bg-danger" />
           </div>
         </div>
       </td>
