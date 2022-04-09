@@ -48,7 +48,6 @@ import Header from "components/Headers/Header.js";
 import TableComponent from "components/Tutee/TuteeTutorTable/Table";
 import OutstandingRequestTableComponent from "components/Tutee/TuteeTutorOutstandingRequest/Table";
 import TuteeTutorRequestModal from "components/Tutee/TuteeTutorRequestModal/TuteeTutorRequestModal";
-import BootstrapTable from 'react-bootstrap-table-next';
 
 const Tables = () => {
   const dispatch = useDispatch();
@@ -96,6 +95,7 @@ const Tables = () => {
       payload
     ))
   }
+  
   return (
     <>
       {/* Page content */}
