@@ -1,3 +1,5 @@
+import React, { useEffect, useState } from "react";
+
 import {
   Badge,
   Card,
@@ -17,10 +19,14 @@ import {
   Row,
   UncontrolledTooltip,
 } from "reactstrap";
+import {Button} from 'react-bootstrap';
+
+import { useTable } from 'react-table';
 
 import { selectAllTutors } from '../../../stores/tutorReducer';
 
 import { useSelector } from 'react-redux';
+import moment from "moment";
 
 const FakePerson = {
   picture:
@@ -31,88 +37,118 @@ const FakePerson = {
   ratings: 60,
 };
 
-const TableComponent = (props) => {
+const OutstandingRequestTableComponent = (props) => {
+  const { onRequestClick , requests} = props;
+  const columns = React.useMemo(
+    () => [
+      {
+        Header: 'Tutor',
+        accessor: 'tutor', // accessor is the "key" in the data
+        Cell: ({ row }) => {
+          const {tutor} = row.values;
+          console.log(row);
+         return <>{tutor ? (<div>
+            <span>{tutor.first_name} {tutor.last_name} </span>
+          </div>) : <></>}</>
+        },
+      },
+      {
+        Header: 'Timeslots',
+        accessor: 'timeslots',
+        Cell: ({ row }) => {
+          const {timeslots, tutor} = row.values;
+          console.log(timeslots);
+          const transfor = [];
+          for(let i =0;i < timeslots.length;i++){
+            const ts = timeslots[i];
+            transfor.push({sd : moment(ts.start).format('dddd hh:mm'),
+            ed : moment(ts.end).format('dddd hh:mm')});
+          }
+          console.log(transfor);
+          const tsmapper = ()=>{
+         return <> {timeslots.map((ts)=>{<span>{moment(ts.start).format('dddd hh:mm')} {moment(ts.end).format('dddd hh:mm')} </span>})}</>
+            
+          }
+         return <>{transfor.map((ts)=>(<span style={{marginRight:4}}>{ts.sd}-{ts.ed}</span>))} </>
+        },
+      },
+      {
+        Header: () => "",
+        id: 'clickselect',
+        Cell: ({ row }) => (
+          <div>
+            <Button style={{float:'right'} }onClick={() => { onRequestClick(row); }} variant="primary">Request</Button>
+          </div>
+        ),
+      },
+    ],
+    []
+  );
+  const data = React.useMemo(
+    () => requests,
+    [requests]
+  );
+  const {
+    getTableProps,
+    getTableBodyProps,
+    headerGroups,
+    rows,
+    prepareRow,
+  } = useTable({ columns, data });
   const tutors = useSelector(selectAllTutors);
-  console.log("tutors",tutors);
+  console.log("tutors", tutors);
   return (
-    <Table className="align-items-center table-flush" responsive>
-      <thead className="thead-light">
-        <tr>
-          <th scope="col">Name</th>
-          <th scope="col">Email</th>
-          <th scope="col">Hourly Rate</th>
-          <th scope="col">Ratings</th>
-          <th scope="col">Availability</th>
-          <th scope="col" />
-        </tr>
+    <Table className="align-items-center table-flush" 
+    responsive {...getTableProps()}>
+      <thead>
+        {headerGroups.map(headerGroup => (
+          <tr className="thead-light" {...headerGroup.getHeaderGroupProps()}>
+            {headerGroup.headers.map(column => (
+              <th
+                {...column.getHeaderProps()}
+                scope="col"
+              >
+                {column.render('Header')}
+              </th>
+            ))}
+          </tr>
+        ))}
       </thead>
-      <tbody>
-        {tutors.map((tutor)=>{
-          return <TableRow person={tutor} />;
+      <tbody {...getTableBodyProps()}>
+        {rows.map(row => {
+          prepareRow(row)
+          return (
+            <tr {...row.getRowProps()}>
+              {row.cells.map(cell => {
+                return (
+                  <td
+                  >
+                    {cell.render('Cell')}
+                  </td>
+                )
+              })}
+            </tr>
+          )
         })}
-        
       </tbody>
     </Table>
+
   );
 };
 
-export default TableComponent;
+export default OutstandingRequestTableComponent;
 
 const TableRow = (props) => {
-  const { picture, name, email, hourlyRate, ratings } = props.person;
+  const { cell, } = props;
+  const { col1, col2 } = cell;
   console.log(props.person);
   return (
-    <tr>
-      <th scope="row">
-        <Media className="align-items-center">
-          <a
-            className="avatar rounded-circle mr-3"
-            href="#pablo"
-            onClick={(e) => e.preventDefault()}
-          >
-            <img alt="..." src={picture} />
-          </a>
-          <Media>
-            <span className="mb-0 text-sm">{name}</span>
-          </Media>
-        </Media>
-      </th>
+    <tr {...cell.getCellProps()}>
 
-      <td>{email}</td>
-      <td>{hourlyRate}$/hr</td>
-      <td>
-        <div className="d-flex align-items-center">
-          <span className="mr-2">{ratings}%</span>
-          <div>
-            <Progress max="100" value={ratings} barClassName="bg-danger" />
-          </div>
-        </div>
-      </td>
-      <td className="text-right">
-        <UncontrolledDropdown>
-          <DropdownToggle
-            className="btn-icon-only text-light"
-            href="#pablo"
-            role="button"
-            size="sm"
-            color=""
-            onClick={(e) => e.preventDefault()}
-          >
-            <i className="fas fa-ellipsis-v" />
-          </DropdownToggle>
-          <DropdownMenu className="dropdown-menu-arrow" right>
-            <DropdownItem href="#pablo" onClick={(e) => e.preventDefault()}>
-              Action
-            </DropdownItem>
-            <DropdownItem href="#pablo" onClick={(e) => e.preventDefault()}>
-              Another action
-            </DropdownItem>
-            <DropdownItem href="#pablo" onClick={(e) => e.preventDefault()}>
-              Something else here
-            </DropdownItem>
-          </DropdownMenu>
-        </UncontrolledDropdown>
-      </td>
+      <td>{col1}</td>
+      <td>{col2}</td>
+
+
     </tr>
   );
 };
