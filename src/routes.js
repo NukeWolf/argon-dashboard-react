@@ -23,8 +23,10 @@ import Help from "views/Help.js";
 import Maps from "views/examples/Maps.js";
 import Register from "views/examples/Register.js";
 import Login from "views/examples/Login.js";
-import Tables from "views/Tables.js";
+import Tables from "views/TutorList";
 import Icons from "views/examples/Icons.js";
+import Bio from "views/Bio";
+import RequestList from "views/RequestList";
 
 var routes = [
   {
@@ -32,6 +34,13 @@ var routes = [
     name: "Dashboard",
     icon: "ni ni-tv-2 text-primary",
     component: Tables,
+    layout: "/admin",
+  },
+  {
+    path: "/requests",
+    name: "Dashboard",
+    icon: "ni ni-tv-2 text-primary",
+    component: RequestList,
     layout: "/admin",
   },
   {
@@ -81,6 +90,13 @@ var routes = [
     name: "Tables",
     icon: "ni ni-bullet-list-67 text-red",
     component: Tables,
+    layout: "/admin",
+  },
+  {
+    path: "/profile/:user",
+    name: "Profile",
+    icon: "ni ni-tv-2 text-primary",
+    component: Bio,
     layout: "/admin",
   },
   {

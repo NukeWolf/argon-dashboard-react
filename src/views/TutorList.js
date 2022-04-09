@@ -39,17 +39,25 @@ import {
   CardBody,
   CardTitle,
 } from "reactstrap";
-import { Modal, Button } from 'react-bootstrap'
+import { Modal, Button } from "react-bootstrap";
 // core components
-import { selectAllTutors, currentTutee, selectAllRequests, selectPendingRequests,fetchTutors, fetchRequests, addNewRequest } from '../stores/tutorReducer';
+import {
+  selectAllTutors,
+  currentTutee,
+  selectAllRequests,
+  selectPendingRequests,
+  fetchTutors,
+  fetchRequests,
+  addNewRequest,
+} from "../stores/tutorReducer";
 
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from "react-redux";
 import Header from "components/Headers/Header.js";
 import TableComponent from "components/Tutee/TuteeTutorTable/Table";
 import OutstandingRequestTableComponent from "components/Tutee/TuteeTutorOutstandingRequest/Table";
 import TuteeTutorRequestModal from "components/Tutee/TuteeTutorRequestModal/TuteeTutorRequestModal";
 
-const Tables = () => {
+const TutorList = () => {
   const dispatch = useDispatch();
   const currenttutee = useSelector(currentTutee);
   const pending_requests = useSelector(selectPendingRequests);
@@ -68,9 +76,8 @@ const Tables = () => {
   };
   const onRequestClick = (request) => {
     dispatch(fetchRequests());
-
   };
-  const products = [{ id: 0, name: 'test', price: 'price' }];
+  const products = [{ id: 0, name: "test", price: "price" }];
   console.log("currenttutor", currenttutor);
 
   const SubmitRequest = (timeslots) => {
@@ -78,24 +85,22 @@ const Tables = () => {
     const outts = [];
     for (let i = 0; i < timeslots.length; i++) {
       outts.push({
-        start: timeslots[i].startDate.format('YYYY-MM-DDThh:mm:ss'),
-        end: timeslots[i].endDate.format('YYYY-MM-DDThh:mm:ss')
-      })
+        start: timeslots[i].startDate.format("YYYY-MM-DDThh:mm:ss"),
+        end: timeslots[i].endDate.format("YYYY-MM-DDThh:mm:ss"),
+      });
     }
     console.log(currenttutor, currenttutee);
     const payload = {
-      "timeslots": outts,
-      "Tutor": currenttutor.id,
-      "Tutee": currenttutee.id,
-      "status": "pending",
-      "zoom_link": "http://zoom.com",
+      timeslots: outts,
+      Tutor: currenttutor.id,
+      Tutee: currenttutee.id,
+      status: "pending",
+      zoom_link: "http://zoom.com",
     };
     console.log("payload", payload);
-    dispatch(addNewRequest(
-      payload
-    ))
-  }
-  
+    dispatch(addNewRequest(payload));
+  };
+
   return (
     <>
       {/* Page content */}
@@ -170,7 +175,10 @@ const Tables = () => {
                 <h3 className="mb-0">Oustanding Requests</h3>
               </CardHeader>
 
-              <OutstandingRequestTableComponent requests={pending_requests} onRequestClick={onRequestClick}></OutstandingRequestTableComponent>
+              <OutstandingRequestTableComponent
+                requests={pending_requests}
+                onRequestClick={onRequestClick}
+              ></OutstandingRequestTableComponent>
 
               <CardFooter className="py-4">
                 <nav aria-label="...">
@@ -225,13 +233,17 @@ const Tables = () => {
                 </nav>
               </CardFooter>
             </Card>
-            
           </div>
         </Row>
-        <TuteeTutorRequestModal SubmitRequest={SubmitRequest} show={show} setShow={setShow} tutor={currenttutor}></TuteeTutorRequestModal>
+        <TuteeTutorRequestModal
+          SubmitRequest={SubmitRequest}
+          show={show}
+          setShow={setShow}
+          tutor={currenttutor}
+        ></TuteeTutorRequestModal>
       </Container>
     </>
   );
 };
 
-export default Tables;
+export default TutorList;

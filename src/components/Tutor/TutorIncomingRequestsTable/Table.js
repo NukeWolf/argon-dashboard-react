@@ -1,6 +1,5 @@
 import {
   Badge,
-  Card,
   CardHeader,
   CardFooter,
   DropdownMenu,
@@ -9,18 +8,17 @@ import {
   DropdownToggle,
   Media,
   Pagination,
-  PaginationItem,
-  PaginationLink,
   Progress,
   Table,
   Container,
   Row,
   UncontrolledTooltip,
 } from "reactstrap";
+import { Card, Button } from "react-bootstrap";
 
-import { selectAllTutors } from '../../../stores/tutorReducer';
+import { selectAllTutors } from "../../../stores/tutorReducer";
 
-import { useSelector } from 'react-redux';
+import { useSelector } from "react-redux";
 
 const FakePerson = {
   picture:
@@ -33,24 +31,23 @@ const FakePerson = {
 
 const TableComponent = (props) => {
   const tutors = useSelector(selectAllTutors);
-  console.log("tutors",tutors);
+  console.log("tutors", tutors);
   return (
     <Table className="align-items-center table-flush" responsive>
       <thead className="thead-light">
         <tr>
-          <th scope="col">Name</th>
-          <th scope="col">Email</th>
-          <th scope="col">Hourly Rate</th>
-          <th scope="col">Ratings</th>
-          <th scope="col">Availability</th>
+          <th scope="col">Upcoming Session</th>
+          <th scope="col">Times</th>
+          <th scope="col">Status</th>
+          <th scope="col">Accepted?</th>
+          <th scope="col">Start</th>
           <th scope="col" />
         </tr>
       </thead>
       <tbody>
-        {tutors.map((tutor)=>{
+        {tutors.map((tutor) => {
           return <TableRow person={tutor} />;
         })}
-        
       </tbody>
     </Table>
   );
@@ -85,6 +82,15 @@ const TableRow = (props) => {
           <span className="mr-2">{ratings}%</span>
           <div>
             <Progress max="100" value={ratings} barClassName="bg-danger" />
+          </div>
+        </div>
+      </td>
+      <td>
+        <div className="d-flex align-items-center">
+          <div>
+            <Button onClick={() => {}} variant="primary">
+              Accept
+            </Button>
           </div>
         </div>
       </td>
