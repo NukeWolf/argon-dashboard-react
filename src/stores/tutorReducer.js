@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
-
+import {client} from './client';
+import toast, { Toaster } from 'react-hot-toast';
 const FakePerson = {
     picture:
       "https://media-exp1.licdn.com/dms/image/C4D03AQH1GTxdf7M7Ow/profile-displayphoto-shrink_400_400/0/1593820411981?e=1654732800&v=beta&t=KdVIhnoyk0SDSybEGXYvOL4Aahw7JsWalKw3AFNIcqg",
@@ -13,6 +14,18 @@ export const tutorSlice = createSlice({
   name: 'tutor',
   initialState: {
     status:'loading',
+    requests:[],
+    tutees:[{
+      id:1,
+      picture:
+        "https://media-exp1.licdn.com/dms/image/C4D03AQH1GTxdf7M7Ow/profile-displayphoto-shrink_400_400/0/1593820411981?e=1654732800&v=beta&t=KdVIhnoyk0SDSybEGXYvOL4Aahw7JsWalKw3AFNIcqg",
+      name: "Alex Huang",
+      email: "alex.huang@yale.edu",
+      hourlyRate: 15,
+      ratings: 60,
+      status:'online',
+    },],
+    currentTuteeID:1,
     tutors: [{
         picture:
           "https://media-exp1.licdn.com/dms/image/C4D03AQH1GTxdf7M7Ow/profile-displayphoto-shrink_400_400/0/1593820411981?e=1654732800&v=beta&t=KdVIhnoyk0SDSybEGXYvOL4Aahw7JsWalKw3AFNIcqg",
@@ -21,7 +34,8 @@ export const tutorSlice = createSlice({
         hourlyRate: 15,
         ratings: 60,
         status:'online',
-      },]
+      },],
+      requests:[],
   },
   reducers: {
     addTutor: (state,action) => {
@@ -48,64 +62,89 @@ export const tutorSlice = createSlice({
         state.status = 'succeeded'
         // Add any fetched posts to the array
         console.log("success", action);
-        
+        // toast.success('Successfully loaded tutors.');
         state.tutors = action.payload.results;
       })
       .addCase(fetchTutors.rejected, (state, action) => {
         state.status = 'failed'
         state.error = action.error.message
+      }).addCase(fetchRequests.pending, (state, action) => {
+        state.status = 'loading'
+      })
+      .addCase(fetchRequests.fulfilled, (state, action) => {
+        state.status = 'succeeded'
+        // Add any fetched posts to the array
+        console.log("success", action);
+        // toast.success('Successfully loaded tutors.');
+        state.requests = action.payload.results;
+      })
+      .addCase(fetchRequests.rejected, (state, action) => {
+        state.status = 'failed'
+        state.error = action.error.message
+      }).addCase(addNewRequest.fulfilled, (state, action) => {
+        // We can directly add the new request object to our  requests
+        state.requests.push(action.payload);
+        toast.success('Successfully created new request.');
       })
   }
 })
 
-export async function client(endpoint, { body, ...customConfig } = {}) {
-  const headers = { 'Content-Type': 'application/json' }
-
-  const config = {
-    method: body ? 'POST' : 'GET',
-    ...customConfig,
-    headers: {
-      ...headers,
-      ...customConfig.headers,
-    },
-  }
-
-  if (body) {
-    config.body = JSON.stringify(body)
-  }
-
-  let data
-  try {
-    const response = await window.fetch(endpoint, config)
-    data = await response.json()
-    if (response.ok) {
-      // Return a result object similar to Axios
-      return {
-        status: response.status,
-        data,
-        headers: response.headers,
-        url: response.url,
-      }
-    }
-    throw new Error(response.statusText)
-  } catch (err) {
-    return Promise.reject(err.message ? err.message : data)
-  }
-}
-
-client.get = function (endpoint, customConfig = {}) {
-  return client(endpoint, { ...customConfig, method: 'GET' })
-}
-
-client.post = function (endpoint, body, customConfig = {}) {
-  return client(endpoint, { ...customConfig, body })
-}
 
 export const fetchTutors = createAsyncThunk('tutors/fetchTutors', async () => {
   const response = await client.get('http://localhost:8000/tutors/')
   return response.data
-})
+});
+export const fetchRequests = createAsyncThunk('tutors/fetchRequests', async () => {
+  const response = await client.get('http://localhost:8000/requests/')
+  return response.data
+});
+export const addNewRequest = createAsyncThunk(
+  'tutors/addNewRequest',
+  // The payload creator receives the partial `{title, content, user}` object
+  async initialRequest => {
+    // We send the initial data to the fake API server
+    const response = await client.post('http://localhost:8000/requests/', initialRequest)
+    // The response includes the complete post object, including unique ID
+    return response.data
+  }
+)
+
 
 export const { addTutor } = tutorSlice.actions
-export const selectAllTutors = state => state.tutors.tutors
+export const selectAllTutors = state => state.tutors.tutors;
+export const selectAllRequests = (state) => {
+  const requests = state.tutors.requests;
+  const outreq =  [];
+  for(let i = 0;i < requests.length;i++){
+  console.log("outreq",i,outreq,requests);
+
+    const request = requests[i];
+    const tutor = state.tutors.tutors.filter((tut)=>{return tut.id===request.Tutor })[0];
+    
+    outreq.push({timeslots:(request.timeslots),tutor:tutor});
+  }
+  console.log("outreq",outreq,requests);
+  return outreq;
+}
+export const selectPendingRequests = (state) => {
+  const requests = state.tutors.requests.filter((rq)=>(rq.status==="pending"));
+  const outreq =  [];
+  for(let i = 0;i < requests.length;i++){
+  console.log("outreq",i,outreq,requests);
+
+    const request = requests[i];
+    const tutor = state.tutors.tutors.filter((tut)=>{return tut.id===request.Tutor })[0];
+    
+    outreq.push({timeslots:(request.timeslots),tutor:tutor});
+  }
+  console.log("outreq",outreq,requests);
+  return outreq;
+}
+
+export const currentTutee = (state)=>{
+  const tutee = state.tutors.tutees.filter((tut)=>{return tut.id===state.tutors.currentTuteeID })[0];
+
+  console.log("tutee",tutee);
+  return tutee;
+}
 export default tutorSlice.reducer
