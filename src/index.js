@@ -50,7 +50,7 @@ ReactDOM.render(
         <Route path="/" exact render={(props) => <Landing {...props} />} />
         <Route path="/select" exact render={(props) => <Select {...props} />} />
         <Route path="/login" exact render={(props) => <Login {...props} />} />
-        <Redirect from="/" to="/" />
+        <Redirect from="/" to="/admin" />
       </Switch>
     </BrowserRouter>
   </Provider>,
