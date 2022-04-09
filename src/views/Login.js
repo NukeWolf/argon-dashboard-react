@@ -62,18 +62,7 @@ const Tables = () => {
     setShow(true);
     console.log("currenttutor", currenttutor);
   }
-const sendEmail = ()=>{
-  const sgMail = require('@sendgrid/mail');
-  sgMail.setApiKey(process.env.SENDGRID_API_KEY);
-  const msg = {
-    to: 'brendon.gong@yale.edu',
-    from: 'carlos.herbozoosco@yale.edu',
-    subject: 'Sending with SendGrid is Fun',
-    text: 'and easy to do anywhere, even with Node.js',
-    html: '<strong>and easy to do anywhere, even with Node.js</strong>',
-  };
-  sgMail.send(msg);
-};
+
   return (
     <>
       {/* Page content */}
@@ -86,21 +75,22 @@ const sendEmail = ()=>{
           <div className="col">
             <Card className="shadow">
               <CardHeader className="border-0">
-                <h2 className="mb-0">Contact Us</h2>
+                <h2 className="mb-0">About</h2>
               </CardHeader>
-      <CardBody>
-        <h3>Please select a category.</h3>
-        <Input type="select" name="selectMulti" id="exampleSelectMulti" multiple>
-            <option>Feedback</option>
-            <option>Assistance</option>
-            <option>Concern</option>
-            <option>Pricing</option>
-        </Input>
-        <Input type="textarea" name="text" id="exampleText" autofocus placeholder="How can we help?"/>
-        <Button onClick={sendEmail}>Send Email</Button>
-        
-      </CardBody>
+                <CardBody>
 
+                <Form>
+                    <FormGroup>
+                    <Label for="exampleEmail">Email</Label>
+                    <Input type="email" name="email" id="exampleEmail" placeholder="with a placeholder" />
+                    </FormGroup>
+                    <FormGroup>
+                    <Label for="examplePassword">Password</Label>
+                    <Input type="password" name="password" id="examplePassword" placeholder="password placeholder" />
+                    </FormGroup>
+                </Form>
+
+                </CardBody>
               
             </Card>
           </div>

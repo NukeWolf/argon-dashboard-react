@@ -62,18 +62,7 @@ const Tables = () => {
     setShow(true);
     console.log("currenttutor", currenttutor);
   }
-const sendEmail = ()=>{
-  const sgMail = require('@sendgrid/mail');
-  sgMail.setApiKey(process.env.SENDGRID_API_KEY);
-  const msg = {
-    to: 'brendon.gong@yale.edu',
-    from: 'carlos.herbozoosco@yale.edu',
-    subject: 'Sending with SendGrid is Fun',
-    text: 'and easy to do anywhere, even with Node.js',
-    html: '<strong>and easy to do anywhere, even with Node.js</strong>',
-  };
-  sgMail.send(msg);
-};
+
   return (
     <>
       {/* Page content */}
@@ -86,18 +75,30 @@ const sendEmail = ()=>{
           <div className="col">
             <Card className="shadow">
               <CardHeader className="border-0">
-                <h2 className="mb-0">Contact Us</h2>
+                <h2 className="mb-0">Help</h2>
               </CardHeader>
       <CardBody>
-        <h3>Please select a category.</h3>
-        <Input type="select" name="selectMulti" id="exampleSelectMulti" multiple>
-            <option>Feedback</option>
-            <option>Assistance</option>
-            <option>Concern</option>
-            <option>Pricing</option>
-        </Input>
-        <Input type="textarea" name="text" id="exampleText" autofocus placeholder="How can we help?"/>
-        <Button onClick={sendEmail}>Send Email</Button>
+        <h3>
+        How are tutors incentivized to join Tuut?
+        </h3>
+
+        <p>
+        Tutors set their own hourly wages, with the cap determined by their experience (# of sessions) and ratings.
+        </p>
+
+        <h3>
+        How can FGLI students access Tuut?
+        </h3>
+        <p>
+        Tuut® will connect with university systems to reimburse low income students with proof of transaction, ensuring that we can help all students of all financial backgrounds.
+        </p>
+
+        <h3>
+        What separates Tuut from other tutoring platforms?
+        </h3>
+        <p>
+        Flexibility of time slots. Promptness of academic support. Accessibility to students of all economic backgrounds. Code of conduct to ensure academic integrity, and a safe and welcoming environment.
+        </p>
         
       </CardBody>
 

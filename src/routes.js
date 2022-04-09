@@ -18,6 +18,8 @@
 import Index from "views/Index.js";
 import Profile from "views/examples/Profile.js";
 import Complaints from "views/Complaints.js";
+import About from "views/About.js";
+import Help from "views/Help.js";
 import Maps from "views/examples/Maps.js";
 import Register from "views/examples/Register.js";
 import Login from "views/examples/Login.js";
@@ -54,10 +56,17 @@ var routes = [
     layout: "/admin",
   },
   {
-    path: "/aboutus",
-    name: "About Us",
+    path: "/help",
+    name: "Help",
     icon: "ni ni-pin-3 text-orange",
-    component: Complaints,
+    component: Help,
+    layout: "/admin",
+  },
+  {
+    path: "/about",
+    name: "About",
+    icon: "ni ni-pin-3 text-orange",
+    component: About,
     layout: "/admin",
   },
   {
