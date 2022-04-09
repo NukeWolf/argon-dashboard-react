@@ -74,7 +74,10 @@ class DemoNavbar extends React.Component {
             <Container>
               <NavbarBrand className="mr-lg-5" to="/" tag={Link}>
                 <img
-                  src={require("assets/img/brand/TuutRect.png").default}
+                  src={
+                    require("assets/img/brand/tuut-rectangular-logo.jpg")
+                      .default
+                  }
                   alt="..."
                 />
               </NavbarBrand>

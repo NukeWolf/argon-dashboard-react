@@ -20,7 +20,6 @@ import Profile from "views/examples/Profile.js";
 import Complaints from "views/Complaints.js";
 import About from "views/About.js";
 import Help from "views/Help.js";
-import Maps from "views/examples/Maps.js";
 import Register from "views/examples/Register.js";
 import Login from "views/examples/Login.js";
 import Tables from "views/TutorList";
@@ -30,18 +29,25 @@ import RequestList from "views/RequestList";
 
 var routes = [
   {
-    path: "/index",
-    name: "Dashboard",
+    path: "/list",
+    name: "Tutors",
     icon: "ni ni-tv-2 text-primary",
     component: Tables,
-    layout: "/admin",
+    layout: "/tutee",
   },
   {
     path: "/requests",
     name: "Dashboard",
     icon: "ni ni-tv-2 text-primary",
     component: RequestList,
-    layout: "/admin",
+    layout: "/tutor",
+  },
+  {
+    path: "/complaints",
+    name: "Complaints",
+    icon: "ni ni-pin-3 text-orange",
+    component: Complaints,
+    layout: "/tutee",
   },
   {
     path: "/icons",
@@ -50,20 +56,7 @@ var routes = [
     component: Icons,
     layout: "/admin",
   },
-  {
-    path: "/maps",
-    name: "Maps",
-    icon: "ni ni-pin-3 text-orange",
-    component: Maps,
-    layout: "/admin",
-  },
-  {
-    path: "/complaints",
-    name: "Complaints",
-    icon: "ni ni-pin-3 text-orange",
-    component: Complaints,
-    layout: "/admin",
-  },
+
   {
     path: "/help",
     name: "Help",

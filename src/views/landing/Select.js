@@ -67,34 +67,38 @@ class Profile extends React.Component {
             <Container>
               <Row>
                 <Col>
-                  <Card className="card-profile shadow mt--300">
-                    <div className="px-4">
-                      <div className="text-center mt-5">
-                        <h2>I'm a student</h2>
+                  <a href="/tutor">
+                    <Card className="card-profile shadow mt--300">
+                      <div className="px-4">
+                        <div className="text-center mt-5">
+                          <h2>I'm a student</h2>
+                        </div>
+                        <div className="mt-5 py-5 border-top text-center">
+                          <i
+                            class="fa fa-solid fa-graduation-cap fa-8x"
+                            style={{ fontSize: "9em" }}
+                          ></i>
+                        </div>
                       </div>
-                      <div className="mt-5 py-5 border-top text-center">
-                        <i
-                          class="fa fa-solid fa-graduation-cap fa-8x"
-                          style={{ fontSize: "9em" }}
-                        ></i>
-                      </div>
-                    </div>
-                  </Card>
+                    </Card>
+                  </a>
                 </Col>
                 <Col>
-                  <Card className="card-profile shadow mt--300">
-                    <div className="px-4">
-                      <div className="text-center mt-5">
-                        <h2>I'm a tutor</h2>
+                  <a href="/tutee">
+                    <Card className="card-profile shadow mt--300">
+                      <div className="px-4">
+                        <div className="text-center mt-5">
+                          <h2>I'm a tutor</h2>
+                        </div>
+                        <div className="mt-5 py-5 border-top text-center">
+                          <i
+                            class="fa fa-solid fa-briefcase fa-8x"
+                            style={{ fontSize: "9em" }}
+                          ></i>
+                        </div>
                       </div>
-                      <div className="mt-5 py-5 border-top text-center">
-                        <i
-                          class="fa fa-solid fa-briefcase fa-8x"
-                          style={{ fontSize: "9em" }}
-                        ></i>
-                      </div>
-                    </div>
-                  </Card>
+                    </Card>
+                  </a>
                 </Col>
               </Row>
             </Container>

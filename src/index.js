@@ -22,6 +22,9 @@ import store from "./stores/stores";
 import { Provider } from "react-redux";
 
 import AdminLayout from "layouts/Admin.js";
+import TutorLayout from "layouts/Tutor";
+import TuteeLayout from "layouts/Tutee";
+
 import AuthLayout from "layouts/Auth.js";
 import Landing from "views/landing/Landing";
 import Select from "views/landing/Select";
@@ -39,12 +42,15 @@ ReactDOM.render(
   <Provider store={store}>
     <BrowserRouter>
       <Switch>
+        <Route path="/tutor" render={(props) => <TutorLayout {...props} />} />
+        <Route path="/tutee" render={(props) => <TuteeLayout {...props} />} />
         <Route path="/admin" render={(props) => <AdminLayout {...props} />} />
+
         <Route path="/auth" render={(props) => <AuthLayout {...props} />} />
         <Route path="/" exact render={(props) => <Landing {...props} />} />
         <Route path="/select" exact render={(props) => <Select {...props} />} />
         <Route path="/login" exact render={(props) => <Login {...props} />} />
-        <Redirect from="/" to="/admin/index" />
+        <Redirect from="/" to="/" />
       </Switch>
     </BrowserRouter>
   </Provider>,

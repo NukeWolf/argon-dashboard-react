@@ -88,6 +88,7 @@ const Sidebar = (props) => {
   };
 
   const { bgColor, routes, logo } = props;
+  console.log(routes);
   let navbarBrandProps;
   if (logo && logo.innerLink) {
     navbarBrandProps = {
@@ -122,7 +123,9 @@ const Sidebar = (props) => {
             <img
               alt={logo.imgAlt}
               className="navbar-brand-img"
-              src={logo.imgSrc}
+              src={
+                require("assets/img/brand/tuut-rectangular-logo.jpg").default
+              }
             />
           </NavbarBrand>
         ) : null}
