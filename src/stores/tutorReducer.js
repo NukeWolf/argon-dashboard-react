@@ -140,6 +140,20 @@ export const selectPendingRequests = (state) => {
   console.log("outreq",outreq,requests);
   return outreq;
 }
+export const selectAcceptedRequests = (state) => {
+  const requests = state.tutors.requests.filter((rq)=>(rq.status==="accepted"));
+  const outreq =  [];
+  for(let i = 0;i < requests.length;i++){
+  console.log("outreq",i,outreq,requests);
+
+    const request = requests[i];
+    const tutor = state.tutors.tutors.filter((tut)=>{return tut.id===request.Tutor })[0];
+    
+    outreq.push({timeslots:(request.timeslots),tutor:tutor, zoom_link:request.zoom_link});
+  }
+  console.log("outreq",outreq,requests);
+  return outreq;
+}
 
 export const currentTutee = (state)=>{
   const tutee = state.tutors.tutees.filter((tut)=>{return tut.id===state.tutors.currentTuteeID })[0];
