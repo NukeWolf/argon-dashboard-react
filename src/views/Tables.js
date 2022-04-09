@@ -53,7 +53,7 @@ function Example() {
   return (
     <>
       <Button variant="primary" onClick={handleShow}>
-        Launch demo modal
+        Launch demo  
       </Button>
 
       <Modal toggle={show} onHide={handleClose}>
@@ -87,6 +87,7 @@ const Tables = () => {
     setShow(true);
     console.log("currenttutor", currenttutor);
   }
+  
   return (
     <>
       {/* Page content */}
