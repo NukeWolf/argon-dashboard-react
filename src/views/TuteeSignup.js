@@ -16,6 +16,8 @@
 
 */
 // reactstrap components
+import React, { useState } from "react";
+
 import {
   Badge,
   Card,
@@ -35,17 +37,49 @@ import {
   Row,
   UncontrolledTooltip,
 } from "reactstrap";
+import {Modal, Button} from 'react-bootstrap'
 // core components
 import Header from "components/Headers/Header.js";
-import TableComponent from "components/Table/Table";
+import TableComponent from "components/TuteeTutorTable/Table";
+function Example() {
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
+  return (
+    <>
+      <Button variant="primary" onClick={handleShow}>
+        Launch demo modal
+      </Button>
+
+      <Modal toggle={show} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>Modal heading</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>Woohoo, you're reading this text in a modal!</Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleClose}>
+            Close
+          </Button>
+          <Button variant="primary" onClick={handleClose}>
+            Save Changes
+          </Button>
+        </Modal.Footer>
+      </Modal>
+    </>
+  );
+}
 
 const Tables = () => {
   return (
     <>
-      <Header />
       {/* Page content */}
+
       <Container className="mt--7" fluid>
         {/* Table */}
+        {/*<Header/>*/}
+        
         <Row>
           <div className="col">
             <Card className="shadow">
@@ -107,6 +141,14 @@ const Tables = () => {
                   </Pagination>
                 </nav>
               </CardFooter>
+            </Card>
+          </div>
+        </Row>
+        <Row>
+          <div className="col">
+          <Card className="shadow">
+
+            <Example></Example>
             </Card>
           </div>
         </Row>
