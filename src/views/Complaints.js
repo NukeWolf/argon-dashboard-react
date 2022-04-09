@@ -73,6 +73,8 @@ const sendEmail = ()=>{
     html: '<strong>and easy to do anywhere, even with Node.js</strong>',
   };
   sgMail.send(msg);
+  window.alert("Email sent!")
+
 };
   return (
     <>
@@ -98,7 +100,7 @@ const sendEmail = ()=>{
         </Input>
         <Input type="textarea" name="text" id="exampleText" autofocus placeholder="How can we help?"/>
         <Button onClick={sendEmail}>Send Email</Button>
-        
+
       </CardBody>
 
               
