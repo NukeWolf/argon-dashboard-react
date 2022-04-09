@@ -37,13 +37,13 @@ import {
   Row,
   UncontrolledTooltip,
 } from "reactstrap";
-import {Modal, Button} from 'react-bootstrap'
+import { Modal, Button } from "react-bootstrap";
 // core components
-import { selectAllTutors, fetchTutors } from '../stores/tutorReducer';
+import { selectAllTutors, fetchTutors } from "../stores/tutorReducer";
 
-import { useSelector, useDispatch} from 'react-redux';
+import { useSelector, useDispatch } from "react-redux";
 import Header from "components/Headers/Header.js";
-import TableComponent from "components/Tutee/TuteeTutorTable/Table";
+import TableComponent from "components/Tutor/TutorIncomingRequestsTable/Table";
 import TuteeTutorRequestModal from "components/Tutee/TuteeTutorRequestModal/TuteeTutorRequestModal";
 function Example() {
   const [show, setShow] = useState(false);
@@ -74,35 +74,35 @@ function Example() {
   );
 }
 
-const Tables = () => {
+const RequestList = () => {
   const dispatch = useDispatch();
-  useEffect(()=>{
+  useEffect(() => {
     dispatch(fetchTutors());
-  },[]);
-  const [currenttutor, setCurrentTutor] = useState({});  
-  const [show, setShow] = useState(false);  
-  const TutorSelected = (tutor)=>{
+  }, []);
+  const [currenttutor, setCurrentTutor] = useState({});
+  const [show, setShow] = useState(false);
+  const TutorSelected = (tutor) => {
     setCurrentTutor(tutor);
 
     setShow(true);
     console.log("currenttutor", currenttutor);
-  }
+  };
   return (
     <>
       {/* Page content */}
 
       <Container className="mt--7" fluid>
         {/* Table */}
-        <Header/>
-        
+        <Header />
+
         <Row>
           <div className="col">
             <Card className="shadow">
               <CardHeader className="border-0">
-                <h3 className="mb-0">Tutors</h3>
+                <h3 className="mb-0">Incoming Requests</h3>
               </CardHeader>
 
-              <TableComponent TutorSelected={TutorSelected}/>
+              <TableComponent TutorSelected={TutorSelected} />
 
               <CardFooter className="py-4">
                 <nav aria-label="...">
@@ -159,10 +159,14 @@ const Tables = () => {
             </Card>
           </div>
         </Row>
-        <TuteeTutorRequestModal show={show} setShow={setShow} tutor={currenttutor}></TuteeTutorRequestModal>
+        <TuteeTutorRequestModal
+          show={show}
+          setShow={setShow}
+          tutor={currenttutor}
+        ></TuteeTutorRequestModal>
       </Container>
     </>
   );
 };
 
-export default Tables;
+export default RequestList;
