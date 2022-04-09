@@ -18,6 +18,10 @@ import {
   UncontrolledTooltip,
 } from "reactstrap";
 
+import { selectAllTutors } from '../../../stores/tutorReducer';
+
+import { useSelector } from 'react-redux';
+
 const FakePerson = {
   picture:
     "https://media-exp1.licdn.com/dms/image/C4D03AQH1GTxdf7M7Ow/profile-displayphoto-shrink_400_400/0/1593820411981?e=1654732800&v=beta&t=KdVIhnoyk0SDSybEGXYvOL4Aahw7JsWalKw3AFNIcqg",
@@ -28,6 +32,8 @@ const FakePerson = {
 };
 
 const TableComponent = (props) => {
+  const tutors = useSelector(selectAllTutors);
+  console.log("tutors",tutors);
   return (
     <Table className="align-items-center table-flush" responsive>
       <thead className="thead-light">
@@ -41,7 +47,10 @@ const TableComponent = (props) => {
         </tr>
       </thead>
       <tbody>
-        <TableRow person={FakePerson} />
+        {tutors.map((tutor)=>{
+          return <TableRow person={tutor} />;
+        })}
+        
       </tbody>
     </Table>
   );
