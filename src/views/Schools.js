@@ -90,14 +90,10 @@ const Tables = () => {
                 <h2 className="mb-0">Partner Schools</h2>
               </CardHeader>
       <CardBody>
-        <h3>Please select a school.</h3>
-        <Input type="select" name="selectMulti" id="exampleSelectMulti" multiple>
-            <option>Yale</option>
-            <option>Harvard</option>
-            <option>UCLA</option>
-        </Input>
-        <Input type="textarea" name="text" id="exampleText" autofocus placeholder="Search a school..."/>
-        Don't see your school? Send us a request.
+        <h3>See if we're partnered with your university:</h3>
+        <h2>Yale</h2>
+
+        Can't find your school? Send us a request.
         <Input type="textarea" name="text" id="exampleText" placeholder="School Name"/>
         <Input type="textarea" name="text" id="exampleText" placeholder="Email"/>
         <Button onClick={sendEmail}>Send Email</Button>
