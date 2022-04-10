@@ -182,7 +182,7 @@ class Landing extends React.Component {
                             We partner with universities to ensure our services are 
                             accessible to all students, regardless of economic background. 
                           </p>
-
+                          
                           <Button
                             className="mt-4"
                             color="warning"
@@ -190,6 +190,7 @@ class Landing extends React.Component {
                           >
                             Learn more
                           </Button>
+                         
                         </CardBody>
                       </Card>
                     </Col>
