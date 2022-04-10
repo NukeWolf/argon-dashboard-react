@@ -22,6 +22,7 @@ import {
   Button,
   Card,
   CardHeader,
+  UncontrolledAlert,
   CardBody,
   FormGroup,
   Form,
@@ -34,19 +35,47 @@ import {
   Col,
 } from "reactstrap";
 
+import { client } from "../../stores/client";
+
 // core components
 import DemoNavbar from "components/Navbars/DemoNavbar.js";
 import SimpleFooter from "components/Footers/SimpleFooter.js";
 
 class Register extends React.Component {
+  constructor() {
+    super();
+    this.state = { error: false };
+  }
   componentDidMount() {
     document.documentElement.scrollTop = 0;
     document.scrollingElement.scrollTop = 0;
     this.refs.main.scrollTop = 0;
   }
+  async onSubmit(e) {
+    e.preventDefault();
+    try {
+      await client.post("http://localhost:8000/users/", {
+        username: this.state.username,
+        password: this.state.password,
+        email: this.state.email,
+      });
+      const response = await client.post(
+        "http://localhost:8000/api-token-auth/",
+        {
+          username: this.state.username,
+          password: this.state.password,
+        }
+      );
+      localStorage.setItem("token", response.data.token);
+      this.props.history.push("/select");
+    } catch (e) {
+      console.log(e);
+      this.setState({ error: true });
+    }
+  }
   render() {
     return (
-      <>
+      <div className="landing-something">
         <DemoNavbar />
         <main ref="main">
           <section className="section section-shaped section-lg">
@@ -63,12 +92,24 @@ class Register extends React.Component {
             <Container className="pt-lg-7">
               <Row className="justify-content-center">
                 <Col lg="5">
+                  {this.state.error ? (
+                    <UncontrolledAlert color="warning" fade={false}>
+                      <span className="alert-inner--icon">
+                        <i className="ni ni-notification-70" />
+                      </span>{" "}
+                      <span className="alert-inner--text">
+                        <strong>Error</strong>: Login Failed
+                      </span>
+                    </UncontrolledAlert>
+                  ) : (
+                    <></>
+                  )}
                   <Card className="bg-secondary shadow border-0">
                     <CardBody className="px-lg-5 py-lg-5">
                       <div className="text-center text-muted mb-4">
-                        <small>Or sign up with credentials</small>
+                        <small>Sign up with credentials</small>
                       </div>
-                      <Form role="form">
+                      <Form role="form" onSubmit={this.onSubmit.bind(this)}>
                         <FormGroup>
                           <InputGroup className="input-group-alternative mb-3">
                             <InputGroupAddon addonType="prepend">
@@ -76,7 +117,14 @@ class Register extends React.Component {
                                 <i className="ni ni-hat-3" />
                               </InputGroupText>
                             </InputGroupAddon>
-                            <Input placeholder="Name" type="text" />
+                            <Input
+                              placeholder="Username"
+                              type="text"
+                              required
+                              onChange={(e) => {
+                                this.setState({ username: e.target.value });
+                              }}
+                            />
                           </InputGroup>
                         </FormGroup>
                         <FormGroup>
@@ -86,7 +134,14 @@ class Register extends React.Component {
                                 <i className="ni ni-email-83" />
                               </InputGroupText>
                             </InputGroupAddon>
-                            <Input placeholder="Email" type="email" />
+                            <Input
+                              placeholder="Email"
+                              type="email"
+                              required
+                              onChange={(e) => {
+                                this.setState({ email: e.target.value });
+                              }}
+                            />
                           </InputGroup>
                         </FormGroup>
                         <FormGroup>
@@ -100,6 +155,10 @@ class Register extends React.Component {
                               placeholder="Password"
                               type="password"
                               autoComplete="off"
+                              required
+                              onChange={(e) => {
+                                this.setState({ password: e.target.value });
+                              }}
                             />
                           </InputGroup>
                         </FormGroup>
@@ -140,7 +199,7 @@ class Register extends React.Component {
                           <Button
                             className="mt-4"
                             color="primary"
-                            type="button"
+                            type="submit"
                           >
                             Create account
                           </Button>
@@ -148,13 +207,20 @@ class Register extends React.Component {
                       </Form>
                     </CardBody>
                   </Card>
+                  <Row className="mt-3">
+                    <Col className="text-right" xs="12">
+                      <a className="text-light" href="/login">
+                        <small>Already have an account? Login</small>
+                      </a>
+                    </Col>
+                  </Row>
                 </Col>
               </Row>
             </Container>
           </section>
         </main>
         <SimpleFooter />
-      </>
+      </div>
     );
   }
 }
