@@ -179,8 +179,8 @@ class Landing extends React.Component {
                             Accessibility Commitment
                           </h6>
                           <p className="description mt-3">
-                            We partner with universities and to reinburse funds
-                            for low income students.
+                            We partner with universities to ensure our services are 
+                            accessible to all students, regardless of economic background. 
                           </p>
 
                           <Button
