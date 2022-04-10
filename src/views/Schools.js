@@ -93,8 +93,8 @@ const Tables = () => {
         <h2>Yale</h2>
 
         Can't find your school? Send us a request.
-        <Input type="textarea" name="text" id="exampleText" placeholder="School Name"/>
-        <Input type="textarea" name="text" id="exampleText" placeholder="Email"/>
+        <Input type="text" name="text" id="exampleText" placeholder="School Name"/>
+        <Input type="text" name="text" id="exampleText" placeholder="Email"/>
         <Button onClick={sendEmail}>Send Email</Button>
 
       </CardBody>
