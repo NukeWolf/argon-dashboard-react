@@ -62,11 +62,11 @@ export default class Day extends React.Component {
         }
       }
       let timeslotDates = {
-        startDate: momentTime.clone().add(moment(slot[0], "hh:mm A").hours(), 'hours').add(moment(slot[0], "hh:mm A").minutes(), 'minutes'),
-        endDate: momentTime.clone().add(moment(slot[slot.length - 1], "hh:mm A").hours(), 'hours').add(moment(slot[slot.length - 1], "hh:mm A").minutes(), 'minutes'),
+        startDate: momentTime.clone().add(moment(slot[0], "HH:mm").hours(), 'hours').add(moment(slot[0], "HH:mm").minutes(), 'minutes'),
+        endDate: momentTime.clone().add(moment(slot[slot.length - 1], "HH:mm").hours(), 'hours').add(moment(slot[slot.length - 1], "HH:mm").minutes(), 'minutes'),
       };
       timeslotDates = this.createTimeslot(momentTime,slot[0],slot[slot.length - 1]);
-    //console.log("timeslotDates",slot,index, moment(slot[0], "hh:mm A").hours(),timeslotDates.startDate.format(),timeslotDates.endDate.format());
+    //console.log("timeslotDates",slot,index, moment(slot[0], "HH:mm").hours(),timeslotDates.startDate.format(),timeslotDates.endDate.format());
       let status = DEFAULT;
       if (timeslotDates.startDate.isBefore(initialDate) || timeslotDates.startDate.isSame(initialDate)) {
         status = DISABLED;
@@ -102,8 +102,8 @@ export default class Day extends React.Component {
   }
   createTimeslot(momentTime,sd, ed){
     let timeslotDates = {
-      startDate: momentTime.clone().add(moment(sd, "hh:mm A").hours(), 'hours').add(moment(sd, "hh:mm A").minutes(), 'minutes'),
-      endDate: momentTime.clone().add(moment(ed, "hh:mm A").hours(), 'hours').add(moment(ed, "hh:mm A").minutes(), 'minutes'),
+      startDate: momentTime.clone().add(moment(sd, "HH:mm").hours(), 'hours').add(moment(sd, "HH:mm").minutes(), 'minutes'),
+      endDate: momentTime.clone().add(moment(ed, "HH:mm").hours(), 'hours').add(moment(ed, "HH:mm").minutes(), 'minutes'),
     };
     return timeslotDates;
   }

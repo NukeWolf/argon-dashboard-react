@@ -38,11 +38,11 @@ const TuteeTutorRequestModal = (props) => {
     },
   ];
   const  timeslotsformat = [];
-  const sd = moment("2021-01-01 01:00 pm");
-  const ed = moment("2021-01-01 11:00 pm");
+  const sd = moment("2021-01-01 01:00");
+  const ed = moment("2021-01-01 23:00");
   for(let m = sd;m.isBefore(ed);m.add(15,'minutes')){
     const m2 = m.clone().add(15,'minutes');
-    timeslotsformat.push([m.format("hh:m a"),m2.format("hh:mm a")])
+    timeslotsformat.push([m.format("HH:mm"),m2.format("HH:mm")])
   } 
   console.log("timeslotformat",timeslotsformat);
   /*let timeslotsformat = [
