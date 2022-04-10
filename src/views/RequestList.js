@@ -39,7 +39,7 @@ import {
 } from "reactstrap";
 import { Modal, Button } from "react-bootstrap";
 // core components
-import { selectAllTutors,sendDone, patchRequest, selectAcceptedRequests,fetchTutees, fetchTutors, selectPendingRequests,sendEmailAcceptance, fetchRequests } from "../stores/tutorReducer";
+import { selectAllTutors, finalizeRequest, sendDone,postTutorRating, patchRequest, selectAcceptedRequests, fetchTutees, fetchTutors, selectPendingRequests, sendEmailAcceptance, fetchRequests } from "../stores/tutorReducer";
 import OutstandingRequestTableComponent from "components/Tutee/TuteeTutorOutstandingRequest/Table";
 import AcceptedRequestTableComponent from "components/Tutee/TuteeTutorAcceptedRequest/Table";
 
@@ -47,35 +47,8 @@ import { useSelector, useDispatch } from "react-redux";
 import Header from "components/Headers/Header.js";
 import TableComponent from "components/Tutor/TutorIncomingRequestsTable/Table";
 import TuteeTutorRequestModal from "components/Tutee/TuteeTutorRequestModal/TuteeTutorRequestModal";
-function Example() {
-  const [show, setShow] = useState(false);
-
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
-  return (
-    <>
-      <Button variant="primary" onClick={handleShow}>
-        Launch demo modal
-      </Button>
-
-      <Modal toggle={show} onHide={handleClose}>
-        <Modal.Header closeButton>
-          <Modal.Title>Modal heading</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>Woohoo, you're reading this text in a modal!</Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
-            Close
-          </Button>
-          <Button variant="primary" onClick={handleClose}>
-            Save Changes
-          </Button>
-        </Modal.Footer>
-      </Modal>
-    </>
-  );
-}
-
+import TuteeTutorDoneModal from "components/Tutee/TuteeTutorDoneModal.js/TuteeTutorDoneModal";
+import { reduceEachLeadingCommentRange } from "typescript";
 const RequestList = () => {
   const dispatch = useDispatch();
   useEffect(() => {
@@ -83,19 +56,35 @@ const RequestList = () => {
     dispatch(fetchTutees());
     dispatch(fetchTutors());
   }, []);
+
   const pending_requests = useSelector(selectPendingRequests);
   const accepted_requests = useSelector(selectAcceptedRequests);
-  const onDoneClick=(req)=>{
-    dispatch(patchRequest({id:req.id, tutor_done:'True'}))
-  };
+ 
   const [currenttutor, setCurrentTutor] = useState({});
+  const [currentrequest, setCurrentRequest] = useState({});
   const [show, setShow] = useState(false);
+  const [doneshow, setDoneShow] = useState(false);
   const onRequestClick = (request) => {
     console.log("rress", request);
-   dispatch(sendEmailAcceptance({id:request.id}));
-    console.log("currenttutor", currenttutor);
+    dispatch(sendEmailAcceptance({ id: request.id }));
   };
-  
+  const onDoneClick = (req) => {
+    setDoneShow(true);
+    setCurrentRequest(req);
+    dispatch(patchRequest({ id: req.id, tutor_done: 'True' }));
+    if(req.tutee_done){
+      dispatch(finalizeRequest({id:req.id}));
+    }
+  };
+  const onDoneSubmit= (comment, starrating)=>{
+    const req = currentrequest;
+    dispatch(postTutorRating({request:req.id,tutor:req.tutor.id, comment:comment, rating:starrating}))
+    dispatch(patchRequest({ id: req.id, tutor_done: 'True' }));
+    if(req.tutee_done){
+      dispatch(finalizeRequest({id:req.id}));
+    }
+  }
+
   return (
     <>
       {/* Page content */}
@@ -116,56 +105,6 @@ const RequestList = () => {
                 onRequestClick={onRequestClick}
               ></OutstandingRequestTableComponent>
               <CardFooter className="py-4">
-                <nav aria-label="...">
-                  <Pagination
-                    className="pagination justify-content-end mb-0"
-                    listClassName="justify-content-end mb-0"
-                  >
-                    <PaginationItem className="disabled">
-                      <PaginationLink
-                        href="#pablo"
-                        onClick={(e) => e.preventDefault()}
-                        tabIndex="-1"
-                      >
-                        <i className="fas fa-angle-left" />
-                        <span className="sr-only">Previous</span>
-                      </PaginationLink>
-                    </PaginationItem>
-                    <PaginationItem className="active">
-                      <PaginationLink
-                        href="#pablo"
-                        onClick={(e) => e.preventDefault()}
-                      >
-                        1
-                      </PaginationLink>
-                    </PaginationItem>
-                    <PaginationItem>
-                      <PaginationLink
-                        href="#pablo"
-                        onClick={(e) => e.preventDefault()}
-                      >
-                        2 <span className="sr-only">(current)</span>
-                      </PaginationLink>
-                    </PaginationItem>
-                    <PaginationItem>
-                      <PaginationLink
-                        href="#pablo"
-                        onClick={(e) => e.preventDefault()}
-                      >
-                        3
-                      </PaginationLink>
-                    </PaginationItem>
-                    <PaginationItem>
-                      <PaginationLink
-                        href="#pablo"
-                        onClick={(e) => e.preventDefault()}
-                      >
-                        <i className="fas fa-angle-right" />
-                        <span className="sr-only">Next</span>
-                      </PaginationLink>
-                    </PaginationItem>
-                  </Pagination>
-                </nav>
               </CardFooter>
             </Card>
             <Card className="shadow">
@@ -173,7 +112,7 @@ const RequestList = () => {
                 <h3 className="mb-0">Accepted Requests</h3>
               </CardHeader>
 
-              <AcceptedRequestTableComponent donedisable={(row)=>{console.log(row);return row.tutor_done;}} requests={accepted_requests} onRequestClick={onDoneClick} />
+              <AcceptedRequestTableComponent donedisable={(row) => { console.log(row); return row.tutor_done; }} requests={accepted_requests} onRequestClick={onDoneClick} />
               <CardFooter className="py-4">
                 <nav aria-label="...">
                   <Pagination
@@ -234,6 +173,7 @@ const RequestList = () => {
           setShow={setShow}
           tutor={currenttutor}
         ></TuteeTutorRequestModal>
+        
       </Container>
     </>
   );

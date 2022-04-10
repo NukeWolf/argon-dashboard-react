@@ -1,67 +1,67 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
-import {client} from './client';
+import { client } from './client';
 import toast, { Toaster } from 'react-hot-toast';
 const FakePerson = {
-    picture:
-      "https://media-exp1.licdn.com/dms/image/C4D03AQH1GTxdf7M7Ow/profile-displayphoto-shrink_400_400/0/1593820411981?e=1654732800&v=beta&t=KdVIhnoyk0SDSybEGXYvOL4Aahw7JsWalKw3AFNIcqg",
-    name: "Alex Huang",
-    email: "alex.huang@yale.edu",
-    hourlyRate: 15,
-    ratings: 60,
-  };
+  picture:
+    "https://media-exp1.licdn.com/dms/image/C4D03AQH1GTxdf7M7Ow/profile-displayphoto-shrink_400_400/0/1593820411981?e=1654732800&v=beta&t=KdVIhnoyk0SDSybEGXYvOL4Aahw7JsWalKw3AFNIcqg",
+  name: "Alex Huang",
+  email: "alex.huang@yale.edu",
+  hourlyRate: 15,
+  ratings: 60,
+};
 
 export const tutorSlice = createSlice({
   name: 'tutor',
   initialState: {
-    status:'loading',
-    requests:[],
-    tutees:[{
-      id:1,
+    status: 'loading',
+    requests: [],
+    tutees: [{
+      id: 1,
       picture:
         "https://media-exp1.licdn.com/dms/image/C4D03AQH1GTxdf7M7Ow/profile-displayphoto-shrink_400_400/0/1593820411981?e=1654732800&v=beta&t=KdVIhnoyk0SDSybEGXYvOL4Aahw7JsWalKw3AFNIcqg",
       name: "Alex Huang",
       email: "alex.huang@yale.edu",
       hourlyRate: 15,
       ratings: 60,
-      status:'online',
+      status: 'online',
     },],
-    currentTuteeID:1,
+    currentTuteeID: 1,
     tutors: [{
-        picture:
-          "https://media-exp1.licdn.com/dms/image/C4D03AQH1GTxdf7M7Ow/profile-displayphoto-shrink_400_400/0/1593820411981?e=1654732800&v=beta&t=KdVIhnoyk0SDSybEGXYvOL4Aahw7JsWalKw3AFNIcqg",
-        name: "Alex Huang",
-        email: "alex.huang@yale.edu",
-        hourlyRate: 15,
-        ratings: 60,
-        status:'online',
-      },],
-      requests:[],
+      picture:
+        "https://media-exp1.licdn.com/dms/image/C4D03AQH1GTxdf7M7Ow/profile-displayphoto-shrink_400_400/0/1593820411981?e=1654732800&v=beta&t=KdVIhnoyk0SDSybEGXYvOL4Aahw7JsWalKw3AFNIcqg",
+      name: "Alex Huang",
+      email: "alex.huang@yale.edu",
+      hourlyRate: 15,
+      ratings: 60,
+      status: 'online',
+    },],
+    requests: [],
   },
   reducers: {
-    addTutor: (state,action) => {
+    addTutor: (state, action) => {
       // Redux Toolkit allows us to write "mutating" logic in reducers. Itut
       // doesn't actually mutate the state because it uses the immer library,
       // which detects changes to a "draft state" and produces a brand new
       // immutable state based off those changes
       state.tutors.add(action.payload);
     },
-    getTutor: (state,action) => {
-        // Redux Toolkit allows us to write "mutating" logic in reducers. It
-        // doesn't actually mutate the state because it uses the immer library,
-        // which detects changes to a "draft state" and produces a brand new
-        // immutable state based off those changes
-        state.tutors.add(action.payload);
-      },
+    getTutor: (state, action) => {
+      // Redux Toolkit allows us to write "mutating" logic in reducers. It
+      // doesn't actually mutate the state because it uses the immer library,
+      // which detects changes to a "draft state" and produces a brand new
+      // immutable state based off those changes
+      state.tutors.add(action.payload);
+    },
   },
   extraReducers(builder) {
     builder
-    .addCase(fetchTutees.fulfilled, (state, action) => {
-      state.status = 'succeeded'
-      // Add any fetched posts to the array
-      console.log("success", action);
-      // toast.success('Successfully loaded tutors.');
-      state.tutees = action.payload.results;
-    })
+      .addCase(fetchTutees.fulfilled, (state, action) => {
+        state.status = 'succeeded'
+        // Add any fetched posts to the array
+        console.log("success", action);
+        // toast.success('Successfully loaded tutors.');
+        state.tutees = action.payload.results;
+      })
       .addCase(fetchTutors.pending, (state, action) => {
         state.status = 'loading'
       })
@@ -95,9 +95,18 @@ export const tutorSlice = createSlice({
       }).addCase(sendEmailAcceptance.fulfilled, (state, action) => {
         // We can directly add the new request object to our  requests
         toast.success('Successfully accepted.');
-      }).addCase(patchRequest.fulfilled,(state, action) => {
+      }).addCase(patchRequest.fulfilled, (state, action) => {
         // We can directly add the new request object to our  requests
         toast.success('Successfully accepted.');
+      }).addCase(addNewTutor.fulfilled, (state, action) => {
+        // We can directly add the new request object to our  requests
+        toast.success('Successfully accepted.');
+      }).addCase(postTutorRating.fulfilled, (state, action) => {
+        // We can directly add the new request object to our  requests
+        toast.success('Successfully submitted rating.');
+      }).addCase(finalizeRequest.fulfilled, (state, action) => {
+        // We can directly add the new request object to our  requests
+        toast.success('Successfully finalized request.');
       })
   }
 })
@@ -124,6 +133,28 @@ export const addNewRequest = createAsyncThunk(
     return response.data
   }
 )
+export const finalizeRequest = createAsyncThunk(
+  'tutors/finalizeRequest',
+  // The payload creator receives the partial `{title, content, user}` object
+  async initialRequest => {
+    // We send the initial data to the fake API server
+    const response = await client.post('http://localhost:8000/finalize_request/', initialRequest)
+    // The response includes the complete post object, including unique ID
+    return response.data
+  }
+)
+
+
+export const addNewTutor = createAsyncThunk(
+  'tutors/addNewTutor',
+  // The payload creator receives the partial `{title, content, user}` object
+  async initialRequest => {
+    // We send the initial data to the fake API server
+    const response = await client.post('http://localhost:8000/tutors/', initialRequest)
+    // The response includes the complete post object, including unique ID
+    return response.data
+  }
+)
 
 export const patchRequest = createAsyncThunk(
   'tutors/updateRequest',
@@ -133,7 +164,7 @@ export const patchRequest = createAsyncThunk(
     const response = await client.patch('http://localhost:8000/requests/' + initialRequest.id + '/', initialRequest)
     // The response includes the complete post object, including unique ID
     thunkAPI.dispatch(fetchRequests());
-    
+
     return response.data
   }
 )
@@ -144,6 +175,18 @@ export const sendEmailAcceptance = createAsyncThunk(
   async (initialRequest, thunkAPI) => {
     // We send the initial data to the fake API server
     const response = await client.post('http://localhost:8000/accept_request/', initialRequest)
+    // The response includes the complete post object, including unique ID
+    thunkAPI.dispatch(fetchRequests());
+    return response.data
+  }
+)
+
+export const postTutorRating = createAsyncThunk(
+  'tutors/postTutorRating',
+  // The payload creator receives the partial `{title, content, user}` object
+  async (initialRequest, thunkAPI) => {
+    // We send the initial data to the fake API server
+    const response = await client.post('http://localhost:8000/ratings/', initialRequest)
     // The response includes the complete post object, including unique ID
     thunkAPI.dispatch(fetchRequests());
     return response.data
@@ -165,39 +208,46 @@ export const { addTutor } = tutorSlice.actions
 export const selectAllTutors = state => state.tutors.tutors;
 export const selectAllRequests = (state) => {
   const requests = state.tutors.requests;
-  return requestProcess(state,requests);
+  return requestProcess(state, requests);
 }
-const requestProcess = (state, requests)=>{
-  const outreq =  [];
+const requestProcess = (state, requests) => {
+  const outreq = [];
 
-  for(let i = 0;i < requests.length;i++){
+  for (let i = 0; i < requests.length; i++) {
 
     const request = requests[i];
-    const tutor = state.tutors.tutors.filter((tut)=>{return tut.id===request.Tutor })[0];
-    const tutee = state.tutors.tutees.filter((tut)=>{ return tut.id===request.Tutee })[0];
-    
-    outreq.push({id:request.id,tutor_done:request.tutor_done,tutee_done:request.tutee_done, timeslots:(request.timeslots),tutor:tutor, tutee:tutee});
-  }
-  console.log("outreq",outreq,requests, state);
+    const tutor = state.tutors.tutors.filter((tut) => { return tut.id === request.Tutor })[0];
+    const tutee = state.tutors.tutees.filter((tut) => { return tut.id === request.Tutee })[0];
 
-  console.log("outreq",outreq,requests);
+    outreq.push({
+      id: request.id,
+      tutor_done: request.tutor_done,
+      tutee_done: request.tutee_done,
+      timeslots: (request.timeslots),
+      tutor: tutor,
+      tutee: tutee
+    });
+  }
+  console.log("outreq", outreq, requests, state);
+
+  console.log("outreq", outreq, requests);
   return outreq;
 }
 export const selectPendingRequests = (state) => {
-  const requests = state.tutors.requests.filter((rq)=>(rq.status==="pending"));
-  return requestProcess(state,requests);
+  const requests = state.tutors.requests.filter((rq) => (rq.status === "pending"));
+  return requestProcess(state, requests);
 }
 export const selectAcceptedRequests = (state) => {
   const requests = state.tutors.requests.filter(
-    (rq)=>(rq.status==="accepted" && (!rq.tutor_done || !rq.tutee_done)));
-  return requestProcess(state,requests);
+    (rq) => (rq.status === "accepted" && (!rq.tutor_done || !rq.tutee_done)));
+  return requestProcess(state, requests);
 
 }
 
-export const currentTutee = (state)=>{
-  const tutee = state.tutors.tutees.filter((tut)=>{return tut.id===state.tutors.currentTuteeID })[0];
+export const currentTutee = (state) => {
+  const tutee = state.tutors.tutees.filter((tut) => { return tut.id === state.tutors.currentTuteeID })[0];
 
-  console.log("tutee",tutee);
+  console.log("tutee", tutee);
   return tutee;
 }
 export default tutorSlice.reducer
