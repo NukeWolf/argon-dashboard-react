@@ -34,6 +34,7 @@ class SimpleFooter extends React.Component {
     return (
       <>
         <footer className=" footer">
+          {/*
           <Container>
             <Row className=" row-grid align-items-center mb-5">
               <Col lg="6">
@@ -155,6 +156,7 @@ class SimpleFooter extends React.Component {
               </Col>
             </Row>
           </Container>
+          */}
         </footer>
       </>
     );
