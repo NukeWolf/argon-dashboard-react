@@ -17,10 +17,10 @@
 */
 // reactstrap components
 import React, { useEffect, useState } from "react";
-import sgMail from '@sendgrid/mail';
+import sgMail from "@sendgrid/mail";
 import {
-  Badge,Input,
-
+  Badge,
+  Input,
   Card,
   CardHeader,
   CardFooter,
@@ -39,70 +39,66 @@ import {
   UncontrolledTooltip,
   CardBody,
 } from "reactstrap";
-import {Modal, Button} from 'react-bootstrap'
+import { Modal, Button } from "react-bootstrap";
 // core components
-import { selectAllTutors, fetchTutors } from '../stores/tutorReducer';
+import { selectAllTutors, fetchTutors } from "../stores/tutorReducer";
 
-import { useSelector, useDispatch} from 'react-redux';
+import { useSelector, useDispatch } from "react-redux";
 import Header from "components/Headers/Header.js";
 import TableComponent from "components/Tutee/TuteeTutorTable/Table";
 import TuteeTutorRequestModal from "components/Tutee/TuteeTutorRequestModal/TuteeTutorRequestModal";
 
-
 const Tables = () => {
   const dispatch = useDispatch();
-  useEffect(()=>{
+  useEffect(() => {
     dispatch(fetchTutors());
-  },[]);
-  const [currenttutor, setCurrentTutor] = useState({});  
-  const [show, setShow] = useState(false);  
-  const TutorSelected = (tutor)=>{
+  }, []);
+  const [currenttutor, setCurrentTutor] = useState({});
+  const [show, setShow] = useState(false);
+  const TutorSelected = (tutor) => {
     setCurrentTutor(tutor);
 
     setShow(true);
     console.log("currenttutor", currenttutor);
-  }
+  };
 
   return (
     <>
       {/* Page content */}
+      <Header />
 
       <Container className="mt--7" fluid>
         {/* Table */}
-        <Header/>
-        
+
         <Row>
           <div className="col">
             <Card className="shadow">
               <CardHeader className="border-0">
                 <h2 className="mb-0">Help</h2>
               </CardHeader>
-      <CardBody>
-        <h3>
-        How are tutors incentivized to join Tuut?
-        </h3>
+              <CardBody>
+                <h3>How are tutors incentivized to join Tuut?</h3>
 
-        <p>
-        Tutors set their own hourly wages, with the cap determined by their experience (# of sessions) and ratings.
-        </p>
+                <p>
+                  Tutors set their own hourly wages, with the cap determined by
+                  their experience (# of sessions) and ratings.
+                </p>
 
-        <h3>
-        How can FGLI students access Tuut?
-        </h3>
-        <p>
-        Tuut® will connect with university systems to reimburse low income students with proof of transaction, ensuring that we can help all students of all financial backgrounds.
-        </p>
+                <h3>How can FGLI students access Tuut?</h3>
+                <p>
+                  Tuut® will connect with university systems to reimburse low
+                  income students with proof of transaction, ensuring that we
+                  can help all students of all financial backgrounds.
+                </p>
 
-        <h3>
-        What separates Tuut from other tutoring platforms?
-        </h3>
-        <p>
-        Flexibility of time slots. Promptness of academic support. Accessibility to students of all economic backgrounds. Code of conduct to ensure academic integrity, and a safe and welcoming environment.
-        </p>
-        
-      </CardBody>
-
-              
+                <h3>What separates Tuut from other tutoring platforms?</h3>
+                <p>
+                  Flexibility of time slots. Promptness of academic support.
+                  Accessibility to students of all economic backgrounds. Code of
+                  conduct to ensure academic integrity, and a safe and welcoming
+                  environment.
+                </p>
+              </CardBody>
             </Card>
           </div>
         </Row>

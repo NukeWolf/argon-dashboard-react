@@ -19,13 +19,14 @@
 // reactstrap components
 import { Card, CardBody, CardTitle, Container, Row, Col } from "reactstrap";
 
-const Header = () => {
+const Header = (props) => {
+  const { cardEnabled } = props;
   return (
     <>
       <div className="header bg-gradient-info pb-9 pt-9 pt-md-7">
         <Container fluid>
           <div className="header-body">
-            <Row>
+            {cardEnabled ? (<Row>
               <Col lg="6" xl="3">
                 <Card className="card-stats mb-4 mb-xl-0">
                   <CardBody>
@@ -125,22 +126,26 @@ const Header = () => {
                         </CardTitle>
                         <span className="h2 font-weight-bold mb-0">54</span>
                       </div>
-                      <Col className="col-auto">
-                        <div className="icon icon-shape bg-info text-white rounded-circle shadow">
-                          <i className="fas fa-percent" />
-                        </div>
-                      </Col>
-                    </Row>
-                    <p className="mt-3 mb-0 text-muted text-sm">
-                      <span className="text-success mr-2">
-                        <i className="fas fa-arrow-up" /> 12%
-                      </span>{" "}
-                      <span className="text-nowrap">Since last month</span>
-                    </p>
-                  </CardBody>
-                </Card>
-              </Col>
-            </Row>
+                     
+                        <Col className="col-auto">
+                          <div className="icon icon-shape bg-info text-white rounded-circle shadow">
+                            <i className="fas fa-percent" />
+                          </div>
+                        </Col>
+                      </Row>
+                      <p className="mt-3 mb-0 text-muted text-sm">
+                        <span className="text-success mr-2">
+                          <i className="fas fa-arrow-up" /> 12%
+                        </span>{" "}
+                        <span className="text-nowrap">Since last month</span>
+                      </p>
+                    </CardBody>
+                  </Card>
+                </Col>
+              </Row>
+            ) : (
+              <></>
+            )}
           </div>
         </Container>
       </div>

@@ -20,7 +20,7 @@ import Profile from "views/examples/Profile.js";
 import Complaints from "views/Complaints.js";
 import About from "views/About.js";
 import Help from "views/Help.js";
-import Schools from "views/Schools.js"
+import Schools from "views/Schools.js";
 import Register from "views/examples/Register.js";
 import Login from "views/examples/Login.js";
 import Tables from "views/TutorList";
@@ -61,23 +61,44 @@ var routes = [
   {
     path: "/help",
     name: "Help",
-    icon: "ni ni-pin-3 text-orange",
+    icon: "ni ni-compass-04 text-green",
     component: Help,
-    layout: "/admin",
+    layout: "/tutor",
+  },
+  {
+    path: "/help",
+    name: "Help",
+    icon: "ni ni-compass-04 text-green",
+    component: Help,
+    layout: "/tutee",
   },
   {
     path: "/about",
     name: "About",
-    icon: "ni ni-pin-3 text-orange",
+    icon: "ni ni-album-2 text-blue",
     component: About,
-    layout: "/admin",
+    layout: "/tutee",
+  },
+  {
+    path: "/about",
+    name: "About",
+    icon: "ni ni-album-2 text-blue",
+    component: About,
+    layout: "/tutor",
   },
   {
     path: "/schools",
     name: "Partner Schools",
-    icon: "ni ni-pin-3 text-orange",
+    icon: "ni ni-hat-3 text-purple",
     component: Schools,
-    layout: "/admin",
+    layout: "/tutor",
+  },
+  {
+    path: "/schools",
+    name: "Partner Schools",
+    icon: "ni ni-hat-3 text-purple",
+    component: Schools,
+    layout: "/tutee",
   },
   {
     path: "/user-profile",
@@ -85,13 +106,6 @@ var routes = [
     icon: "ni ni-single-02 text-yellow",
     component: Profile,
     layout: "/tutor",
-  },
-  {
-    path: "/tables",
-    name: "Tables",
-    icon: "ni ni-bullet-list-67 text-red",
-    component: Tables,
-    layout: "/admin",
   },
   {
     path: "/profile/:user",
