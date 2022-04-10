@@ -23,9 +23,9 @@ export default class Day extends React.Component {
     });
 
     return (
-      <div className = { dayClassNames }>
-        { this._renderTitle() }
-        { this._renderTimeSlots() }
+      <div className={dayClassNames}>
+        {this._renderTitle()}
+        {this._renderTimeSlots()}
       </div>
     );
   }
@@ -37,7 +37,7 @@ export default class Day extends React.Component {
     } = this.props;
 
     return (
-      <div className = "tsc-day__title">
+      <div className="tsc-day__title">
         <span>{renderTitle(momentTime)}</span>
       </div>
     );
@@ -55,29 +55,31 @@ export default class Day extends React.Component {
 
     return timeslots.map((slot, index) => {
       let description = '';
-      for (let i = 0; i < slot.length; i ++){
+      for (let i = 0; i < slot.length; i++) {
         description += moment(slot[i], timeslotProps.format).format(timeslotProps.showFormat);
-        if (i < (slot.length - 1)){
+        if (i < (slot.length - 1)) {
           description += ' - ';
         }
       }
       let timeslotDates = {
-        startDate: momentTime.clone().add(slot[0], timeslotProps.format),
-        endDate: momentTime.clone().add(slot[slot.length - 1], timeslotProps.format),
+        startDate: momentTime.clone().add(moment(slot[0], "hh:mm A").hours(), 'hours').add(moment(slot[0], "hh:mm A").minutes(), 'minutes'),
+        endDate: momentTime.clone().add(moment(slot[slot.length - 1], "hh:mm A").hours(), 'hours').add(moment(slot[slot.length - 1], "hh:mm A").minutes(), 'minutes'),
       };
-
+      timeslotDates = this.createTimeslot(momentTime,slot[0],slot[slot.length - 1]);
+    //console.log("timeslotDates",slot,index, moment(slot[0], "hh:mm A").hours(),timeslotDates.startDate.format(),timeslotDates.endDate.format());
       let status = DEFAULT;
       if (timeslotDates.startDate.isBefore(initialDate) || timeslotDates.startDate.isSame(initialDate)) {
         status = DISABLED;
       }
 
       const isSelected = selectedTimeslots.some((selectedTimeslot) => {
+        //console.log(selectedTimeslot);
         return timeslotDates.startDate.format() === selectedTimeslot.startDate.format();
       });
 
       const isDisabled = disabledTimeslots.some((disabledTimeslot) => {
         return disabledTimeslot.startDate.isBetween(timeslotDates.startDate, timeslotDates.endDate, null, '[)') ||
-               disabledTimeslot.endDate.isBetween(timeslotDates.startDate, timeslotDates.endDate, null, '(]');
+          disabledTimeslot.endDate.isBetween(timeslotDates.startDate, timeslotDates.endDate, null, '(]');
       });
 
       if (isDisabled) {
@@ -90,15 +92,21 @@ export default class Day extends React.Component {
 
       return (
         <Timeslot
-          key = { index }
-          description = { description }
-          onClick = { this._onTimeslotClick.bind(this, index) }
-          status = { status }
+          key={index}
+          description={description}
+          onClick={this._onTimeslotClick.bind(this, index)}
+          status={status}
         />
       );
     });
   }
-
+  createTimeslot(momentTime,sd, ed){
+    let timeslotDates = {
+      startDate: momentTime.clone().add(moment(sd, "hh:mm A").hours(), 'hours').add(moment(sd, "hh:mm A").minutes(), 'minutes'),
+      endDate: momentTime.clone().add(moment(ed, "hh:mm A").hours(), 'hours').add(moment(ed, "hh:mm A").minutes(), 'minutes'),
+    };
+    return timeslotDates;
+  }
   _onTimeslotClick(index) {
     const {
       timeslots,
@@ -107,11 +115,11 @@ export default class Day extends React.Component {
       onTimeslotClick,
     } = this.props;
 
-    const timeslot = {
+    /*const timeslot = {
       startDate: momentTime.clone().add(timeslots[index][0], timeslotFormat),
       endDate: momentTime.clone().add(timeslots[index][1], timeslotFormat),
-    };
-
+    };*/
+    const timeslot = this.createTimeslot(momentTime,timeslots[index][0],timeslots[index][1]);
     onTimeslotClick(timeslot);
   }
 }

@@ -55,6 +55,13 @@ export const tutorSlice = createSlice({
   },
   extraReducers(builder) {
     builder
+    .addCase(fetchTutees.fulfilled, (state, action) => {
+      state.status = 'succeeded'
+      // Add any fetched posts to the array
+      console.log("success", action);
+      // toast.success('Successfully loaded tutors.');
+      state.tutees = action.payload.results;
+    })
       .addCase(fetchTutors.pending, (state, action) => {
         state.status = 'loading'
       })
@@ -85,11 +92,20 @@ export const tutorSlice = createSlice({
         // We can directly add the new request object to our  requests
         state.requests.push(action.payload);
         toast.success('Successfully created new request.');
+      }).addCase(sendEmailAcceptance.fulfilled, (state, action) => {
+        // We can directly add the new request object to our  requests
+        toast.success('Successfully accepted.');
+      }).addCase(patchRequest.fulfilled,(state, action) => {
+        // We can directly add the new request object to our  requests
+        toast.success('Successfully accepted.');
       })
   }
 })
 
-
+export const fetchTutees = createAsyncThunk('tutors/fetchTutees', async () => {
+  const response = await client.get('http://localhost:8000/tutees/')
+  return response.data
+});
 export const fetchTutors = createAsyncThunk('tutors/fetchTutors', async () => {
   const response = await client.get('http://localhost:8000/tutors/')
   return response.data
@@ -109,36 +125,73 @@ export const addNewRequest = createAsyncThunk(
   }
 )
 
+export const patchRequest = createAsyncThunk(
+  'tutors/updateRequest',
+  // The payload creator receives the partial `{title, content, user}` object
+  async (initialRequest, thunkAPI) => {
+    // We send the initial data to the fake API server
+    const response = await client.patch('http://localhost:8000/requests/' + initialRequest.id + '/', initialRequest)
+    // The response includes the complete post object, including unique ID
+    thunkAPI.dispatch(fetchRequests());
+    
+    return response.data
+  }
+)
+
+export const sendEmailAcceptance = createAsyncThunk(
+  'tutors/sendEmailAcceptance',
+  // The payload creator receives the partial `{title, content, user}` object
+  async (initialRequest, thunkAPI) => {
+    // We send the initial data to the fake API server
+    const response = await client.post('http://localhost:8000/accept_request/', initialRequest)
+    // The response includes the complete post object, including unique ID
+    thunkAPI.dispatch(fetchRequests());
+    return response.data
+  }
+)
+export const sendDone = createAsyncThunk(
+  'tutors/sendDone',
+  // The payload creator receives the partial `{title, content, user}` object
+  async (initialRequest, thunkAPI) => {
+    // We send the initial data to the fake API server
+    const response = await client.post('http://localhost:8000/send_done/', initialRequest)
+    // The response includes the complete post object, including unique ID
+    thunkAPI.dispatch(fetchRequests());
+    return response.data
+  }
+)
 
 export const { addTutor } = tutorSlice.actions
 export const selectAllTutors = state => state.tutors.tutors;
 export const selectAllRequests = (state) => {
   const requests = state.tutors.requests;
+  return requestProcess(state,requests);
+}
+const requestProcess = (state, requests)=>{
   const outreq =  [];
+
   for(let i = 0;i < requests.length;i++){
-  console.log("outreq",i,outreq,requests);
 
     const request = requests[i];
     const tutor = state.tutors.tutors.filter((tut)=>{return tut.id===request.Tutor })[0];
+    const tutee = state.tutors.tutees.filter((tut)=>{ return tut.id===request.Tutee })[0];
     
-    outreq.push({timeslots:(request.timeslots),tutor:tutor});
+    outreq.push({id:request.id,tutor_done:request.tutor_done,tutee_done:request.tutee_done, timeslots:(request.timeslots),tutor:tutor, tutee:tutee});
   }
+  console.log("outreq",outreq,requests, state);
+
   console.log("outreq",outreq,requests);
   return outreq;
 }
 export const selectPendingRequests = (state) => {
   const requests = state.tutors.requests.filter((rq)=>(rq.status==="pending"));
-  const outreq =  [];
-  for(let i = 0;i < requests.length;i++){
-  console.log("outreq",i,outreq,requests);
+  return requestProcess(state,requests);
+}
+export const selectAcceptedRequests = (state) => {
+  const requests = state.tutors.requests.filter(
+    (rq)=>(rq.status==="accepted" && (!rq.tutor_done || !rq.tutee_done)));
+  return requestProcess(state,requests);
 
-    const request = requests[i];
-    const tutor = state.tutors.tutors.filter((tut)=>{return tut.id===request.Tutor })[0];
-    
-    outreq.push({timeslots:(request.timeslots),tutor:tutor});
-  }
-  console.log("outreq",outreq,requests);
-  return outreq;
 }
 
 export const currentTutee = (state)=>{

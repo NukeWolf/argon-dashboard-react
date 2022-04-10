@@ -7,7 +7,7 @@ import { Button, Row, Col, Container, Modal, ModalHeader, ModalBody, ModalFooter
 import { selectAllTutors } from '../../../stores/tutorReducer';
 
 import { useSelector } from 'react-redux';
-
+import TimeslotSelector from '../../TimeslotSelector/TimeslotSelector';
 const FakePerson = {
   picture:
     "https://media-exp1.licdn.com/dms/image/C4D03AQH1GTxdf7M7Ow/profile-displayphoto-shrink_400_400/0/1593820411981?e=1654732800&v=beta&t=KdVIhnoyk0SDSybEGXYvOL4Aahw7JsWalKw3AFNIcqg",
@@ -37,13 +37,21 @@ const TuteeTutorRequestModal = (props) => {
       format: 'MMMM Do YYYY, h:mm:ss A',
     },
   ];
-  let timeslotsformat = [
-    ['12', '13'], // 1:00 AM - 2:00 AM
+  const  timeslotsformat = [];
+  const sd = moment("2021-01-01 00:00 AM");
+  const ed = moment("2021-01-01 11:59 PM");
+  for(let m = sd;m.isBefore(ed);m.add(15,'minutes')){
+    const m2 = m.clone().add(15,'minutes');
+    timeslotsformat.push([m.format("hh:mm A"),m2.format("hh:mm A")])
+  } 
+  console.log("timeslotformat",timeslotsformat);
+  /*let timeslotsformat = [
+    ['09:30 AM', '11:30 AM'], // 1:00 AM - 2:00 AM
     ['13', '14'], // 1:00 AM - 2:00 AM
     ['14', '15'], // 1:00 AM - 2:00 AM
     ['16:30', '17:30'], // 1:00 AM - 2:00 AM
     ['17', '18'], // 1:00 AM - 2:00 AM
-  ];
+  ];*/
   const onSelectTimeslot = (allTimeslots, lastSelectedTimeslot) => {
     console.log(lastSelectedTimeslot.startDate); 
     console.log(lastSelectedTimeslot.endDate); 
@@ -71,14 +79,21 @@ const TuteeTutorRequestModal = (props) => {
               <Row>
                 <Col xs="12">
                   <ReactTimeslotCalendar
-                    maxTimeslots={4}
+                    maxTimeslots={60}
+                    timeslotProps={{format:"hh:mm"}}
                     initialDate={moment().format()}
                     disabledTimeslots={disabledTimeslots}
                     timeslots={timeslotsformat}
                     onSelectTimeslot ={onSelectTimeslot}
                   />
+
                 </Col>
 
+              </Row>
+              <Row>
+              <Col xs="12">
+
+                </Col>
               </Row>
             </Container>
           </Form>

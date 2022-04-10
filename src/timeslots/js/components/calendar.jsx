@@ -21,10 +21,10 @@ export default class Calendar extends React.Component {
 
   render() {
     return (
-      <div className = "tsc-calendar">
-        { this._renderActions() }
-        { this._renderMonth() }
-        { this._renderInputs() }
+      <div className="tsc-calendar">
+        {this._renderActions()}
+        {this._renderMonth()}
+        {this._renderInputs()}
       </div>
     );
   }
@@ -37,14 +37,14 @@ export default class Calendar extends React.Component {
     const actionTitle = `${currentDate.format('MMMM - YYYY')}`;
 
     return (
-      <div className = "tsc-calendar__actions">
-        <div className = "tsc-calendar__action tsc-calendar__action-element tsc-calendar__action-element--left" onClick = { this._onGoToPrevMonth.bind(this) }>
+      <div className="tsc-calendar__actions">
+        <div className="tsc-calendar__action tsc-calendar__action-element tsc-calendar__action-element--left" onClick={this._onGoToPrevMonth.bind(this)}>
           &#8249;
         </div>
-        <div className = "tsc-calendar__action tsc-calendar__action-title">
-          { actionTitle }
+        <div className="tsc-calendar__action tsc-calendar__action-title">
+          {actionTitle}
         </div>
-        <div className = "tsc-calendar__action tsc-calendar__action-element tsc-calendar__action-element--right" onClick = { this._onGoToNextMonth.bind(this) }>
+        <div className="tsc-calendar__action tsc-calendar__action-element tsc-calendar__action-element--right" onClick={this._onGoToNextMonth.bind(this)}>
           &#8250;
         </div>
       </div>
@@ -67,16 +67,16 @@ export default class Calendar extends React.Component {
 
     return (
       <Month
-        currentDate = { currentDate }
-        initialDate = { moment(initialDate) }
-        weeks = { weeks }
-        onWeekOutOfMonth = { this._onWeekOutOfMonth.bind(this) }
-        onTimeslotClick = { this._onTimeslotClick.bind(this) }
-        timeslots = { timeslots }
-        timeslotProps = { this.timeslotProps }
-        selectedTimeslots = { selectedTimeslots }
-        disabledTimeslots = { this._formatDisabledTimeslots() }
-        renderDays = { this.renderDays }
+        currentDate={currentDate}
+        initialDate={moment(initialDate)}
+        weeks={weeks}
+        onWeekOutOfMonth={this._onWeekOutOfMonth.bind(this)}
+        onTimeslotClick={this._onTimeslotClick.bind(this)}
+        timeslots={timeslots}
+        timeslotProps={this.timeslotProps}
+        selectedTimeslots={selectedTimeslots}
+        disabledTimeslots={this._formatDisabledTimeslots()}
+        renderDays={this.renderDays}
       />
     );
   }
@@ -96,18 +96,18 @@ export default class Calendar extends React.Component {
 
     return selectedTimeslots.map((timeslot, index) => {
       return (
-        <div key = { index } >
+        <div key={index} >
           <input
-            name = { startDate.name + inputPrefix }
-            className = { startDate.class }
-            type = { startDate.type }
-            value = { timeslot.startDate.format() }
+            name={startDate.name + inputPrefix}
+            className={startDate.class}
+            type={startDate.type}
+            value={timeslot.startDate.format()}
           />
           <input
-            name = { endDate.name + inputPrefix }
-            className = { endDate.class }
-            type = { endDate.type }
-            value = { timeslot.endDate.format() }
+            name={endDate.name + inputPrefix}
+            className={endDate.class}
+            type={endDate.type}
+            value={timeslot.endDate.format()}
           />
         </div>
       );
@@ -177,7 +177,7 @@ export default class Calendar extends React.Component {
     } = this.props;
 
     const newSelectedTimeslots = selectedTimeslots.slice();
-
+    console.log("NTSL",newTimeslot.startDate.format(),newTimeslot.endDate.format())
     let existentTimeslotIndex = -1;
     const timeslotExists = newSelectedTimeslots.some((timeslot, index) => {
       existentTimeslotIndex = index;
@@ -194,7 +194,12 @@ export default class Calendar extends React.Component {
     if (newSelectedTimeslots.length > maxTimeslots) {
       newSelectedTimeslots.splice(0, 1);
     }
-
+    console.log("select",newSelectedTimeslots.map((ts) => {
+      return {
+        sd: moment(ts.startDate).format(),
+        ed: moment(ts.endDate).format()
+      }
+    }));
     this.setState({
       selectedTimeslots: newSelectedTimeslots,
       currentDate: moment(newTimeslot.startDate),

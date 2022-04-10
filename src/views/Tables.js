@@ -15,9 +15,9 @@
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 */
+
 // reactstrap components
 import React, { useEffect, useState } from "react";
-
 import {
   Badge,
   Card,
@@ -36,66 +36,83 @@ import {
   Container,
   Row,
   UncontrolledTooltip,
+  CardBody,
+  CardTitle,
 } from "reactstrap";
-import { Modal, Button } from "react-bootstrap";
+import { Modal, Button } from 'react-bootstrap'
 // core components
-import { selectAllTutors,sendDone, patchRequest, selectAcceptedRequests,fetchTutees, fetchTutors, selectPendingRequests,sendEmailAcceptance, fetchRequests } from "../stores/tutorReducer";
+import { selectAllTutors, currentTutee, selectAcceptedRequests, selectAllRequests, selectPendingRequests, fetchTutors, fetchRequests, addNewRequest } from '../stores/tutorReducer';
+
+import { useSelector, useDispatch } from 'react-redux';
+import Header from "components/Headers/Header.js";
+import TableComponent from "components/Tutee/TuteeTutorTable/Table";
 import OutstandingRequestTableComponent from "components/Tutee/TuteeTutorOutstandingRequest/Table";
 import AcceptedRequestTableComponent from "components/Tutee/TuteeTutorAcceptedRequest/Table";
-
-import { useSelector, useDispatch } from "react-redux";
-import Header from "components/Headers/Header.js";
-import TableComponent from "components/Tutor/TutorIncomingRequestsTable/Table";
 import TuteeTutorRequestModal from "components/Tutee/TuteeTutorRequestModal/TuteeTutorRequestModal";
-function Example() {
-  const [show, setShow] = useState(false);
+import ts from "typescript";
 
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
-  return (
-    <>
-      <Button variant="primary" onClick={handleShow}>
-        Launch demo modal
-      </Button>
-
-      <Modal toggle={show} onHide={handleClose}>
-        <Modal.Header closeButton>
-          <Modal.Title>Modal heading</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>Woohoo, you're reading this text in a modal!</Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
-            Close
-          </Button>
-          <Button variant="primary" onClick={handleClose}>
-            Save Changes
-          </Button>
-        </Modal.Footer>
-      </Modal>
-    </>
-  );
-}
-
-const RequestList = () => {
+const Tables = () => {
   const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(fetchRequests());
-    dispatch(fetchTutees());
-    dispatch(fetchTutors());
-  }, []);
+  const currenttutee = useSelector(currentTutee);
   const pending_requests = useSelector(selectPendingRequests);
   const accepted_requests = useSelector(selectAcceptedRequests);
-  const onDoneClick=(req)=>{
-    dispatch(patchRequest({id:req.id, tutor_done:'True'}))
-  };
+  useEffect(() => {
+    dispatch(fetchTutors());
+    dispatch(fetchRequests());
+  }, []);
   const [currenttutor, setCurrentTutor] = useState({});
+  const [currentrequest, setCurrentRequest] = useState({});
   const [show, setShow] = useState(false);
-  const onRequestClick = (request) => {
-    console.log("rress", request);
-   dispatch(sendEmailAcceptance({id:request.id}));
-    console.log("currenttutor", currenttutor);
+  const [showRequest, setShowRequest] = useState(false);
+  const TutorSelected = (tutor) => {
+    setCurrentTutor(tutor);
+
+    setShow(true);
   };
-  
+  const onRequestClick = (request) => {
+    dispatch(fetchRequests());
+
+  };
+  const products = [{ id: 0, name: 'test', price: 'price' }];
+  console.log("currenttutor", currenttutor);
+
+  const SubmitRequest = (timeslots) => {
+    console.log("submit", timeslots);
+    const outts = [];
+    const newtimeslots = [];
+    let i = 0;
+    let j = 1;
+    const tsarray = timeslots.map((ts) => ([ts,]));
+    const redits = tsarray.reduce((pV, cV) => {
+      if (pV.at(-1).endDate.format('YYYY-MM-DDThh:mm:ss') ===
+        cV.at(0).startDate.format('YYYY-MM-DDThh:mm:ss')
+      ) {
+        return [{ startDate: pV.at(0).startDate, endDate: cV.at(-1).endDate },]
+      }
+      return pV.concat(cV);
+    });
+    console.log("redits", redits);
+
+    for (let i = 0; i < redits.length; i++) {
+      outts.push({
+        start: timeslots[i].startDate.format('YYYY-MM-DDThh:mm:ss'),
+        end: timeslots[i].endDate.format('YYYY-MM-DDThh:mm:ss')
+      })
+    }
+    console.log(currenttutor, currenttutee);
+    const payload = {
+      "timeslots": outts,
+      "Tutor": currenttutor.id,
+      "Tutee": currenttutee.id,
+      "status": "pending",
+      "zoom_link": "http://zoom.com",
+    };
+    console.log("payload", payload);
+    dispatch(addNewRequest(
+      payload
+    ))
+  }
+
   return (
     <>
       {/* Page content */}
@@ -108,13 +125,70 @@ const RequestList = () => {
           <div className="col">
             <Card className="shadow">
               <CardHeader className="border-0">
-                <h3 className="mb-0">Incoming Requests</h3>
+                <h3 className="mb-0">Tutors</h3>
               </CardHeader>
 
-              <OutstandingRequestTableComponent
-                requests={pending_requests}
-                onRequestClick={onRequestClick}
-              ></OutstandingRequestTableComponent>
+              <TableComponent TutorSelected={TutorSelected} />
+              <CardFooter className="py-4">
+                <nav aria-label="...">
+                  <Pagination
+                    className="pagination justify-content-end mb-0"
+                    listClassName="justify-content-end mb-0"
+                  >
+                    <PaginationItem className="disabled">
+                      <PaginationLink
+                        href="#pablo"
+                        onClick={(e) => e.preventDefault()}
+                        tabIndex="-1"
+                      >
+                        <i className="fas fa-angle-left" />
+                        <span className="sr-only">Previous</span>
+                      </PaginationLink>
+                    </PaginationItem>
+                    <PaginationItem className="active">
+                      <PaginationLink
+                        href="#pablo"
+                        onClick={(e) => e.preventDefault()}
+                      >
+                        1
+                      </PaginationLink>
+                    </PaginationItem>
+                    <PaginationItem>
+                      <PaginationLink
+                        href="#pablo"
+                        onClick={(e) => e.preventDefault()}
+                      >
+                        2 <span className="sr-only">(current)</span>
+                      </PaginationLink>
+                    </PaginationItem>
+                    <PaginationItem>
+                      <PaginationLink
+                        href="#pablo"
+                        onClick={(e) => e.preventDefault()}
+                      >
+                        3
+                      </PaginationLink>
+                    </PaginationItem>
+                    <PaginationItem>
+                      <PaginationLink
+                        href="#pablo"
+                        onClick={(e) => e.preventDefault()}
+                      >
+                        <i className="fas fa-angle-right" />
+                        <span className="sr-only">Next</span>
+                      </PaginationLink>
+                    </PaginationItem>
+                  </Pagination>
+                </nav>
+              </CardFooter>
+            </Card>
+            <Card className="shadow">
+              <CardHeader className="border-0">
+                <h3 className="mb-0">Outstanding Requests</h3>
+              </CardHeader>
+
+              <OutstandingRequestTableComponent requests={pending_requests} onRequestClick={onRequestClick}></OutstandingRequestTableComponent>
+
               <CardFooter className="py-4">
                 <nav aria-label="...">
                   <Pagination
@@ -173,7 +247,7 @@ const RequestList = () => {
                 <h3 className="mb-0">Accepted Requests</h3>
               </CardHeader>
 
-              <AcceptedRequestTableComponent donedisable={(row)=>{console.log(row);return row.tutor_done;}} requests={accepted_requests} onRequestClick={onDoneClick} />
+              <AcceptedRequestTableComponent donedisable={false} requests={accepted_requests} onRequestClick={onRequestClick} />
               <CardFooter className="py-4">
                 <nav aria-label="...">
                   <Pagination
@@ -229,14 +303,10 @@ const RequestList = () => {
             </Card>
           </div>
         </Row>
-        <TuteeTutorRequestModal
-          show={show}
-          setShow={setShow}
-          tutor={currenttutor}
-        ></TuteeTutorRequestModal>
+        <TuteeTutorRequestModal SubmitRequest={SubmitRequest} show={show} setShow={setShow} tutor={currenttutor}></TuteeTutorRequestModal>
       </Container>
     </>
   );
 };
 
-export default RequestList;
+export default Tables;
