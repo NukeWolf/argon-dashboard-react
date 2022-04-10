@@ -17,20 +17,17 @@
 */
 
 // reactstrap components
+// core components
+import UserHeader from "components/Headers/HeaderProfile.js";
 import {
   Button,
   Card,
-  CardHeader,
   CardBody,
-  FormGroup,
-  Form,
-  Input,
+  CardHeader,
+  Col,
   Container,
   Row,
-  Col,
 } from "reactstrap";
-// core components
-import UserHeader from "components/Headers/HeaderProfile.js";
 
 const Bio = (props) => {
   return (

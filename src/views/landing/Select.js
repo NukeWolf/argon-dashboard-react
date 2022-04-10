@@ -15,14 +15,12 @@
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 */
-import React from "react";
-
-// reactstrap components
-import { Button, Card, Container, Row, Col } from "reactstrap";
-
+import SimpleFooter from "components/Footers/SimpleFooter.js";
 // core components
 import DemoNavbar from "components/Navbars/DemoNavbar.js";
-import SimpleFooter from "components/Footers/SimpleFooter.js";
+import React from "react";
+// reactstrap components
+import { Card, Col, Container, Row } from "reactstrap";
 
 class Profile extends React.Component {
   componentDidMount() {

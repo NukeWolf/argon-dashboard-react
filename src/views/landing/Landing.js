@@ -15,33 +15,27 @@
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 */
-import React from "react";
 // nodejs library that concatenates classes
 import classnames from "classnames";
-
+import CardsFooter from "components/Footers/CardsFooter.js";
+// core components
+import DemoNavbar from "components/Navbars/DemoNavbar.js";
+import React from "react";
 // reactstrap components
 import {
   Badge,
   Button,
   Card,
   CardBody,
-  CardImg,
+  Col,
+  Container,
   FormGroup,
   Input,
+  InputGroup,
   InputGroupAddon,
   InputGroupText,
-  InputGroup,
-  Container,
   Row,
-  Col,
 } from "reactstrap";
-
-// core components
-import DemoNavbar from "components/Navbars/DemoNavbar.js";
-import CardsFooter from "components/Footers/CardsFooter.js";
-
-// index page sections
-import Download from "../IndexSections/Download.js";
 
 class Landing extends React.Component {
   state = {};
@@ -78,8 +72,8 @@ class Landing extends React.Component {
                         <span>Flexible. Affordable. On Demand.</span>
                       </h1>
                       <p className="lead text-white">
-                        Tuut is a startup committed to streamlining the process of connecting peer tutors with students who
-                        need help.
+                        Tuut is a startup committed to streamlining the process
+                        of connecting peer tutors with students who need help.
                       </p>
                       <div className="btn-wrapper">
                         <Button
@@ -179,10 +173,11 @@ class Landing extends React.Component {
                             Accessibility Commitment
                           </h6>
                           <p className="description mt-3">
-                            We partner with universities to ensure our services are 
-                            accessible to all students, regardless of economic background. 
+                            We partner with universities to ensure our services
+                            are accessible to all students, regardless of
+                            economic background.
                           </p>
-                          
+
                           <Button
                             className="mt-4"
                             color="warning"
@@ -190,7 +185,6 @@ class Landing extends React.Component {
                           >
                             Learn more
                           </Button>
-                         
                         </CardBody>
                       </Card>
                     </Col>
@@ -261,9 +255,7 @@ class Landing extends React.Component {
                             </Badge>
                           </div>
                           <div>
-                            <h6 className="mb-0">
-                              Responsive support team
-                            </h6>
+                            <h6 className="mb-0">Responsive support team</h6>
                           </div>
                         </div>
                       </li>
@@ -280,7 +272,6 @@ class Landing extends React.Component {
                 <Col lg="8">
                   <h2 className="display-3">Meet The Team</h2>
                   <p className="lead text-muted">
-
                     {/* According to the National Oceanic and Atmospheric
                     Administration, Ted, Scambos, NSIDClead scentist, puts the
                     potentially record maximum. */}
@@ -301,7 +292,9 @@ class Landing extends React.Component {
                     <div className="pt-4 text-center">
                       <h5 className="title">
                         <span className="d-block mb-1">Lukas Nel</span>
-                        <small className="h6 text-muted">Full-Stack Developer</small>
+                        <small className="h6 text-muted">
+                          Full-Stack Developer
+                        </small>
                       </h5>
                       <div className="mt-3">
                         <Button
@@ -435,7 +428,9 @@ class Landing extends React.Component {
                     <div className="pt-4 text-center">
                       <h5 className="title">
                         <span className="d-block mb-1">Carlos Herbozo</span>
-                        <small className="h6 text-muted">Back-End Developer</small>
+                        <small className="h6 text-muted">
+                          Back-End Developer
+                        </small>
                       </h5>
                       <div className="mt-3">
                         <Button
