@@ -39,7 +39,17 @@ import {
 } from "reactstrap";
 import { Modal, Button } from "react-bootstrap";
 // core components
-import { selectAllTutors,sendDone, patchRequest, selectAcceptedRequests,fetchTutees, fetchTutors, selectPendingRequests,sendEmailAcceptance, fetchRequests } from "../stores/tutorReducer";
+import {
+  selectAllTutors,
+  sendDone,
+  patchRequest,
+  selectAcceptedRequests,
+  fetchTutees,
+  fetchTutors,
+  selectPendingRequests,
+  sendEmailAcceptance,
+  fetchRequests,
+} from "../stores/tutorReducer";
 import OutstandingRequestTableComponent from "components/Tutee/TuteeTutorOutstandingRequest/Table";
 import AcceptedRequestTableComponent from "components/Tutee/TuteeTutorAcceptedRequest/Table";
 
@@ -85,24 +95,24 @@ const RequestList = () => {
   }, []);
   const pending_requests = useSelector(selectPendingRequests);
   const accepted_requests = useSelector(selectAcceptedRequests);
-  const onDoneClick=(req)=>{
-    dispatch(patchRequest({id:req.id, tutor_done:'True'}))
+  const onDoneClick = (req) => {
+    dispatch(patchRequest({ id: req.id, tutor_done: "True" }));
   };
   const [currenttutor, setCurrentTutor] = useState({});
   const [show, setShow] = useState(false);
   const onRequestClick = (request) => {
     console.log("rress", request);
-   dispatch(sendEmailAcceptance({id:request.id}));
+    dispatch(sendEmailAcceptance({ id: request.id }));
     console.log("currenttutor", currenttutor);
   };
-  
+
   return (
     <>
       {/* Page content */}
+      <Header />
 
       <Container className="mt--7" fluid>
         {/* Table */}
-        <Header />
 
         <Row>
           <div className="col">
@@ -173,7 +183,14 @@ const RequestList = () => {
                 <h3 className="mb-0">Accepted Requests</h3>
               </CardHeader>
 
-              <AcceptedRequestTableComponent donedisable={(row)=>{console.log(row);return row.tutor_done;}} requests={accepted_requests} onRequestClick={onDoneClick} />
+              <AcceptedRequestTableComponent
+                donedisable={(row) => {
+                  console.log(row);
+                  return row.tutor_done;
+                }}
+                requests={accepted_requests}
+                onRequestClick={onDoneClick}
+              />
               <CardFooter className="py-4">
                 <nav aria-label="...">
                   <Pagination
