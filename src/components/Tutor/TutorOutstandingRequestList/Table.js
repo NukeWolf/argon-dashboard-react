@@ -84,7 +84,7 @@ const TableRow = (props) => {
         <div className="d-flex align-items-center">
           <span className="mr-2">{ratings}%</span>
           <div>
-            <Progress max="100" value={ratings} barClassName="bg-danger" />
+            <Progress max="5" value={ratings} barClassName="bg-danger" />
           </div>
         </div>
       </td>

@@ -112,15 +112,16 @@ const TableComponent = (props) => {
         Header: "Ratings",
         accessor: "ratings", // accessor is the "key" in the data
         Cell: ({ row }) => {
-          const { values } = row;
+          const { original } = row;
+
           console.log(row);
           return (
             <div className="d-flex align-items-center">
-              <span className="mr-2">{values.numRatings}%</span>
+              <span className="mr-2">{original.rating} 	&#9734;</span>
               <div>
                 <Progress
-                  max="100"
-                  value={values.numRatings}
+                  max="5"
+                  value={original.rating}
                   barClassName="bg-danger"
                 />
               </div>
@@ -280,7 +281,7 @@ const TableRow = (props) => {
         <div className="d-flex align-items-center">
           <span className="mr-2">{numRatings}%</span>
           <div>
-            <Progress max="100" value={numRatings} barClassName="bg-danger" />
+            <Progress max="5" value={numRatings} barClassName="bg-danger" />
           </div>
         </div>
       </td>

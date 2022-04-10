@@ -85,7 +85,7 @@ export const tutorSlice = createSlice({
       .addCase(fetchRequests.fulfilled, (state, action) => {
         state.status = 'succeeded'
         // Add any fetched posts to the array
-        console.log("success", action);
+        console.log("successfully fetched requests", action);
         // toast.success('Successfully loaded tutors.');
         state.requests = action.payload.results;
       })
@@ -292,10 +292,15 @@ const requestProcess = (state, requests) => {
   console.log("outreq", outreq, requests);
   return outreq;
 }
+
 export const selectPendingRequests = (state) => {
   const requests = state.tutors.requests.filter((rq) => (rq.status === "pending"));
   return requestProcess(state, requests);
-}
+};
+export const selectFinalizedRequests = (state) => {
+  const requests = state.tutors.requests.filter((rq) => (rq.status === "finalized"));
+  return requestProcess(state, requests);
+};
 export const selectAcceptedRequests = (state) => {
   const requests = state.tutors.requests.filter(
     (rq) => (rq.status === "accepted" && (!rq.tutor_done || !rq.tutee_done)));
