@@ -280,9 +280,10 @@ class Landing extends React.Component {
                 <Col lg="8">
                   <h2 className="display-3">The amazing Team</h2>
                   <p className="lead text-muted">
-                    According to the National Oceanic and Atmospheric
+
+                    {/* According to the National Oceanic and Atmospheric
                     Administration, Ted, Scambos, NSIDClead scentist, puts the
-                    potentially record maximum.
+                    potentially record maximum. */}
                   </p>
                 </Col>
               </Row>
@@ -299,8 +300,8 @@ class Landing extends React.Component {
                     />
                     <div className="pt-4 text-center">
                       <h5 className="title">
-                        <span className="d-block mb-1">Ryan Tompson</span>
-                        <small className="h6 text-muted">Web Developer</small>
+                        <span className="d-block mb-1">Lukas Nel</span>
+                        <small className="h6 text-muted">Full-Stack Web Developer</small>
                       </h5>
                       <div className="mt-3">
                         <Button
@@ -343,9 +344,9 @@ class Landing extends React.Component {
                     />
                     <div className="pt-4 text-center">
                       <h5 className="title">
-                        <span className="d-block mb-1">Romina Hadid</span>
+                        <span className="d-block mb-1">Alex Huang</span>
                         <small className="h6 text-muted">
-                          Marketing Strategist
+                          Front-End Web Developer
                         </small>
                       </h5>
                       <div className="mt-3">
@@ -389,7 +390,7 @@ class Landing extends React.Component {
                     />
                     <div className="pt-4 text-center">
                       <h5 className="title">
-                        <span className="d-block mb-1">Alexander Smith</span>
+                        <span className="d-block mb-1">Brendon Gong</span>
                         <small className="h6 text-muted">UI/UX Designer</small>
                       </h5>
                       <div className="mt-3">
@@ -433,8 +434,8 @@ class Landing extends React.Component {
                     />
                     <div className="pt-4 text-center">
                       <h5 className="title">
-                        <span className="d-block mb-1">John Doe</span>
-                        <small className="h6 text-muted">Founder and CEO</small>
+                        <span className="d-block mb-1">Carlos Herbozo</span>
+                        <small className="h6 text-muted">Back-End Web Developer</small>
                       </h5>
                       <div className="mt-3">
                         <Button
