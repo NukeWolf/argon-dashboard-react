@@ -274,6 +274,7 @@ const TutorList = () => {
                         href="#pablo"
                         onClick={(e) => e.preventDefault()}
                       >
+                        
                         1
                       </PaginationLink>
                     </PaginationItem>
@@ -298,6 +299,7 @@ const TutorList = () => {
                         href="#pablo"
                         onClick={(e) => e.preventDefault()}
                       >
+                      
                         <i className="fas fa-angle-right" />
                         <span className="sr-only">Next</span>
                       </PaginationLink>
@@ -373,7 +375,7 @@ const TutorList = () => {
             </Card>
             <Card className="shadow">
               <CardHeader className="border-0">
-                <h3 className="mb-0">Finalized Lesson Requests</h3>
+                <h3 className="mb-0">Lesson History</h3>
               </CardHeader>
 
               <OutstandingRequestTableComponent
