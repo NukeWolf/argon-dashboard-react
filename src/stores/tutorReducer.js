@@ -25,6 +25,7 @@ export const tutorSlice = createSlice({
       ratings: 60,
       status: 'online',
     },],
+    token: '',
     currentTuteeID: 1,
     tutors: [{
       picture:
@@ -107,6 +108,20 @@ export const tutorSlice = createSlice({
       }).addCase(finalizeRequest.fulfilled, (state, action) => {
         // We can directly add the new request object to our  requests
         toast.success('Successfully finalized request.');
+      }).addCase(loginSubmit.pending, (state, action) => {
+        state.status = 'loading'
+      })
+      .addCase(loginSubmit.fulfilled, (state, action) => {
+        state.status = 'succeeded'
+        // Add any fetched posts to the array
+        console.log("success", action);
+        state.token = action.payload.token;
+        localStorage.setItem("token", action.payload.token);
+        // toast.success('Successfully loaded tutors.');
+      })
+      .addCase(loginSubmit.rejected, (state, action) => {
+        state.status = 'failed'
+        state.error = action.error.message
       })
   }
 })
@@ -202,7 +217,21 @@ export const sendDone = createAsyncThunk(
     thunkAPI.dispatch(fetchRequests());
     return response.data
   }
+);
+
+export const loginSubmit = createAsyncThunk(
+  'tutors/loginSubmit',
+  // The payload creator receives the partial `{title, content, user}` object
+  async (initialRequest, thunkAPI) => {
+    // We send the initial data to the fake API server
+    const response = await client.post('http://localhost:8000/api-token-auth/', initialRequest)
+    // The response includes the complete post object, including unique ID
+    thunkAPI.dispatch(fetchRequests());
+    return response.data
+  }
 )
+
+
 
 export const { addTutor } = tutorSlice.actions
 export const selectAllTutors = state => state.tutors.tutors;

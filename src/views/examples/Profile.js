@@ -31,11 +31,22 @@ import {
 } from "reactstrap";
 // core components
 import UserHeader from "components/Headers/UserHeader.js";
-
+import { useState } from "react";
+import HeaderEditAccessibilityModal from "components/Headers/HeaderEditAccessibilityModal";
 const Profile = () => {
+  const [show, setShow]= useState(false);
+
+  const SubmitRequest=()=>{
+    
+  };
+
+  const clickEdit = ()=>{
+    setShow(true);
+  };
+
   return (
     <>
-      <UserHeader />
+      <UserHeader clickEdit={clickEdit}/>
       {/* Page content */}
       <Container className="mt--7" fluid>
         <Row>
@@ -325,6 +336,7 @@ const Profile = () => {
           </Col>
         </Row>
       </Container>
+      <HeaderEditAccessibilityModal show={show} tutor={{}} SubmitRequest={SubmitRequest} setShow={setShow}></HeaderEditAccessibilityModal>
     </>
   );
 };
