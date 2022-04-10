@@ -386,7 +386,7 @@ class Landing extends React.Component {
                     <div className="pt-4 text-center">
                       <h5 className="title">
                         <span className="d-block mb-1">Brendon Gong</span>
-                        <small className="h6 text-muted">UI/UX Designer</small>
+                        <small className="h6 text-muted">Product Manager</small>
                       </h5>
                       <div className="mt-3">
                         <Button

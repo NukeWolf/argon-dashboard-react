@@ -180,6 +180,7 @@ const Tables = () => {
 
               <OutstandingRequestTableComponent
                 requests={pending_requests}
+                
                 onRequestClick={onRequestClick}
               ></OutstandingRequestTableComponent>
 

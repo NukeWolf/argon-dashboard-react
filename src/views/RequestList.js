@@ -39,10 +39,10 @@ import {
   fetchTutees,
   fetchTutors,
   fetchRequests,
-  selectFinalizedRequests,
   finalizeRequest,
   patchRequest,
   postTutorRating,
+  selectFinalizedRequests,
   selectAcceptedRequests,
   selectPendingRequests,
   sendEmailAcceptance,
@@ -110,7 +110,7 @@ const RequestList = () => {
               <OutstandingRequestTableComponent
                 requests={pending_requests}
                 onRequestClick={onRequestClick}
-                buttonnotshow={false}
+                showButtons={true}
               ></OutstandingRequestTableComponent>
               <CardFooter className="py-4"></CardFooter>
             </Card>
@@ -183,7 +183,7 @@ const RequestList = () => {
             </Card>
             <Card className="shadow">
               <CardHeader className="border-0">
-                <h3 className="mb-0">Finalized Lesson Requests</h3>
+                <h3 className="mb-0">Lesson History</h3>
               </CardHeader>
 
               <OutstandingRequestTableComponent

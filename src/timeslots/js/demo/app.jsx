@@ -4,8 +4,8 @@ import moment from 'moment';
 
 import '../../styles/demo/main.scss';
 
-import ReactTimeslotCalendar from './../react-timeslot-calendar.jsx';
-import MarkdownSnippet from './../util/markdown-snippet.jsx';
+import ReactTimeslotCalendar from '../react-timeslot-calendar.jsx';
+import MarkdownSnippet from '../util/markdown-snippet.jsx';
 /** Code snippets **/
 import customTimeslotSnippet from './snippets/custom-timeslot.md';
 
