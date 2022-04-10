@@ -92,12 +92,12 @@ const Sidebar = (props) => {
   let navbarBrandProps;
   if (logo && logo.innerLink) {
     navbarBrandProps = {
-      to: logo.innerLink,
+      to: "/select",
       tag: Link,
     };
   } else if (logo && logo.outterLink) {
     navbarBrandProps = {
-      href: logo.outterLink,
+      href: "/select",
       target: "_blank",
     };
   }
