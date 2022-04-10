@@ -41,6 +41,7 @@ import {
   patchRequest,
   postTutorRating,
   selectAcceptedRequests,
+  selectFinalizedRequests,
   selectPendingRequests,
   sendEmailAcceptance,
 } from "../stores/tutorReducer";
