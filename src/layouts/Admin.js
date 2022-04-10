@@ -16,7 +16,7 @@
 
 */
 import React from "react";
-import toast, { Toaster } from 'react-hot-toast';
+import toast, { Toaster } from "react-hot-toast";
 import { useLocation, Route, Switch, Redirect } from "react-router-dom";
 // reactstrap components
 import { Container } from "reactstrap";
@@ -81,8 +81,8 @@ const Admin = (props) => {
           {...props}
           brandText={getBrandText(props.location.pathname)}
         />
-        
-<Toaster/>
+
+        <Toaster />
         <Switch>
           {getRoutes(routes)}
           <Redirect from="*" to="/admin/index" />

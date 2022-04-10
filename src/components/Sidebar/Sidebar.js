@@ -236,8 +236,10 @@ const Sidebar = (props) => {
           </Form>
           {/* Navigation */}
           <Nav navbar>{createLinks(routes)}</Nav>
+
           {/* Divider */}
           <hr className="my-3" />
+<<<<<<< HEAD
           {/* Heading */}
           
           {/* <h6 className="navbar-heading text-muted">Documentation</h6> */}
@@ -263,11 +265,22 @@ const Sidebar = (props) => {
               </NavLink>
             </NavItem>
           </Nav>
+=======
+          {/* Heading 
+          <h6 className="navbar-heading text-muted">Documentation</h6>*/}
+          {/* Navigation */}
+
+>>>>>>> 14694e86e64f0269230bc833a4d4be8ed8bc2ccb
           <Nav className="mb-md-3" navbar>
             <NavItem className="active-pro active">
-              <NavLink href="https://www.creative-tim.com/product/argon-dashboard-pro-react?ref=adr-admin-sidebar">
+              <NavLink
+                href="/"
+                onClick={(e) => {
+                  localStorage.setItem("token", null);
+                }}
+              >
                 <i className="ni ni-spaceship" />
-                Upgrade to PRO
+                Logout
               </NavLink>
             </NavItem>
           </Nav>

@@ -20,7 +20,7 @@ import {
   UncontrolledTooltip,
 } from "reactstrap";
 import { Button } from 'react-bootstrap';
-
+import ReactTableComponent from "components/ReactTableComponent/ReactTableComponent";
 import { useTable } from 'react-table';
 
 import { selectAllTutors } from '../../../stores/tutorReducer';
@@ -92,15 +92,15 @@ const AcceptedRequestTableComponent = (props) => {
       {
         Header: () => "",
         id: 'clickselect',
-        Cell: ({ row }) => 
-          {
-           const disable = donedisable(row.original);
-          
-         return <div>
-            <Button disabled={disable} style={{ float: 'right' }} onClick={() => { 
-              onRequestClick(row.original); }} variant="primary">Done</Button>
+        Cell: ({ row }) => {
+          const disable = donedisable(row.original);
+
+          return <div>
+            <Button disabled={disable} style={{ float: 'right' }} onClick={() => {
+              onRequestClick(row.original);
+            }} variant="primary">Done</Button>
           </div>
-          },
+        },
       },
     ],
     []
@@ -109,51 +109,11 @@ const AcceptedRequestTableComponent = (props) => {
     () => requests,
     [requests]
   );
-  const {
-    getTableProps,
-    getTableBodyProps,
-    headerGroups,
-    rows,
-    prepareRow,
-  } = useTable({ columns, data });
+
   const tutors = useSelector(selectAllTutors);
   console.log("tutors", tutors);
   return (
-    <Table className="align-items-center table-flush"
-      responsive {...getTableProps()}>
-      <thead>
-        {headerGroups.map(headerGroup => (
-          <tr className="thead-light" {...headerGroup.getHeaderGroupProps()}>
-            {headerGroup.headers.map(column => (
-              <th
-                {...column.getHeaderProps()}
-                scope="col"
-              >
-                {column.render('Header')}
-              </th>
-            ))}
-          </tr>
-        ))}
-      </thead>
-      <tbody {...getTableBodyProps()}>
-        {rows.map(row => {
-          prepareRow(row)
-          return (
-            <tr {...row.getRowProps()}>
-              {row.cells.map(cell => {
-                return (
-                  <td
-                  >
-                    {cell.render('Cell')}
-                  </td>
-                )
-              })}
-            </tr>
-          )
-        })}
-      </tbody>
-    </Table>
-
+    <ReactTableComponent data={data} columns={columns}></ReactTableComponent>
   );
 };
 
