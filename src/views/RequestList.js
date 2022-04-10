@@ -44,7 +44,6 @@ import {
   patchRequest,
   postTutorRating,
   selectAcceptedRequests,
-  selectFinalizedRequests,
   selectPendingRequests,
   sendEmailAcceptance,
 } from "../stores/tutorReducer";
@@ -126,7 +125,6 @@ const RequestList = () => {
                   return row.tutor_done;
                 }}
                 buttonnotshow={true}
-
                 requests={accepted_requests}
                 onRequestClick={onDoneClick}
               />
