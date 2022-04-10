@@ -23,6 +23,7 @@ import TuteeTutorDoneModal from "components/Tutee/TuteeTutorDoneModal.js/TuteeTu
 import OutstandingRequestTableComponent from "components/Tutee/TuteeTutorOutstandingRequest/Table";
 import TuteeTutorRequestModal from "components/Tutee/TuteeTutorRequestModal/TuteeTutorRequestModal";
 import TableComponent from "components/Tutee/TuteeTutorTable/Table";
+import moment from "moment";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -57,7 +58,7 @@ const TutorList = () => {
   const pending_requests = useSelector(selectPendingRequests);
   const accepted_requests = useSelector(selectAcceptedRequests);
   const finalized_requests = useSelector(selectFinalizedRequests);
-  
+
   useEffect(() => {
     dispatch(fetchRequests());
     dispatch(fetchTutees());
@@ -81,10 +82,11 @@ const TutorList = () => {
     dispatch(fetchRequests());
   };
 
-  const onDoneSubmit = (starrating,comment ) => {
+  const onDoneSubmit = (starrating, comment) => {
     const req = currentrequest;
-    dispatch(postTutorRating({ 
-      request: req.id, tutor: req.tutor.id, comment: comment, rating: starrating }))
+    dispatch(postTutorRating({
+      request: req.id, tutor: req.tutor.id, comment: comment, rating: starrating
+    }))
     dispatch(patchRequest({ id: req.id, tutee_done: 'True' }));
     if (req.tutor_done) {
       dispatch(finalizeRequest({ id: req.id }));
@@ -174,7 +176,22 @@ const TutorList = () => {
     console.log("payload", payload);
     dispatch(addNewRequest(payload));
   };
+  const TutorSelectedImmediate = (tutor) => {
+    const mn = moment();
+    mn.add(30, 'minutes');
+    const payload = {
+      timeslots: [{
+        start: moment().format("YYYY-MM-DDThh:mm:ss"),
+        end: mn
+      },],
+      Tutor: tutor.id,
+      Tutee: currenttutee.id,
+      status: "pending",
+      zoom_link: "http://zoom.com",
+    };
+    dispatch(addNewRequest(payload));
 
+  }
   return (
     <>
       {/* Page content */}
@@ -188,7 +205,8 @@ const TutorList = () => {
                 <h3 className="mb-0">Tutors</h3>
               </CardHeader>
 
-              <TableComponent TutorSelected={TutorSelected} />
+              <TableComponent TutorSelected={TutorSelected}
+                TutorSelectedImmediate={TutorSelectedImmediate} />
               <CardFooter className="py-4">
                 <nav aria-label="...">
                   <Pagination
@@ -250,7 +268,7 @@ const TutorList = () => {
               <OutstandingRequestTableComponent
                 requests={pending_requests}
                 onRequestClick={onRequestClick}
-                buttonnotshow={true}
+                buttonshow={false}
               ></OutstandingRequestTableComponent>
 
               <CardFooter className="py-4">

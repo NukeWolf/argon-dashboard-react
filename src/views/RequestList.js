@@ -39,7 +39,6 @@ import {
   fetchTutees,
   fetchTutors,
   fetchRequests,
-  selectFinalizedRequests,
   finalizeRequest,
   patchRequest,
   postTutorRating,
@@ -111,7 +110,7 @@ const RequestList = () => {
               <OutstandingRequestTableComponent
                 requests={pending_requests}
                 onRequestClick={onRequestClick}
-                buttonnotshow={false}
+                buttonshow={true}
               ></OutstandingRequestTableComponent>
               <CardFooter className="py-4"></CardFooter>
             </Card>

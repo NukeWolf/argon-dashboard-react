@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import helpers from './../util/helpers';
+import helpers from '../util/helpers';
 import Week from './week.jsx';
 
 export default class Month extends React.Component {

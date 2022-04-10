@@ -16,7 +16,7 @@ const FakePerson = {
 
 const TableComponent = (props) => {
   const tutors = useSelector(selectAllTutors);
-  const { TutorSelected } = props;
+  const { TutorSelected, TutorSelectedImmediate } = props;
   console.log("tutors", tutors);
 
   const columns = React.useMemo(
@@ -40,11 +40,11 @@ const TableComponent = (props) => {
                   src={values.picture}
                 />
               </a>
-              <Media>
+              {/*<Media>
                 <span className="mb-0 text-sm">
                   {values.first_name} {values.last_name}
                 </span>
-              </Media>
+              </Media>*/}
             </Media>
           );
         },
@@ -53,14 +53,14 @@ const TableComponent = (props) => {
         Header: "Name",
         accessor: "first_name", // accessor is the "key" in the data
         Cell: ({ row }) => {
-          const { values } = row;
+          const { original } = row;
           console.log(row);
           return (
             <>
-              {values ? (
+              {original ? (
                 <div>
                   <span>
-                    {values.first_name} {values.last_name}{" "}
+                    {original.first_name} {" "}{original.last_name}
                   </span>
                 </div>
               ) : (
@@ -81,6 +81,25 @@ const TableComponent = (props) => {
               {values ? (
                 <div>
                   <span>{values.email} </span>
+                </div>
+              ) : (
+                <></>
+              )}
+            </>
+          );
+        },
+      },
+      {
+        Header: "Subject",
+        accessor: "subjects", // accessor is the "key" in the data
+        Cell: ({ row }) => {
+          const { original } = row;
+          console.log("subjects",row);
+          return (
+            <>
+              {original.subjects ? (
+                <div>
+                  <span>{original.subjects.map((sub)=>(sub.subject_name + ' '))} </span>
                 </div>
               ) : (
                 <></>
@@ -117,7 +136,7 @@ const TableComponent = (props) => {
           console.log(row);
           return (
             <div className="d-flex align-items-center">
-              <span className="mr-2">{original.rating} 	&#9734;</span>
+              <span className="mr-2">{Math.round(original.rating*100)/100} 	&#9734;</span>
               <div>
                 <Progress
                   max="5"
@@ -158,6 +177,24 @@ const TableComponent = (props) => {
               variant="primary"
             >
               See Availability
+            </Button>
+          </div>
+        ),
+      },
+      
+      {
+        Header: () => "Immediate",
+        id: "clickselect2",
+        Cell: ({ row }) => (
+          <div>
+            <Button
+              style={{ float: "right" }}
+              onClick={() => {
+                TutorSelectedImmediate(row.original);
+              }}
+              variant="primary"
+            >
+              15 Min
             </Button>
           </div>
         ),
