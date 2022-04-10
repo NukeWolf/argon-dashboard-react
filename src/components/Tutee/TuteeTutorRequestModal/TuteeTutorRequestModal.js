@@ -99,7 +99,7 @@ const TuteeTutorRequestModal = (props) => {
           </Form>
         </ModalBody>
         <ModalFooter>
-          <Button color="primary" onClick={submitRequestHandler}>Do Something</Button>{' '}
+          <Button color="primary" onClick={submitRequestHandler}>Schedule Times</Button>{' '}
           <Button color="secondary" onClick={handleClose}>Cancel</Button>
         </ModalFooter>
       </Modal>
