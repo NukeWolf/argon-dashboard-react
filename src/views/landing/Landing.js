@@ -231,7 +231,7 @@ class Landing extends React.Component {
                             </Badge>
                           </div>
                           <div>
-                            <h6 className="mb-0">Flexible Hours</h6>
+                            <h6 className="mb-0">Flexible Work Schedules</h6>
                           </div>
                         </div>
                       </li>
@@ -246,7 +246,7 @@ class Landing extends React.Component {
                             </Badge>
                           </div>
                           <div>
-                            <h6 className="mb-0">15 minute blocks</h6>
+                            <h6 className="mb-0">15 minute lesson blocks</h6>
                           </div>
                         </div>
                       </li>
@@ -262,7 +262,7 @@ class Landing extends React.Component {
                           </div>
                           <div>
                             <h6 className="mb-0">
-                              Rating and responsive support team
+                              Responsive support team
                             </h6>
                           </div>
                         </div>
