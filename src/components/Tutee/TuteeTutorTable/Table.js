@@ -333,7 +333,7 @@ const TableRow = (props) => {
         <div className="d-flex align-items-center">
           <div>
             <Button onClick={onTutorClick} variant="primary">
-              Request
+              Reque
             </Button>
           </div>
         </div>

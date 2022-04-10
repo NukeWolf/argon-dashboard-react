@@ -43,7 +43,6 @@ import {
   patchRequest,
   postTutorRating,
   selectAcceptedRequests,
-  selectFinalizedRequests,
   selectPendingRequests,
   sendEmailAcceptance,
 } from "../stores/tutorReducer";
@@ -125,7 +124,6 @@ const RequestList = () => {
                   return row.tutor_done;
                 }}
                 buttonnotshow={true}
-
                 requests={accepted_requests}
                 onRequestClick={onDoneClick}
               />
@@ -184,7 +182,7 @@ const RequestList = () => {
             </Card>
             <Card className="shadow">
               <CardHeader className="border-0">
-                <h3 className="mb-0">Finalized Lesson Requests</h3>
+                <h3 className="mb-0">Lesson History</h3>
               </CardHeader>
 
               <OutstandingRequestTableComponent
