@@ -64,13 +64,13 @@ const Tables = () => {
   }
 const sendEmail = ()=>{
   const sgMail = require('@sendgrid/mail');
-  sgMail.setApiKey(process.env.SENDGRID_API_KEY);
-  const msg = {
+  sgMail.setApiKey(process.env.SENDGRID_API_KEY); //will need an API KEY from Sendgrid account once we can make one
+    const msg = {
     to: 'brendon.gong@yale.edu',
     from: 'carlos.herbozoosco@yale.edu',
-    subject: 'Sending with SendGrid is Fun',
-    text: 'and easy to do anywhere, even with Node.js',
-    html: '<strong>and easy to do anywhere, even with Node.js</strong>',
+    subject: 'TUUT Reply',
+    text: 'Thank you for your email. We will get back to you.',
+    html: '<strong>Thank you for using TUUT.</strong>',
   };
   sgMail.send(msg);
   window.alert("Email sent!")
