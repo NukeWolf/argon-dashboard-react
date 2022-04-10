@@ -34,17 +34,7 @@ import {
 } from "reactstrap";
 // core components
 import {
-<<<<<<< HEAD
-  selectAllTutors,
-  finalizeRequest,
-  sendDone,
-  postTutorRating,
-  patchRequest,
-  selectAcceptedRequests,
-  selectFinalizedRequests,
-=======
   fetchRequests,
->>>>>>> 6a3f1e24f255f8a131eacd8e554201503ac11194
   fetchTutees,
   fetchTutors,
   finalizeRequest,
