@@ -23,7 +23,9 @@ import { Button, Card, Container, Row, Col } from "reactstrap";
 // core components
 import DemoNavbar from "components/Navbars/DemoNavbar.js";
 import SimpleFooter from "components/Footers/SimpleFooter.js";
-
+import { connect } from "react-redux";
+import { is_tutee } from "stores/tutorReducer";
+import { is_tutor } from "stores/tutorReducer";
 class Profile extends React.Component {
   componentDidMount() {
     document.documentElement.scrollTop = 0;
@@ -66,7 +68,7 @@ class Profile extends React.Component {
           <section className="section">
             <Container>
               <Row>
-                <Col>
+                {this.props.is_tutee && <Col>
                   <a href="/tutee">
                     <Card className="card-profile shadow mt--300">
                       <div className="px-4">
@@ -82,7 +84,8 @@ class Profile extends React.Component {
                       </div>
                     </Card>
                   </a>
-                </Col>
+                </Col>}
+                {this.props.is_tutor&&
                 <Col>
                   <a href="/tutor">
                     <Card className="card-profile shadow mt--300">
@@ -99,7 +102,7 @@ class Profile extends React.Component {
                       </div>
                     </Card>
                   </a>
-                </Col>
+                </Col>}
               </Row>
             </Container>
           </section>
@@ -110,4 +113,7 @@ class Profile extends React.Component {
   }
 }
 
-export default Profile;
+export default connect(state => ({
+  is_tutee: is_tutee(state),
+  is_tutor: is_tutor(state)
+}))(Profile);

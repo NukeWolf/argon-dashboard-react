@@ -89,7 +89,7 @@ const OutstandingRequestTableComponent = (props) => {
         Header: () => "",
         id: 'clickselect',
         Cell: ({ row }) => {
-          if(!buttonnotshow)return <></>;
+          //if(!buttonnotshow)return <></>;
           return <div>
             <Button style={{float:'right'} }onClick={() => { onRequestClick(row.original); }} variant="primary">Request</Button>
           </div>
