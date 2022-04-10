@@ -77,18 +77,19 @@ const Tables = () => {
                 <h2 className="mb-0">About Us</h2>
               </CardHeader>
               <CardBody>
-                <h3>
-                  Tuut. We’re going to revolutionize the definition of
+                <p>
+                  We aim to revolutionize the definition of
                   accessible peer tutoring for university students across the
-                  world. And it starts at Yale. At Tuut, we aim to address the
-                  need for last-minute time-sensitive tutoring by bypassing the
-                  slow processes of university tutoring center referrals and
-                  understaffed TA office hours, which often leave students
-                  helpless (and hopeless). With our web application, students
-                  who need help can select from any number of peer tutors, with
-                  flexible 10-minute slots which allow the tutor to teach with
-                  limited time commitment, and students to get help as needed.
-                </h3>
+                  world, by addressing the downfalls of convoluted processes
+                  for university organized tutoring centers and understaffed 
+                  and inflexible office hours. With our web application, tutees
+                  can select from any number of qualified peer tutors, 
+                  scheduling any number of flexible 15-minute slots on short notice.
+                  Tutors can also set availability with short notice as they find pockets
+                  of free time throughout their busy daily schedules, tapping into 
+                  a new market of quality educators who may not have the ability to make rigid
+                  time commitments as a TA/university tutor.
+                </p>
               </CardBody>
             </Card>
           </div>

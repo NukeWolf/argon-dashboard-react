@@ -74,7 +74,7 @@ const Tables = () => {
           <div className="col">
             <Card className="shadow">
               <CardHeader className="border-0">
-                <h2 className="mb-0">Help</h2>
+                <h2 className="mb-0">Frequently Asked Questions</h2>
               </CardHeader>
               <CardBody>
                 <h3>How are tutors incentivized to join Tuut?</h3>
@@ -86,9 +86,12 @@ const Tables = () => {
 
                 <h3>How can FGLI students access Tuut?</h3>
                 <p>
-                  Tuut® will connect with university systems to reimburse low
-                  income students with proof of transaction, ensuring that we
-                  can help all students of all financial backgrounds.
+                  Tuut® connects with university systems to reimburse low
+                  income students for their lessons, ensuring that we
+                  can help all students of all financial backgrounds. Please click on
+                  our 'partner schools' sidebar option to see if your university is 
+                  partnered with us. You can also shoot us a partner request to
+                  put your university on our radar for future partnerships.
                 </p>
 
                 <h3>What separates Tuut from other tutoring platforms?</h3>

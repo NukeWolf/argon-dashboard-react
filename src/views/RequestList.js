@@ -115,7 +115,7 @@ const RequestList = () => {
           <div className="col">
             <Card className="shadow">
               <CardHeader className="border-0">
-                <h3 className="mb-0">Incoming Requests</h3>
+                <h3 className="mb-0">Incoming Lesson Requests</h3>
               </CardHeader>
 
               <OutstandingRequestTableComponent
@@ -126,7 +126,7 @@ const RequestList = () => {
             </Card>
             <Card className="shadow">
               <CardHeader className="border-0">
-                <h3 className="mb-0">Accepted Requests</h3>
+                <h3 className="mb-0">Upcoming Lessons</h3>
               </CardHeader>
 
               <AcceptedRequestTableComponent
