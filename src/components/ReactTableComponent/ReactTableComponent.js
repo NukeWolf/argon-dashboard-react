@@ -1,30 +1,15 @@
+import React from "react";
+import { useGlobalFilter, useTable } from "react-table";
 import {
-  Badge,
-  CardHeader,
-  CardFooter,
-  DropdownMenu,
-  DropdownItem,
-  UncontrolledDropdown,
-  DropdownToggle,
-  InputGroupAddon,
-  InputGroupText,
-  InputGroup,
-  Input,
-  Media,
   Form,
   FormGroup,
-  Pagination,
-  PaginationItem,
-  PaginationLink,
-  Progress,
+  Input,
+  InputGroup,
+  InputGroupAddon,
+  InputGroupText,
   Table,
-  Container,
-  Row,
-  UncontrolledTooltip,
 } from "reactstrap";
 
-import React from "react";
-import { useTable, useGlobalFilter } from "react-table";
 const ReactTableComponent = (props) => {
   const { data, columns, searchEnabled } = props;
   const {

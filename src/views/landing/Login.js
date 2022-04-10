@@ -15,35 +15,29 @@
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 */
-import React from "react";
-
-// reactstrap components
-import {
-  UncontrolledAlert,
-  Button,
-  Card,
-  CardHeader,
-  CardBody,
-  FormGroup,
-  Form,
-  Input,
-  InputGroupAddon,
-  InputGroupText,
-  InputGroup,
-  Container,
-  Row,
-  Col,
-} from "reactstrap";
-
-import { client } from "../../stores/client";
-
+import SimpleFooter from "components/Footers/SimpleFooter.js";
 // core components
 import DemoNavbar from "components/Navbars/DemoNavbar.js";
-import SimpleFooter from "components/Footers/SimpleFooter.js";
-
-import { withRouter } from "react-router-dom";
-
-import { NavLink as NavLinkRRD, Link } from "react-router-dom";
+import React from "react";
+import { connect } from "react-redux";
+import { loginSubmit } from "stores/tutorReducer";
+// reactstrap components
+import {
+  Button,
+  Card,
+  CardBody,
+  Col,
+  Container,
+  Form,
+  FormGroup,
+  Input,
+  InputGroup,
+  InputGroupAddon,
+  InputGroupText,
+  Row,
+  UncontrolledAlert,
+} from "reactstrap";
+import { client } from "../../stores/client";
 
 class Login extends React.Component {
   constructor() {
@@ -59,14 +53,18 @@ class Login extends React.Component {
   async onSubmit(e) {
     e.preventDefault();
     try {
-      const response = await client.post(
+      this.props.loginSubmit({
+        username: this.state.username,
+        password: this.state.password,
+      });
+      /*const response = await client.post(
         "http://localhost:8000/api-token-auth/",
         {
           username: this.state.username,
           password: this.state.password,
         }
-      );
-      localStorage.setItem("token", response.data.token);
+      );*/
+      //localStorage.setItem("token", response.data.token);
       this.props.history.push("/select");
     } catch (e) {
       console.log(e);
@@ -190,4 +188,4 @@ class Login extends React.Component {
   }
 }
 
-export default Login;
+export default connect(null, { loginSubmit })(Login);

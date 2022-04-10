@@ -17,39 +17,32 @@
 */
 
 // reactstrap components
+import Header from "components/Headers/Header.js";
+import AcceptedRequestTableComponent from "components/Tutee/TuteeTutorAcceptedRequest/Table";
+import OutstandingRequestTableComponent from "components/Tutee/TuteeTutorOutstandingRequest/Table";
+import TuteeTutorRequestModal from "components/Tutee/TuteeTutorRequestModal/TuteeTutorRequestModal";
+import TableComponent from "components/Tutee/TuteeTutorTable/Table";
 import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import {
-  Badge,
   Card,
-  CardHeader,
   CardFooter,
-  DropdownMenu,
-  DropdownItem,
-  UncontrolledDropdown,
-  DropdownToggle,
-  Media,
+  CardHeader,
+  Container,
   Pagination,
   PaginationItem,
   PaginationLink,
-  Progress,
-  Table,
-  Container,
   Row,
-  UncontrolledTooltip,
-  CardBody,
-  CardTitle,
 } from "reactstrap";
-import { Modal, Button } from 'react-bootstrap'
 // core components
-import { selectAllTutors, currentTutee, selectAcceptedRequests, selectAllRequests, selectPendingRequests, fetchTutors, fetchRequests, addNewRequest } from '../stores/tutorReducer';
-
-import { useSelector, useDispatch } from 'react-redux';
-import Header from "components/Headers/Header.js";
-import TableComponent from "components/Tutee/TuteeTutorTable/Table";
-import OutstandingRequestTableComponent from "components/Tutee/TuteeTutorOutstandingRequest/Table";
-import AcceptedRequestTableComponent from "components/Tutee/TuteeTutorAcceptedRequest/Table";
-import TuteeTutorRequestModal from "components/Tutee/TuteeTutorRequestModal/TuteeTutorRequestModal";
-import ts from "typescript";
+import {
+  addNewRequest,
+  currentTutee,
+  fetchRequests,
+  fetchTutors,
+  selectAcceptedRequests,
+  selectPendingRequests,
+} from "../stores/tutorReducer";
 
 const Tables = () => {
   const dispatch = useDispatch();
@@ -71,9 +64,8 @@ const Tables = () => {
   };
   const onRequestClick = (request) => {
     dispatch(fetchRequests());
-
   };
-  const products = [{ id: 0, name: 'test', price: 'price' }];
+  const products = [{ id: 0, name: "test", price: "price" }];
   console.log("currenttutor", currenttutor);
 
   const SubmitRequest = (timeslots) => {
@@ -82,12 +74,13 @@ const Tables = () => {
     const newtimeslots = [];
     let i = 0;
     let j = 1;
-    const tsarray = timeslots.map((ts) => ([ts,]));
+    const tsarray = timeslots.map((ts) => [ts]);
     const redits = tsarray.reduce((pV, cV) => {
-      if (pV.at(-1).endDate.format('YYYY-MM-DDThh:mm:ss') ===
-        cV.at(0).startDate.format('YYYY-MM-DDThh:mm:ss')
+      if (
+        pV.at(-1).endDate.format("YYYY-MM-DDThh:mm:ss") ===
+        cV.at(0).startDate.format("YYYY-MM-DDThh:mm:ss")
       ) {
-        return [{ startDate: pV.at(0).startDate, endDate: cV.at(-1).endDate },]
+        return [{ startDate: pV.at(0).startDate, endDate: cV.at(-1).endDate }];
       }
       return pV.concat(cV);
     });
@@ -95,23 +88,21 @@ const Tables = () => {
 
     for (let i = 0; i < redits.length; i++) {
       outts.push({
-        start: timeslots[i].startDate.format('YYYY-MM-DDThh:mm:ss'),
-        end: timeslots[i].endDate.format('YYYY-MM-DDThh:mm:ss')
-      })
+        start: timeslots[i].startDate.format("YYYY-MM-DDThh:mm:ss"),
+        end: timeslots[i].endDate.format("YYYY-MM-DDThh:mm:ss"),
+      });
     }
     console.log(currenttutor, currenttutee);
     const payload = {
-      "timeslots": outts,
-      "Tutor": currenttutor.id,
-      "Tutee": currenttutee.id,
-      "status": "pending",
-      "zoom_link": "http://zoom.com",
+      timeslots: outts,
+      Tutor: currenttutor.id,
+      Tutee: currenttutee.id,
+      status: "pending",
+      zoom_link: "http://zoom.com",
     };
     console.log("payload", payload);
-    dispatch(addNewRequest(
-      payload
-    ))
-  }
+    dispatch(addNewRequest(payload));
+  };
 
   return (
     <>
@@ -187,7 +178,10 @@ const Tables = () => {
                 <h3 className="mb-0">Outstanding Requests</h3>
               </CardHeader>
 
-              <OutstandingRequestTableComponent requests={pending_requests} onRequestClick={onRequestClick}></OutstandingRequestTableComponent>
+              <OutstandingRequestTableComponent
+                requests={pending_requests}
+                onRequestClick={onRequestClick}
+              ></OutstandingRequestTableComponent>
 
               <CardFooter className="py-4">
                 <nav aria-label="...">
@@ -247,7 +241,11 @@ const Tables = () => {
                 <h3 className="mb-0">Accepted Requests</h3>
               </CardHeader>
 
-              <AcceptedRequestTableComponent donedisable={false} requests={accepted_requests} onRequestClick={onRequestClick} />
+              <AcceptedRequestTableComponent
+                donedisable={false}
+                requests={accepted_requests}
+                onRequestClick={onRequestClick}
+              />
               <CardFooter className="py-4">
                 <nav aria-label="...">
                   <Pagination
@@ -303,7 +301,12 @@ const Tables = () => {
             </Card>
           </div>
         </Row>
-        <TuteeTutorRequestModal SubmitRequest={SubmitRequest} show={show} setShow={setShow} tutor={currenttutor}></TuteeTutorRequestModal>
+        <TuteeTutorRequestModal
+          SubmitRequest={SubmitRequest}
+          show={show}
+          setShow={setShow}
+          tutor={currenttutor}
+        ></TuteeTutorRequestModal>
       </Container>
     </>
   );

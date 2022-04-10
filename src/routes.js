@@ -15,18 +15,17 @@
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 */
-import Index from "views/Index.js";
-import Profile from "views/examples/Profile.js";
-import Complaints from "views/Complaints.js";
 import About from "views/About.js";
-import Help from "views/Help.js";
-import Schools from "views/Schools.js";
-import Register from "views/examples/Register.js";
-import Login from "views/examples/Login.js";
-import Tables from "views/TutorList";
-import Icons from "views/examples/Icons.js";
 import Bio from "views/Bio";
+import Complaints from "views/Complaints.js";
+import Icons from "views/examples/Icons.js";
+import Login from "views/examples/Login.js";
+import Profile from "views/examples/Profile.js";
+import Register from "views/examples/Register.js";
+import Help from "views/Help.js";
 import RequestList from "views/RequestList";
+import Schools from "views/Schools.js";
+import Tables from "views/TutorList";
 
 var routes = [
   {
