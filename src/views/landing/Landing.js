@@ -331,7 +331,7 @@ class Landing extends React.Component {
                       alt="..."
                       className="rounded-circle img-center img-fluid shadow shadow-lg--hover"
                       src={
-                        require("assets/img/theme/team-2-800x800.jpg").default
+                        "https://media-exp1.licdn.com/dms/image/C4D03AQH1GTxdf7M7Ow/profile-displayphoto-shrink_400_400/0/1593820411981?e=1655337600&v=beta&t=yaWiWZZNodFIKz0gwr2eUObZad-UeFMpAGH6qYz75TU"
                       }
                       style={{ width: "200px" }}
                     />
@@ -377,7 +377,7 @@ class Landing extends React.Component {
                       alt="..."
                       className="rounded-circle img-center img-fluid shadow shadow-lg--hover"
                       src={
-                        require("assets/img/theme/team-3-800x800.jpg").default
+                        require("../../assets/img/team/thiccsquare.jpg").default
                       }
                       style={{ width: "200px" }}
                     />
@@ -421,7 +421,7 @@ class Landing extends React.Component {
                       alt="..."
                       className="rounded-circle img-center img-fluid shadow shadow-lg--hover"
                       src={
-                        require("assets/img/theme/team-4-800x800.jpg").default
+                        "https://media-exp1.licdn.com/dms/image/C5603AQGp8-MywXQGgw/profile-displayphoto-shrink_400_400/0/1648871423742?e=1655337600&v=beta&t=iViZxqxLAbKRzZO8iGN14norHqvxc1iWSXsPRWSPBlA"
                       }
                       style={{ width: "200px" }}
                     />
