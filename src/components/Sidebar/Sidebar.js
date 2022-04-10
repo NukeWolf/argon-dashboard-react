@@ -256,6 +256,7 @@ const Sidebar = (props) => {
               </NavLink>
             </NavItem>
           </Nav>
+          
         </Collapse>
       </Container>
     </Navbar>

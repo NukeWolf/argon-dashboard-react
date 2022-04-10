@@ -20,7 +20,7 @@ import {
 import moment from 'moment';
 import { Card, Button } from 'react-bootstrap'
 import { selectAllTutors } from '../../../stores/tutorReducer';
-
+import ReactTableComponent from 'components/ReactTableComponent/ReactTableComponent';
 import { useSelector } from 'react-redux';
 import { useTable } from 'react-table';
 
@@ -88,50 +88,11 @@ const TableComponent = (props) => {
     () => requests,
     [requests]
   );
-  const {
-    getTableProps,
-    getTableBodyProps,
-    headerGroups,
-    rows,
-    prepareRow,
-  } = useTable({ columns, data });
+  
   const tutors = useSelector(selectAllTutors);
   console.log("tutors", tutors);
   return (
-    <Table className="align-items-center table-flush" 
-    responsive {...getTableProps()}>
-      <thead>
-        {headerGroups.map(headerGroup => (
-          <tr className="thead-light" {...headerGroup.getHeaderGroupProps()}>
-            {headerGroup.headers.map(column => (
-              <th
-                {...column.getHeaderProps()}
-                scope="col"
-              >
-                {column.render('Header')}
-              </th>
-            ))}
-          </tr>
-        ))}
-      </thead>
-      <tbody {...getTableBodyProps()}>
-        {rows.map(row => {
-          prepareRow(row)
-          return (
-            <tr {...row.getRowProps()}>
-              {row.cells.map(cell => {
-                return (
-                  <td
-                  >
-                    {cell.render('Cell')}
-                  </td>
-                )
-              })}
-            </tr>
-          )
-        })}
-      </tbody>
-    </Table>
+    <ReactTableComponent data={data} columns={columns}></ReactTableComponent>
 
   );
 };

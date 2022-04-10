@@ -43,6 +43,8 @@ import { Modal, Button } from "react-bootstrap";
 // core components
 import {
   selectAllTutors,
+  postTutorRating,
+  finalizeRequest,
   patchRequest,
   fetchTutees,
   currentTutee,
@@ -51,10 +53,14 @@ import {
   selectPendingRequests,
   fetchTutors,
   fetchRequests,
-  addNewRequest,
-} from "../stores/tutorReducer";
+  addNewRequest
+} from '../stores/tutorReducer';
+import TuteeTutorDoneModal from "components/Tutee/TuteeTutorDoneModal.js/TuteeTutorDoneModal";
 
-import { useSelector, useDispatch } from "react-redux";
+import {
+  useSelector,
+  useDispatch
+} from "react-redux";
 import Header from "components/Headers/Header.js";
 import TableComponent from "components/Tutee/TuteeTutorTable/Table";
 import OutstandingRequestTableComponent from "components/Tutee/TuteeTutorOutstandingRequest/Table";
@@ -75,6 +81,7 @@ const TutorList = () => {
   const [currenttutor, setCurrentTutor] = useState({});
   const [currentrequest, setCurrentRequest] = useState({});
   const [show, setShow] = useState(false);
+  const [doneshow, setDoneShow] = useState(false);
   const [showRequest, setShowRequest] = useState(false);
   const TutorSelected = (tutor) => {
     setCurrentTutor(tutor);
@@ -82,11 +89,21 @@ const TutorList = () => {
     setShow(true);
   };
   const onDoneClick = (req) => {
-    dispatch(patchRequest({ id: req.id, tutee_done: "True" }));
+    setDoneShow(true);
+    setCurrentRequest(req);
   };
   const onRequestClick = (request) => {
     dispatch(fetchRequests());
   };
+
+  const onDoneSubmit = (comment, starrating) => {
+    const req = currentrequest;
+    dispatch(postTutorRating({ request: req.id, tutor: req.tutor.id, comment: comment, rating: starrating }))
+    dispatch(patchRequest({ id: req.id, tutee_done: 'True' }));
+    if (req.tutor_done) {
+      dispatch(finalizeRequest({ id: req.id }));
+    }
+  }
   const products = [{ id: 0, name: "test", price: "price" }];
   console.log("currenttutor", currenttutor);
 
@@ -375,6 +392,12 @@ const TutorList = () => {
           setShow={setShow}
           tutor={currenttutor}
         ></TuteeTutorRequestModal>
+        <TuteeTutorDoneModal
+          show={doneshow}
+          request={currentrequest}
+          setShow={setDoneShow}
+          onDoneSubmit={onDoneSubmit}
+        ></TuteeTutorDoneModal>
       </Container>
     </>
   );

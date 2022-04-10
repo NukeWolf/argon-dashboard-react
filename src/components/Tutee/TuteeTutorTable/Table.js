@@ -27,7 +27,7 @@ import { useTable, useGlobalFilter } from "react-table";
 
 import { Card, Button } from "react-bootstrap";
 import { selectAllTutors } from "../../../stores/tutorReducer";
-
+import ReactTableComponent from "components/ReactTableComponent/ReactTableComponent";
 import { useSelector } from "react-redux";
 
 const FakePerson = {
@@ -190,63 +190,12 @@ const TableComponent = (props) => {
     []
   );
   const data = React.useMemo(() => tutors, [tutors]);
-  const {
-    getTableProps,
-    getTableBodyProps,
-    headerGroups,
-    rows,
-    prepareRow,
-    state,
-    setGlobalFilter,
-  } = useTable({ columns, data }, useGlobalFilter);
   return (
-    <>
-      <Form className="navbar-search navbar-search-light form-inline ml-3 mb-3">
-        <FormGroup className="mb-0">
-          <InputGroup className="input-group-alternative">
-            <InputGroupAddon addonType="prepend">
-              <InputGroupText>
-                <i className="fas fa-search" />
-              </InputGroupText>
-            </InputGroupAddon>
-            <Input
-              placeholder="Search"
-              type="text"
-              onChange={(e) => setGlobalFilter(e.target.value)}
-            />
-          </InputGroup>
-        </FormGroup>
-      </Form>
-      <Table
-        className="align-items-center table-flush"
-        responsive
-        {...getTableProps()}
-      >
-        <thead>
-          {headerGroups.map((headerGroup) => (
-            <tr className="thead-light" {...headerGroup.getHeaderGroupProps()}>
-              {headerGroup.headers.map((column) => (
-                <th {...column.getHeaderProps()} scope="col">
-                  {column.render("Header")}
-                </th>
-              ))}
-            </tr>
-          ))}
-        </thead>
-        <tbody {...getTableBodyProps()}>
-          {rows.map((row) => {
-            prepareRow(row);
-            return (
-              <tr {...row.getRowProps()}>
-                {row.cells.map((cell) => {
-                  return <td>{cell.render("Cell")}</td>;
-                })}
-              </tr>
-            );
-          })}
-        </tbody>
-      </Table>
-    </>
+    <ReactTableComponent
+      data={data}
+      columns={columns}
+      searchEnabled
+    ></ReactTableComponent>
   );
 
   return (

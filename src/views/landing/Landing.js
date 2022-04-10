@@ -140,7 +140,7 @@ class Landing extends React.Component {
                             color="primary"
                             href="/register"
                           >
-                            Learn more
+                            Get Started
                           </Button>
                         </CardBody>
                       </Card>
@@ -164,7 +164,7 @@ class Landing extends React.Component {
                             color="success"
                             href="/register"
                           >
-                            Learn more
+                            Get Started
                           </Button>
                         </CardBody>
                       </Card>
@@ -182,7 +182,7 @@ class Landing extends React.Component {
                             We partner with universities to ensure our services are 
                             accessible to all students, regardless of economic background. 
                           </p>
-
+                          
                           <Button
                             className="mt-4"
                             color="warning"
@@ -190,6 +190,7 @@ class Landing extends React.Component {
                           >
                             Learn more
                           </Button>
+                         
                         </CardBody>
                       </Card>
                     </Col>
@@ -277,11 +278,12 @@ class Landing extends React.Component {
             <Container>
               <Row className="justify-content-center text-center mb-lg">
                 <Col lg="8">
-                  <h2 className="display-3">The amazing Team</h2>
+                  <h2 className="display-3">Meet The Team</h2>
                   <p className="lead text-muted">
-                    According to the National Oceanic and Atmospheric
+
+                    {/* According to the National Oceanic and Atmospheric
                     Administration, Ted, Scambos, NSIDClead scentist, puts the
-                    potentially record maximum.
+                    potentially record maximum. */}
                   </p>
                 </Col>
               </Row>
@@ -298,8 +300,8 @@ class Landing extends React.Component {
                     />
                     <div className="pt-4 text-center">
                       <h5 className="title">
-                        <span className="d-block mb-1">Ryan Tompson</span>
-                        <small className="h6 text-muted">Web Developer</small>
+                        <span className="d-block mb-1">Lukas Nel</span>
+                        <small className="h6 text-muted">Full-Stack Developer</small>
                       </h5>
                       <div className="mt-3">
                         <Button
@@ -342,9 +344,9 @@ class Landing extends React.Component {
                     />
                     <div className="pt-4 text-center">
                       <h5 className="title">
-                        <span className="d-block mb-1">Romina Hadid</span>
+                        <span className="d-block mb-1">Alex Huang</span>
                         <small className="h6 text-muted">
-                          Marketing Strategist
+                          Front-End Developer
                         </small>
                       </h5>
                       <div className="mt-3">
@@ -388,7 +390,7 @@ class Landing extends React.Component {
                     />
                     <div className="pt-4 text-center">
                       <h5 className="title">
-                        <span className="d-block mb-1">Alexander Smith</span>
+                        <span className="d-block mb-1">Brendon Gong</span>
                         <small className="h6 text-muted">UI/UX Designer</small>
                       </h5>
                       <div className="mt-3">
@@ -432,8 +434,8 @@ class Landing extends React.Component {
                     />
                     <div className="pt-4 text-center">
                       <h5 className="title">
-                        <span className="d-block mb-1">John Doe</span>
-                        <small className="h6 text-muted">Founder and CEO</small>
+                        <span className="d-block mb-1">Carlos Herbozo</span>
+                        <small className="h6 text-muted">Back-End Developer</small>
                       </h5>
                       <div className="mt-3">
                         <Button

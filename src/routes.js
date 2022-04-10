@@ -20,6 +20,7 @@ import Profile from "views/examples/Profile.js";
 import Complaints from "views/Complaints.js";
 import About from "views/About.js";
 import Help from "views/Help.js";
+import Schools from "views/Schools.js"
 import Register from "views/examples/Register.js";
 import Login from "views/examples/Login.js";
 import Tables from "views/TutorList";
@@ -69,6 +70,13 @@ var routes = [
     name: "About",
     icon: "ni ni-pin-3 text-orange",
     component: About,
+    layout: "/admin",
+  },
+  {
+    path: "/schools",
+    name: "Partner Schools",
+    icon: "ni ni-pin-3 text-orange",
+    component: Schools,
     layout: "/admin",
   },
   {
