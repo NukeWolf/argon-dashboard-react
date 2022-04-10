@@ -78,8 +78,8 @@ class Landing extends React.Component {
                         <span>Flexible. Affordable. On Demand.</span>
                       </h1>
                       <p className="lead text-white">
-                        Tuut is a startup focused on connecting students who
-                        need help directly with peer tutors in a timely manner.
+                        Tuut is a startup committed to streamlining the process of connecting peer tutors with students who
+                        need help.
                       </p>
                       <div className="btn-wrapper">
                         <Button
@@ -128,7 +128,7 @@ class Landing extends React.Component {
                             <i className="ni ni-check-bold" />
                           </div>
                           <h6 className="text-primary text-uppercase">
-                            Be a Tutor
+                            Become a Tutor
                           </h6>
                           <p className="description mt-3">
                             Set your own hours and start tutoring in blocks as
@@ -152,7 +152,7 @@ class Landing extends React.Component {
                             <i className="ni ni-istanbul" />
                           </div>
                           <h6 className="text-success text-uppercase">
-                            Be a Tutee
+                            Become a Tutee
                           </h6>
                           <p className="description mt-3">
                             Find a tutor anytime of the day. Book for as little
@@ -176,7 +176,7 @@ class Landing extends React.Component {
                             <i className="ni ni-planet" />
                           </div>
                           <h6 className="text-warning text-uppercase">
-                            Accessible
+                            Accessibility Commitment
                           </h6>
                           <p className="description mt-3">
                             We partner with universities and to reinburse funds
