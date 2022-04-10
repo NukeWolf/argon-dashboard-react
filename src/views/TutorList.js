@@ -50,6 +50,7 @@ import {
   currentTutee,
   selectAcceptedRequests,
   selectAllRequests,
+  selectFinalizedRequests,
   selectPendingRequests,
   fetchTutors,
   fetchRequests,
@@ -73,10 +74,12 @@ const TutorList = () => {
   const currenttutee = useSelector(currentTutee);
   const pending_requests = useSelector(selectPendingRequests);
   const accepted_requests = useSelector(selectAcceptedRequests);
+  const finalized_requests = useSelector(selectFinalizedRequests);
+  
   useEffect(() => {
-    dispatch(fetchTutors());
     dispatch(fetchRequests());
     dispatch(fetchTutees());
+    dispatch(fetchTutors());
   }, []);
   const [currenttutor, setCurrentTutor] = useState({});
   const [currentrequest, setCurrentRequest] = useState({});
@@ -96,13 +99,15 @@ const TutorList = () => {
     dispatch(fetchRequests());
   };
 
-  const onDoneSubmit = (comment, starrating) => {
+  const onDoneSubmit = (starrating,comment ) => {
     const req = currentrequest;
-    dispatch(postTutorRating({ request: req.id, tutor: req.tutor.id, comment: comment, rating: starrating }))
+    dispatch(postTutorRating({ 
+      request: req.id, tutor: req.tutor.id, comment: comment, rating: starrating }))
     dispatch(patchRequest({ id: req.id, tutee_done: 'True' }));
     if (req.tutor_done) {
       dispatch(finalizeRequest({ id: req.id }));
     }
+    setDoneShow(false);
   }
   const products = [{ id: 0, name: "test", price: "price" }];
   console.log("currenttutor", currenttutor);
@@ -331,6 +336,70 @@ const TutorList = () => {
                 requests={accepted_requests}
                 onRequestClick={onDoneClick}
               />
+              <CardFooter className="py-4">
+                <nav aria-label="...">
+                  <Pagination
+                    className="pagination justify-content-end mb-0"
+                    listClassName="justify-content-end mb-0"
+                  >
+                    <PaginationItem className="disabled">
+                      <PaginationLink
+                        href="#pablo"
+                        onClick={(e) => e.preventDefault()}
+                        tabIndex="-1"
+                      >
+                        <i className="fas fa-angle-left" />
+                        <span className="sr-only">Previous</span>
+                      </PaginationLink>
+                    </PaginationItem>
+                    <PaginationItem className="active">
+                      <PaginationLink
+                        href="#pablo"
+                        onClick={(e) => e.preventDefault()}
+                      >
+                        1
+                      </PaginationLink>
+                    </PaginationItem>
+                    <PaginationItem>
+                      <PaginationLink
+                        href="#pablo"
+                        onClick={(e) => e.preventDefault()}
+                      >
+                        2 <span className="sr-only">(current)</span>
+                      </PaginationLink>
+                    </PaginationItem>
+                    <PaginationItem>
+                      <PaginationLink
+                        href="#pablo"
+                        onClick={(e) => e.preventDefault()}
+                      >
+                        3
+                      </PaginationLink>
+                    </PaginationItem>
+                    <PaginationItem>
+                      <PaginationLink
+                        href="#pablo"
+                        onClick={(e) => e.preventDefault()}
+                      >
+                        <i className="fas fa-angle-right" />
+                        <span className="sr-only">Next</span>
+                      </PaginationLink>
+                    </PaginationItem>
+                  </Pagination>
+                </nav>
+              </CardFooter>
+            </Card>
+            <Card className="shadow">
+              <CardHeader className="border-0">
+                <h3 className="mb-0">Finalized Lesson Requests</h3>
+              </CardHeader>
+
+              <OutstandingRequestTableComponent
+                requests={finalized_requests}
+                onRequestClick={onRequestClick}
+                buttonnotshow={true}
+              ></OutstandingRequestTableComponent>
+
               <CardFooter className="py-4">
                 <nav aria-label="...">
                   <Pagination

@@ -19,6 +19,7 @@ const TuteeTutorDoneModal = (props) => {
   const [comment, setComment] = useState('');
   const handleClose = () => setShow(false);
   const submitRequestHandler = ()=>{
+    console.log("submitstar",starrating, comment);
     onDoneSubmit(starrating, comment);
   }
   const timeslotsformat = [];
@@ -26,6 +27,7 @@ const TuteeTutorDoneModal = (props) => {
   const sd = moment("2021-01-01 00:00 AM");
   const ed = moment("2021-01-01 11:59 PM");
   const onStarClick = (nextValue, prevValue, name) => {
+    console.log("star",nextValue,prevValue)
     setStarRating(nextValue);
   }
   return (
@@ -33,7 +35,7 @@ const TuteeTutorDoneModal = (props) => {
 
 
       <Modal style={{ width: "100%" }} size="xl" isOpen={show}>
-        <ModalHeader ><h3>Make Request for Tutor {request.tutor ? (<span>{request.tutor.first_name} {request.tutor.last_name}</span>) : <></>}</h3></ModalHeader>
+        <ModalHeader ><h3>RTutor {request.tutor ? (<span>{request.tutor.first_name} {request.tutor.last_name}</span>) : <></>}</h3></ModalHeader>
         <ModalBody>
           <Form>
             <Container>

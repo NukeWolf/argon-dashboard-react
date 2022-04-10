@@ -258,7 +258,7 @@ const Index = (props) => {
                         <span className="mr-2">60%</span>
                         <div>
                           <Progress
-                            max="100"
+                            max="5"
                             value="60"
                             barClassName="bg-gradient-danger"
                           />
@@ -289,7 +289,7 @@ const Index = (props) => {
                       <div className="d-flex align-items-center">
                         <span className="mr-2">80%</span>
                         <div>
-                          <Progress max="100" value="80" />
+                          <Progress max="5" value="80" />
                         </div>
                       </div>
                     </td>
