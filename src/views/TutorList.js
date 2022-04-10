@@ -17,56 +17,37 @@
 */
 
 // reactstrap components
+import Header from "components/Headers/Header.js";
+import AcceptedRequestTableComponent from "components/Tutee/TuteeTutorAcceptedRequest/Table";
+import TuteeTutorDoneModal from "components/Tutee/TuteeTutorDoneModal.js/TuteeTutorDoneModal";
+import OutstandingRequestTableComponent from "components/Tutee/TuteeTutorOutstandingRequest/Table";
+import TuteeTutorRequestModal from "components/Tutee/TuteeTutorRequestModal/TuteeTutorRequestModal";
+import TableComponent from "components/Tutee/TuteeTutorTable/Table";
 import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import {
-  Badge,
   Card,
-  CardHeader,
   CardFooter,
-  DropdownMenu,
-  DropdownItem,
-  UncontrolledDropdown,
-  DropdownToggle,
-  Media,
+  CardHeader,
+  Container,
   Pagination,
   PaginationItem,
   PaginationLink,
-  Progress,
-  Table,
-  Container,
   Row,
-  UncontrolledTooltip,
-  CardBody,
-  CardTitle,
 } from "reactstrap";
-import { Modal, Button } from "react-bootstrap";
 // core components
 import {
-  selectAllTutors,
-  postTutorRating,
+  addNewRequest,
+  currentTutee,
+  fetchRequests,
+  fetchTutees,
+  fetchTutors,
   finalizeRequest,
   patchRequest,
-  fetchTutees,
-  currentTutee,
+  postTutorRating,
   selectAcceptedRequests,
-  selectAllRequests,
   selectPendingRequests,
-  fetchTutors,
-  fetchRequests,
-  addNewRequest
-} from '../stores/tutorReducer';
-import TuteeTutorDoneModal from "components/Tutee/TuteeTutorDoneModal.js/TuteeTutorDoneModal";
-
-import {
-  useSelector,
-  useDispatch
-} from "react-redux";
-import Header from "components/Headers/Header.js";
-import TableComponent from "components/Tutee/TuteeTutorTable/Table";
-import OutstandingRequestTableComponent from "components/Tutee/TuteeTutorOutstandingRequest/Table";
-import AcceptedRequestTableComponent from "components/Tutee/TuteeTutorAcceptedRequest/Table";
-import TuteeTutorRequestModal from "components/Tutee/TuteeTutorRequestModal/TuteeTutorRequestModal";
-import ts from "typescript";
+} from "../stores/tutorReducer";
 
 const TutorList = () => {
   const dispatch = useDispatch();
@@ -98,12 +79,19 @@ const TutorList = () => {
 
   const onDoneSubmit = (comment, starrating) => {
     const req = currentrequest;
-    dispatch(postTutorRating({ request: req.id, tutor: req.tutor.id, comment: comment, rating: starrating }))
-    dispatch(patchRequest({ id: req.id, tutee_done: 'True' }));
+    dispatch(
+      postTutorRating({
+        request: req.id,
+        tutor: req.tutor.id,
+        comment: comment,
+        rating: starrating,
+      })
+    );
+    dispatch(patchRequest({ id: req.id, tutee_done: "True" }));
     if (req.tutor_done) {
       dispatch(finalizeRequest({ id: req.id }));
     }
-  }
+  };
   const products = [{ id: 0, name: "test", price: "price" }];
   console.log("currenttutor", currenttutor);
 
@@ -263,7 +251,7 @@ const TutorList = () => {
               <OutstandingRequestTableComponent
                 requests={pending_requests}
                 onRequestClick={onRequestClick}
-                buttonnotshow={false}
+                buttonnotshow={true}
               ></OutstandingRequestTableComponent>
 
               <CardFooter className="py-4">

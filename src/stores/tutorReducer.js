@@ -25,7 +25,11 @@ export const tutorSlice = createSlice({
       ratings: 60,
       status: 'online',
     },],
+    token: '',
     currentTuteeID: 1,
+    currentTutorID: 1,
+    is_tutee:false,
+    is_tutor:false,
     tutors: [{
       picture:
         "https://media-exp1.licdn.com/dms/image/C4D03AQH1GTxdf7M7Ow/profile-displayphoto-shrink_400_400/0/1593820411981?e=1654732800&v=beta&t=KdVIhnoyk0SDSybEGXYvOL4Aahw7JsWalKw3AFNIcqg",
@@ -107,6 +111,31 @@ export const tutorSlice = createSlice({
       }).addCase(finalizeRequest.fulfilled, (state, action) => {
         // We can directly add the new request object to our  requests
         toast.success('Successfully finalized request.');
+      }).addCase(loginSubmit.pending, (state, action) => {
+        state.status = 'loading'
+      })
+      .addCase(loginSubmit.fulfilled, (state, action) => {
+        state.status = 'succeeded'
+        // Add any fetched posts to the array
+        console.log("success", action);
+        state.token = action.payload.token;
+        localStorage.setItem("token", action.payload.token);
+        // toast.success('Successfully loaded tutors.');
+      })
+      .addCase(loginSubmit.rejected, (state, action) => {
+        state.status = 'failed'
+        state.error = action.error.message
+      }).addCase(checkTutor.fulfilled, (state, action) => {
+        state.status = 'succeeded'
+        // Add any fetched posts to the array
+        console.log("successTutor", action);
+        state.is_tutee = action.payload.is_tutee;
+        state.is_tutor = action.payload.is_tutor;
+        if (action.payload.is_tutee) 
+          state.currentTuteeID = action.payload.tutee.id;
+        if (action.payload.is_tutor) 
+          state.currentTutorID = action.payload.tutor.id;
+        // toast.success('Successfully loaded tutors.');
       })
   }
 })
@@ -197,12 +226,42 @@ export const sendDone = createAsyncThunk(
   // The payload creator receives the partial `{title, content, user}` object
   async (initialRequest, thunkAPI) => {
     // We send the initial data to the fake API server
-    const response = await client.post('http://localhost:8000/send_done/', initialRequest)
+    const response =
+      await client.post('http://localhost:8000/send_done/', initialRequest)
     // The response includes the complete post object, including unique ID
     thunkAPI.dispatch(fetchRequests());
     return response.data
   }
+);
+export const checkTutor = createAsyncThunk(
+  'tutors/checkTutor',
+  // The payload creator receives the partial `{title, content, user}` object
+  async (initialRequest, thunkAPI) => {
+    // We send the initial data to the fake API server
+    const response = await client.post('http://localhost:8000/check_tutor/',
+      initialRequest, {
+        headers:
+          { "Authorization": "Token " + initialRequest.token }
+    })
+    // The response includes the complete post object, including unique ID
+    return response.data
+  }
 )
+export const loginSubmit = createAsyncThunk(
+  'tutors/loginSubmit',
+  // The payload creator receives the partial `{title, content, user}` object
+  async (initialRequest, thunkAPI) => {
+    // We send the initial data to the fake API server
+    const response = await client.post('http://localhost:8000/api-token-auth/', initialRequest)
+    // The response includes the complete post object, including unique ID
+    thunkAPI.dispatch(checkTutor({ token: response.data.token }));
+    localStorage.setItem("token", response.data.token);
+    thunkAPI.dispatch(fetchRequests());
+    return response.data
+  }
+)
+
+
 
 export const { addTutor } = tutorSlice.actions
 export const selectAllTutors = state => state.tutors.tutors;
@@ -243,7 +302,8 @@ export const selectAcceptedRequests = (state) => {
   return requestProcess(state, requests);
 
 }
-
+export const is_tutor = (state)=>(state.tutors.is_tutor);
+export const is_tutee = (state)=>(state.tutors.is_tutee);
 export const currentTutee = (state) => {
   const tutee = state.tutors.tutees.filter((tut) => { return tut.id === state.tutors.currentTuteeID })[0];
 

@@ -16,37 +16,13 @@
 
 */
 // reactstrap components
-import React, { useEffect, useState } from "react";
-import sgMail from "@sendgrid/mail";
-import {
-  Badge,
-  Input,
-  Card,
-  CardHeader,
-  CardFooter,
-  DropdownMenu,
-  DropdownItem,
-  UncontrolledDropdown,
-  DropdownToggle,
-  Media,
-  Pagination,
-  PaginationItem,
-  PaginationLink,
-  Progress,
-  Table,
-  Container,
-  Row,
-  UncontrolledTooltip,
-  CardBody,
-} from "reactstrap";
-import { Modal, Button } from "react-bootstrap";
-// core components
-import { selectAllTutors, fetchTutors } from "../stores/tutorReducer";
-
-import { useSelector, useDispatch } from "react-redux";
 import Header from "components/Headers/Header.js";
-import TableComponent from "components/Tutee/TuteeTutorTable/Table";
-import TuteeTutorRequestModal from "components/Tutee/TuteeTutorRequestModal/TuteeTutorRequestModal";
+import React, { useEffect, useState } from "react";
+import { Button } from "react-bootstrap";
+import { useDispatch } from "react-redux";
+import { Card, CardBody, CardHeader, Container, Input, Row } from "reactstrap";
+// core components
+import { fetchTutors } from "../stores/tutorReducer";
 
 const Tables = () => {
   const dispatch = useDispatch();
@@ -93,8 +69,8 @@ const Tables = () => {
         <p>Yale</p>
 
         Can't find your school? Send us a request.
-        <Input type="textarea" name="text" id="exampleText" placeholder="School Name"/>
-        <Input type="textarea" name="text" id="exampleText" placeholder="Email"/>
+        <Input type="text" name="text" id="exampleText" placeholder="School Name"/>
+        <Input type="text" name="text" id="exampleText" placeholder="Email"/>
         <Button onClick={sendEmail}>Send Email</Button>
 
       </CardBody>

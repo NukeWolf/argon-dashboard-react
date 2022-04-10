@@ -1,34 +1,9 @@
-import React from "react";
-import {
-  Badge,
-  CardHeader,
-  CardFooter,
-  DropdownMenu,
-  DropdownItem,
-  UncontrolledDropdown,
-  DropdownToggle,
-  InputGroupAddon,
-  InputGroupText,
-  InputGroup,
-  Input,
-  Media,
-  Form,
-  FormGroup,
-  Pagination,
-  PaginationItem,
-  PaginationLink,
-  Progress,
-  Table,
-  Container,
-  Row,
-  UncontrolledTooltip,
-} from "reactstrap";
-import { useTable, useGlobalFilter } from "react-table";
-
-import { Card, Button } from "react-bootstrap";
-import { selectAllTutors } from "../../../stores/tutorReducer";
 import ReactTableComponent from "components/ReactTableComponent/ReactTableComponent";
+import React from "react";
+import { Button, Card } from "react-bootstrap";
 import { useSelector } from "react-redux";
+import { Media, Progress, Table } from "reactstrap";
+import { selectAllTutors } from "../../../stores/tutorReducer";
 
 const FakePerson = {
   picture:

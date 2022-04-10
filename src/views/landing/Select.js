@@ -15,15 +15,16 @@
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 */
-import React from "react";
-
-// reactstrap components
-import { Button, Card, Container, Row, Col } from "reactstrap";
-
+import SimpleFooter from "components/Footers/SimpleFooter.js";
 // core components
 import DemoNavbar from "components/Navbars/DemoNavbar.js";
-import SimpleFooter from "components/Footers/SimpleFooter.js";
+import React from "react";
+// reactstrap components
+import { Card, Col, Container, Row } from "reactstrap";
 
+import { connect } from "react-redux";
+import { is_tutee } from "stores/tutorReducer";
+import { is_tutor } from "stores/tutorReducer";
 class Profile extends React.Component {
   componentDidMount() {
     document.documentElement.scrollTop = 0;
@@ -66,40 +67,44 @@ class Profile extends React.Component {
           <section className="section">
             <Container>
               <Row>
-                <Col>
-                  <a href="/tutee">
-                    <Card className="card-profile shadow mt--300">
-                      <div className="px-4">
-                        <div className="text-center mt-5">
-                          <h2>I'm a student</h2>
+                {this.props.is_tutee && (
+                  <Col>
+                    <a href="/tutee">
+                      <Card className="card-profile shadow mt--300">
+                        <div className="px-4">
+                          <div className="text-center mt-5">
+                            <h2>I'm a student</h2>
+                          </div>
+                          <div className="mt-5 py-5 border-top text-center">
+                            <i
+                              class="fa fa-solid fa-graduation-cap fa-8x"
+                              style={{ fontSize: "9em" }}
+                            ></i>
+                          </div>
                         </div>
-                        <div className="mt-5 py-5 border-top text-center">
-                          <i
-                            class="fa fa-solid fa-graduation-cap fa-8x"
-                            style={{ fontSize: "9em" }}
-                          ></i>
+                      </Card>
+                    </a>
+                  </Col>
+                )}
+                {this.props.is_tutor && (
+                  <Col>
+                    <a href="/tutor">
+                      <Card className="card-profile shadow mt--300">
+                        <div className="px-4">
+                          <div className="text-center mt-5">
+                            <h2>I'm a tutor</h2>
+                          </div>
+                          <div className="mt-5 py-5 border-top text-center">
+                            <i
+                              class="fa fa-solid fa-briefcase fa-8x"
+                              style={{ fontSize: "9em" }}
+                            ></i>
+                          </div>
                         </div>
-                      </div>
-                    </Card>
-                  </a>
-                </Col>
-                <Col>
-                  <a href="/tutor">
-                    <Card className="card-profile shadow mt--300">
-                      <div className="px-4">
-                        <div className="text-center mt-5">
-                          <h2>I'm a tutor</h2>
-                        </div>
-                        <div className="mt-5 py-5 border-top text-center">
-                          <i
-                            class="fa fa-solid fa-briefcase fa-8x"
-                            style={{ fontSize: "9em" }}
-                          ></i>
-                        </div>
-                      </div>
-                    </Card>
-                  </a>
-                </Col>
+                      </Card>
+                    </a>
+                  </Col>
+                )}
               </Row>
             </Container>
           </section>
@@ -110,4 +115,7 @@ class Profile extends React.Component {
   }
 }
 
-export default Profile;
+export default connect((state) => ({
+  is_tutee: is_tutee(state),
+  is_tutor: is_tutor(state),
+}))(Profile);
