@@ -72,6 +72,13 @@ var routes = [
     layout: "/admin",
   },
   {
+    path: "/schools",
+    name: "Partner Schools",
+    icon: "ni ni-pin-3 text-orange",
+    component: Schools,
+    layout: "/admin",
+  },
+  {
     path: "/user-profile",
     name: "User Profile",
     icon: "ni ni-single-02 text-yellow",
