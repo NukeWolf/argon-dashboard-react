@@ -17,10 +17,10 @@
 */
 // reactstrap components
 import React, { useEffect, useState } from "react";
-import sgMail from '@sendgrid/mail';
+import sgMail from "@sendgrid/mail";
 import {
-  Badge,Input,
-
+  Badge,
+  Input,
   Card,
   CardHeader,
   CardFooter,
@@ -39,55 +39,57 @@ import {
   UncontrolledTooltip,
   CardBody,
 } from "reactstrap";
-import {Modal, Button} from 'react-bootstrap'
+import { Modal, Button } from "react-bootstrap";
 // core components
-import { selectAllTutors, fetchTutors } from '../stores/tutorReducer';
+import { selectAllTutors, fetchTutors } from "../stores/tutorReducer";
 
-import { useSelector, useDispatch} from 'react-redux';
+import { useSelector, useDispatch } from "react-redux";
 import Header from "components/Headers/Header.js";
 import TableComponent from "components/Tutee/TuteeTutorTable/Table";
 import TuteeTutorRequestModal from "components/Tutee/TuteeTutorRequestModal/TuteeTutorRequestModal";
 
-
 const Tables = () => {
   const dispatch = useDispatch();
-  useEffect(()=>{
+  useEffect(() => {
     dispatch(fetchTutors());
-  },[]);
-  const [currenttutor, setCurrentTutor] = useState({});  
-  const [show, setShow] = useState(false);  
-  const TutorSelected = (tutor)=>{
+  }, []);
+  const [currenttutor, setCurrentTutor] = useState({});
+  const [show, setShow] = useState(false);
+  const TutorSelected = (tutor) => {
     setCurrentTutor(tutor);
 
     setShow(true);
     console.log("currenttutor", currenttutor);
-  }
+  };
 
   return (
     <>
       {/* Page content */}
+      <Header />
 
       <Container className="mt--7" fluid>
         {/* Table */}
-        <Header/>
-        
+
         <Row>
           <div className="col">
             <Card className="shadow">
               <CardHeader className="border-0">
                 <h2 className="mb-0">About Us</h2>
               </CardHeader>
-      <CardBody>
-        <h3>
-          Tuut. We’re going to revolutionize the definition of accessible peer tutoring for university students across the world. And it starts at Yale. 
-
-          At Tuut, we aim to address the need for last-minute time-sensitive tutoring by bypassing the slow processes of university tutoring center referrals and understaffed TA office hours, which often leave students helpless (and hopeless).
-          With our web application, students who need help can select from any number of peer tutors, with flexible 10-minute slots which allow the tutor to teach with limited time commitment, and students to get help as needed.
-        </h3>
-        
-
-      </CardBody>
-              
+              <CardBody>
+                <h3>
+                  Tuut. We’re going to revolutionize the definition of
+                  accessible peer tutoring for university students across the
+                  world. And it starts at Yale. At Tuut, we aim to address the
+                  need for last-minute time-sensitive tutoring by bypassing the
+                  slow processes of university tutoring center referrals and
+                  understaffed TA office hours, which often leave students
+                  helpless (and hopeless). With our web application, students
+                  who need help can select from any number of peer tutors, with
+                  flexible 10-minute slots which allow the tutor to teach with
+                  limited time commitment, and students to get help as needed.
+                </h3>
+              </CardBody>
             </Card>
           </div>
         </Row>

@@ -246,7 +246,7 @@ class Landing extends React.Component {
                             </Badge>
                           </div>
                           <div>
-                            <h6 className="mb-0">15 minute lesson blocks</h6>
+                            <h6 className="mb-0">Schedule Lessons on Short Notice</h6>
                           </div>
                         </div>
                       </li>
@@ -262,7 +262,7 @@ class Landing extends React.Component {
                           </div>
                           <div>
                             <h6 className="mb-0">
-                              Responsive support team
+                              Verified Peer Tutors
                             </h6>
                           </div>
                         </div>
@@ -506,7 +506,7 @@ class Landing extends React.Component {
                     <CardBody className="p-lg-5">
                       <h4 className="mb-1">Want to work with us?</h4>
                       <p className="mt-0">
-                        Your project is very important to us.
+                        Shoot us an email.
                       </p>
                       <FormGroup
                         className={classnames("mt-5", {
