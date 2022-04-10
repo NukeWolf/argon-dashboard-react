@@ -15,27 +15,22 @@
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 */
-import React from "react";
-import { Link } from "react-router-dom";
 // JavaScript plugin that hides or shows a component based on your scroll
 import Headroom from "headroom.js";
+import React from "react";
+import { Link } from "react-router-dom";
 // reactstrap components
 import {
   Button,
-  UncontrolledCollapse,
-  DropdownMenu,
-  DropdownItem,
-  DropdownToggle,
-  UncontrolledDropdown,
-  Media,
-  NavbarBrand,
+  Col,
+  Container,
+  Nav,
   Navbar,
+  NavbarBrand,
   NavItem,
   NavLink,
-  Nav,
-  Container,
   Row,
-  Col,
+  UncontrolledCollapse,
   UncontrolledTooltip,
 } from "reactstrap";
 
