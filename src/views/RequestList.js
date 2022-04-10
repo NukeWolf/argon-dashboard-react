@@ -105,6 +105,7 @@ const RequestList = () => {
               <OutstandingRequestTableComponent
                 requests={pending_requests}
                 onRequestClick={onRequestClick}
+                buttonnotshow={false}
               ></OutstandingRequestTableComponent>
               <CardFooter className="py-4"></CardFooter>
             </Card>
@@ -118,6 +119,8 @@ const RequestList = () => {
                   console.log(row);
                   return row.tutor_done;
                 }}
+                buttonnotshow={true}
+
                 requests={accepted_requests}
                 onRequestClick={onDoneClick}
               />

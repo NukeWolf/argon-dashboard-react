@@ -251,7 +251,7 @@ const TutorList = () => {
               <OutstandingRequestTableComponent
                 requests={pending_requests}
                 onRequestClick={onRequestClick}
-                buttonnotshow={false}
+                buttonnotshow={true}
               ></OutstandingRequestTableComponent>
 
               <CardFooter className="py-4">

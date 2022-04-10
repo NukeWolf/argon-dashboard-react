@@ -19,6 +19,8 @@ import SimpleFooter from "components/Footers/SimpleFooter.js";
 // core components
 import DemoNavbar from "components/Navbars/DemoNavbar.js";
 import React from "react";
+import { connect } from "react-redux";
+import { loginSubmit } from "stores/tutorReducer";
 // reactstrap components
 import {
   Button,
@@ -51,14 +53,18 @@ class Login extends React.Component {
   async onSubmit(e) {
     e.preventDefault();
     try {
-      const response = await client.post(
+      this.props.loginSubmit({
+        username: this.state.username,
+        password: this.state.password,
+      });
+      /*const response = await client.post(
         "http://localhost:8000/api-token-auth/",
         {
           username: this.state.username,
           password: this.state.password,
         }
-      );
-      localStorage.setItem("token", response.data.token);
+      );*/
+      //localStorage.setItem("token", response.data.token);
       this.props.history.push("/select");
     } catch (e) {
       console.log(e);
@@ -182,4 +188,4 @@ class Login extends React.Component {
   }
 }
 
-export default Login;
+export default connect(null, { loginSubmit })(Login);

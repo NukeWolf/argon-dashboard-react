@@ -19,7 +19,9 @@
 // reactstrap components
 import { Button, Col, Container, Row } from "reactstrap";
 
-const UserHeader = () => {
+const UserHeader = (props) => {
+  const { clickEdit } = props;
+
   return (
     <>
       <div
@@ -48,9 +50,9 @@ const UserHeader = () => {
               <Button
                 color="info"
                 href="#pablo"
-                onClick={(e) => e.preventDefault()}
+                onClick={(e) => clickEdit()}
               >
-                Edit profile
+                Edit accesibility
               </Button>
             </Col>
           </Row>

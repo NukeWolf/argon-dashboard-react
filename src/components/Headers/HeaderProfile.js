@@ -19,7 +19,8 @@
 // reactstrap components
 import { Container } from "reactstrap";
 
-const UserHeader = () => {
+const UserHeader = (props) => {
+  const { clickEdit } = props;
   return (
     <>
       <div
