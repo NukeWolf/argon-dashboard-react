@@ -65,7 +65,7 @@ const Tables = () => {
                 <h2 className="mb-0">Partner Schools</h2>
               </CardHeader>
       <CardBody>
-        <h3>See if we're partnered with your university:</h3>
+        See if we're partnered with your university.
         <p>Yale</p>
 
         Can't find your school? Send us a request.
