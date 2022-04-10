@@ -216,7 +216,7 @@ const TutorList = () => {
             </Card>
             <Card className="shadow">
               <CardHeader className="border-0">
-                <h3 className="mb-0">Pending Requests</h3>
+                <h3 className="mb-0">Pending Lesson Requests</h3>
               </CardHeader>
 
               <OutstandingRequestTableComponent
@@ -280,7 +280,7 @@ const TutorList = () => {
             </Card>
             <Card className="shadow">
               <CardHeader className="border-0">
-                <h3 className="mb-0">Accepted Requests</h3>
+                <h3 className="mb-0">Upcoming Lessons</h3>
               </CardHeader>
 
               <AcceptedRequestTableComponent donedisable={(row)=>{return row.tutee_done;}} requests={accepted_requests} onRequestClick={onDoneClick} />
