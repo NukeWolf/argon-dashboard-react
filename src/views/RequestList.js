@@ -50,7 +50,7 @@ import {
   fetchTutors,
   selectPendingRequests,
   sendEmailAcceptance,
-  fetchRequests
+  fetchRequests,
 } from "../stores/tutorReducer";
 import OutstandingRequestTableComponent from "components/Tutee/TuteeTutorOutstandingRequest/Table";
 import AcceptedRequestTableComponent from "components/Tutee/TuteeTutorAcceptedRequest/Table";
@@ -82,24 +82,31 @@ const RequestList = () => {
   const onDoneClick = (req) => {
     setDoneShow(true);
     setCurrentRequest(req);
-    dispatch(patchRequest({ id: req.id, tutor_done: 'True' }));
+    dispatch(patchRequest({ id: req.id, tutor_done: "True" }));
     if (req.tutee_done) {
       dispatch(finalizeRequest({ id: req.id }));
     }
   };
   const onDoneSubmit = (comment, starrating) => {
     const req = currentrequest;
-    dispatch(postTutorRating({ request: req.id, tutor: req.tutor.id, comment: comment, rating: starrating }))
-    dispatch(patchRequest({ id: req.id, tutor_done: 'True' }));
+    dispatch(
+      postTutorRating({
+        request: req.id,
+        tutor: req.tutor.id,
+        comment: comment,
+        rating: starrating,
+      })
+    );
+    dispatch(patchRequest({ id: req.id, tutor_done: "True" }));
     if (req.tutee_done) {
       dispatch(finalizeRequest({ id: req.id }));
     }
-  }
+  };
 
   return (
     <>
       {/* Page content */}
-      <Header />
+      <Header cardEnabled />
 
       <Container className="mt--7" fluid>
         {/* Table */}
@@ -115,8 +122,7 @@ const RequestList = () => {
                 requests={pending_requests}
                 onRequestClick={onRequestClick}
               ></OutstandingRequestTableComponent>
-              <CardFooter className="py-4">
-              </CardFooter>
+              <CardFooter className="py-4"></CardFooter>
             </Card>
             <Card className="shadow">
               <CardHeader className="border-0">
@@ -129,7 +135,8 @@ const RequestList = () => {
                   return row.tutor_done;
                 }}
                 requests={accepted_requests}
-                onRequestClick={onDoneClick} />
+                onRequestClick={onDoneClick}
+              />
               <CardFooter className="py-4">
                 <nav aria-label="...">
                   <Pagination
@@ -182,16 +189,15 @@ const RequestList = () => {
                   </Pagination>
                 </nav>
               </CardFooter>
-            </Card >
-          </div >
-        </Row >
+            </Card>
+          </div>
+        </Row>
         <TuteeTutorRequestModal
           show={show}
           setShow={setShow}
           tutor={currenttutor}
         ></TuteeTutorRequestModal>
-
-      </Container >
+      </Container>
     </>
   );
 };
