@@ -39,7 +39,19 @@ import {
 } from "reactstrap";
 import { Modal, Button } from "react-bootstrap";
 // core components
-import { selectAllTutors, finalizeRequest, sendDone,postTutorRating, patchRequest, selectAcceptedRequests, fetchTutees, fetchTutors, selectPendingRequests, sendEmailAcceptance, fetchRequests } from "../stores/tutorReducer";
+import {
+  selectAllTutors,
+  finalizeRequest,
+  sendDone,
+  postTutorRating,
+  patchRequest,
+  selectAcceptedRequests,
+  fetchTutees,
+  fetchTutors,
+  selectPendingRequests,
+  sendEmailAcceptance,
+  fetchRequests
+} from "../stores/tutorReducer";
 import OutstandingRequestTableComponent from "components/Tutee/TuteeTutorOutstandingRequest/Table";
 import AcceptedRequestTableComponent from "components/Tutee/TuteeTutorAcceptedRequest/Table";
 
@@ -59,7 +71,6 @@ const RequestList = () => {
 
   const pending_requests = useSelector(selectPendingRequests);
   const accepted_requests = useSelector(selectAcceptedRequests);
- 
   const [currenttutor, setCurrentTutor] = useState({});
   const [currentrequest, setCurrentRequest] = useState({});
   const [show, setShow] = useState(false);
@@ -72,26 +83,26 @@ const RequestList = () => {
     setDoneShow(true);
     setCurrentRequest(req);
     dispatch(patchRequest({ id: req.id, tutor_done: 'True' }));
-    if(req.tutee_done){
-      dispatch(finalizeRequest({id:req.id}));
+    if (req.tutee_done) {
+      dispatch(finalizeRequest({ id: req.id }));
     }
   };
-  const onDoneSubmit= (comment, starrating)=>{
+  const onDoneSubmit = (comment, starrating) => {
     const req = currentrequest;
-    dispatch(postTutorRating({request:req.id,tutor:req.tutor.id, comment:comment, rating:starrating}))
+    dispatch(postTutorRating({ request: req.id, tutor: req.tutor.id, comment: comment, rating: starrating }))
     dispatch(patchRequest({ id: req.id, tutor_done: 'True' }));
-    if(req.tutee_done){
-      dispatch(finalizeRequest({id:req.id}));
+    if (req.tutee_done) {
+      dispatch(finalizeRequest({ id: req.id }));
     }
   }
 
   return (
     <>
       {/* Page content */}
+      <Header />
 
       <Container className="mt--7" fluid>
         {/* Table */}
-        <Header />
 
         <Row>
           <div className="col">
@@ -112,7 +123,13 @@ const RequestList = () => {
                 <h3 className="mb-0">Accepted Requests</h3>
               </CardHeader>
 
-              <AcceptedRequestTableComponent donedisable={(row) => { console.log(row); return row.tutor_done; }} requests={accepted_requests} onRequestClick={onDoneClick} />
+              <AcceptedRequestTableComponent
+                donedisable={(row) => {
+                  console.log(row);
+                  return row.tutor_done;
+                }}
+                requests={accepted_requests}
+                onRequestClick={onDoneClick} />
               <CardFooter className="py-4">
                 <nav aria-label="...">
                   <Pagination
@@ -165,16 +182,16 @@ const RequestList = () => {
                   </Pagination>
                 </nav>
               </CardFooter>
-            </Card>
-          </div>
-        </Row>
+            </Card >
+          </div >
+        </Row >
         <TuteeTutorRequestModal
           show={show}
           setShow={setShow}
           tutor={currenttutor}
         ></TuteeTutorRequestModal>
-        
-      </Container>
+
+      </Container >
     </>
   );
 };

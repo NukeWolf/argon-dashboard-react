@@ -41,10 +41,26 @@ import {
 } from "reactstrap";
 import { Modal, Button } from "react-bootstrap";
 // core components
-import { selectAllTutors,postTutorRating,finalizeRequest,patchRequest,fetchTutees, currentTutee, selectAcceptedRequests, selectAllRequests, selectPendingRequests, fetchTutors, fetchRequests, addNewRequest } from '../stores/tutorReducer';
+import {
+  selectAllTutors,
+  postTutorRating,
+  finalizeRequest,
+  patchRequest,
+  fetchTutees,
+  currentTutee,
+  selectAcceptedRequests,
+  selectAllRequests,
+  selectPendingRequests,
+  fetchTutors,
+  fetchRequests,
+  addNewRequest
+} from '../stores/tutorReducer';
 import TuteeTutorDoneModal from "components/Tutee/TuteeTutorDoneModal.js/TuteeTutorDoneModal";
 
-import { useSelector, useDispatch } from "react-redux";
+import {
+  useSelector,
+  useDispatch
+} from "react-redux";
 import Header from "components/Headers/Header.js";
 import TableComponent from "components/Tutee/TuteeTutorTable/Table";
 import OutstandingRequestTableComponent from "components/Tutee/TuteeTutorOutstandingRequest/Table";
@@ -79,13 +95,13 @@ const TutorList = () => {
   const onRequestClick = (request) => {
     dispatch(fetchRequests());
   };
-  
-  const onDoneSubmit= (comment, starrating)=>{
+
+  const onDoneSubmit = (comment, starrating) => {
     const req = currentrequest;
-    dispatch(postTutorRating({request:req.id,tutor:req.tutor.id, comment:comment, rating:starrating}))
+    dispatch(postTutorRating({ request: req.id, tutor: req.tutor.id, comment: comment, rating: starrating }))
     dispatch(patchRequest({ id: req.id, tutee_done: 'True' }));
-    if(req.tutor_done){
-      dispatch(finalizeRequest({id:req.id}));
+    if (req.tutor_done) {
+      dispatch(finalizeRequest({ id: req.id }));
     }
   }
   const products = [{ id: 0, name: "test", price: "price" }];
@@ -98,28 +114,45 @@ const TutorList = () => {
     let i = 0;
     let j = 1;
     const stss = [];
-    for(let i = 0;i < timeslots.length;i++){
+    for (let i = 0; i < timeslots.length; i++) {
       stss.push(timeslots[i].startDate);
       stss.push(timeslots[i].endDate);
     }
-    console.log("stss,sss", stss.map((st)=>st.format()))
-    
-    const redout = stss.filter(
-      function(item, pos, arr){
-        // Always keep the 0th element as there is nothing before it
-        // Then check if each element is different than the one before it
-        return pos === 0 || pos === arr.length-1 || (item.format() !== arr[pos-1].format() && item.format() !== arr[pos+1].format());
-      }
+    console.log(
+      "stss,sss",
+      stss.map((st) => st.format())
     );
-    console.log("stss,sss", redout.map((st)=>st.format()))
-    
-    const redits = [];
-    for(let i = 0;i < redout.length;i+=2){
-      redits.push({startDate:redout[i],endDate:redout[i+1]});
-    }
-    console.log("stss,sss", redits.map((st)=>{return {startDate:st.startDate.format(),endDate:st.endDate.format()};}))
 
-    console.log('stds',stss,redits,redout)
+    const redout = stss.filter(function (item, pos, arr) {
+      // Always keep the 0th element as there is nothing before it
+      // Then check if each element is different than the one before it
+      return (
+        pos === 0 ||
+        pos === arr.length - 1 ||
+        (item.format() !== arr[pos - 1].format() &&
+          item.format() !== arr[pos + 1].format())
+      );
+    });
+    console.log(
+      "stss,sss",
+      redout.map((st) => st.format())
+    );
+
+    const redits = [];
+    for (let i = 0; i < redout.length; i += 2) {
+      redits.push({ startDate: redout[i], endDate: redout[i + 1] });
+    }
+    console.log(
+      "stss,sss",
+      redits.map((st) => {
+        return {
+          startDate: st.startDate.format(),
+          endDate: st.endDate.format(),
+        };
+      })
+    );
+
+    console.log("stds", stss, redits, redout);
     /*
     const tsarray = timeslots.map((ts) => ([ts.startDate,ts.endDate, ]));
     const redits = tsarray.reduce((pV, cV) => {
@@ -152,19 +185,15 @@ const TutorList = () => {
       zoom_link: "http://zoom.com",
     };
     console.log("payload", payload);
-    dispatch(addNewRequest(
-      payload
-    ))
-  }
+    dispatch(addNewRequest(payload));
+  };
 
   return (
     <>
       {/* Page content */}
-
+      <Header />
       <Container className="mt--7" fluid>
         {/* Table */}
-        <Header />
-
         <Row>
           <div className="col">
             <Card className="shadow">
@@ -228,7 +257,7 @@ const TutorList = () => {
             </Card>
             <Card className="shadow">
               <CardHeader className="border-0">
-                <h3 className="mb-0">Pending Requests</h3>
+                <h3 className="mb-0">Pending Lesson Requests</h3>
               </CardHeader>
 
               <OutstandingRequestTableComponent
@@ -292,10 +321,16 @@ const TutorList = () => {
             </Card>
             <Card className="shadow">
               <CardHeader className="border-0">
-                <h3 className="mb-0">Accepted Requests</h3>
+                <h3 className="mb-0">Upcoming Lessons</h3>
               </CardHeader>
 
-              <AcceptedRequestTableComponent donedisable={(row)=>{return row.tutee_done;}} requests={accepted_requests} onRequestClick={onDoneClick} />
+              <AcceptedRequestTableComponent
+                donedisable={(row) => {
+                  return row.tutee_done;
+                }}
+                requests={accepted_requests}
+                onRequestClick={onDoneClick}
+              />
               <CardFooter className="py-4">
                 <nav aria-label="...">
                   <Pagination

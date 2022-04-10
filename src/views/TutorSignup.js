@@ -37,7 +37,7 @@ import {
   Row,
   UncontrolledTooltip,
 } from "reactstrap";
-import {Modal, Button} from 'react-bootstrap'
+import { Modal, Button } from "react-bootstrap";
 // core components
 import Header from "components/Headers/Header.js";
 import TableComponent from "components/TuteeTutorTable/Table";
@@ -46,11 +46,11 @@ const Tables = () => {
   return (
     <>
       {/* Page content */}
-
+      <Header />
       <Container className="mt--7" fluid>
         {/* Table */}
         {/*<Header/>*/}
-        
+
         <Row>
           <div className="col">
             <Card className="shadow">
@@ -117,9 +117,8 @@ const Tables = () => {
         </Row>
         <Row>
           <div className="col">
-          <Card className="shadow">
-
-            <Example></Example>
+            <Card className="shadow">
+              <Example></Example>
             </Card>
           </div>
         </Row>

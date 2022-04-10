@@ -123,11 +123,11 @@ const TableComponent = (props) => {
       },
       
       {
-        Header: () => "",
+        Header: () => "See Variability",
         id: 'clickselect',
         Cell: ({ row }) => (
           <div>
-            <Button style={{ float: 'right' }} onClick={() => { TutorSelected(row.original); }} variant="primary">Accept</Button>
+            <Button style={{ float: 'right' }} onClick={() => { TutorSelected(row.original); }} variant="primary">See Availability</Button>
           </div>
         ),
       },
