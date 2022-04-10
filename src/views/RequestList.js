@@ -42,6 +42,7 @@ import {
   finalizeRequest,
   patchRequest,
   postTutorRating,
+  selectFinalizedRequests,
   selectAcceptedRequests,
   selectPendingRequests,
   sendEmailAcceptance,
@@ -109,7 +110,7 @@ const RequestList = () => {
               <OutstandingRequestTableComponent
                 requests={pending_requests}
                 onRequestClick={onRequestClick}
-                buttonshow={true}
+                showButtons={true}
               ></OutstandingRequestTableComponent>
               <CardFooter className="py-4"></CardFooter>
             </Card>

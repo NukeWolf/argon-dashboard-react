@@ -15,7 +15,7 @@ const FakePerson = {
 };
 
 const OutstandingRequestTableComponent = (props) => {
-  const { onRequestClick, requests, buttonshow } = props;
+  const { onRequestClick, requests, showButtons } = props;
   const columns = React.useMemo(
     () => [
       {
@@ -104,7 +104,6 @@ const OutstandingRequestTableComponent = (props) => {
         id: "clickselect",
         Cell: ({ row }) => {
           //if(!buttonnotshow)return <></>;
-          if(!buttonshow)return <></>;
           return (
             <div>
               {showButtons ? <Button
