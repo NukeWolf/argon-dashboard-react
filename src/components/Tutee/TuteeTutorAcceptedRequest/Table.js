@@ -38,7 +38,7 @@ const FakePerson = {
 };
 
 const AcceptedRequestTableComponent = (props) => {
-  const { onRequestClick, requests } = props;
+  const { onRequestClick, requests, donedisable } = props;
   const columns = React.useMemo(
     () => [
       {
@@ -49,6 +49,17 @@ const AcceptedRequestTableComponent = (props) => {
           console.log(row);
           return <>{tutor ? (<div>
             <span>{tutor.first_name} {tutor.last_name} </span>
+          </div>) : <></>}</>
+        },
+      },
+      {
+        Header: 'Tutee',
+        accessor: 'tutee', // accessor is the "key" in the data
+        Cell: ({ row }) => {
+          const { tutee } = row.values;
+          console.log(row);
+          return <>{tutee ? (<div>
+            <span>{tutee.first_name} {tutee.last_name} </span>
           </div>) : <></>}</>
         },
       },
@@ -81,11 +92,15 @@ const AcceptedRequestTableComponent = (props) => {
       {
         Header: () => "",
         id: 'clickselect',
-        Cell: ({ row }) => (
-          <div>
-            <Button style={{ float: 'right' }} onClick={() => { onRequestClick(row); }} variant="primary">Request</Button>
+        Cell: ({ row }) => 
+          {
+           const disable = donedisable(row.original);
+          
+         return <div>
+            <Button disabled={disable} style={{ float: 'right' }} onClick={() => { 
+              onRequestClick(row.original); }} variant="primary">Done</Button>
           </div>
-        ),
+          },
       },
     ],
     []

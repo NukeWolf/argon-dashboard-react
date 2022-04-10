@@ -38,7 +38,7 @@ const FakePerson = {
 };
 
 const OutstandingRequestTableComponent = (props) => {
-  const { onRequestClick , requests} = props;
+  const { onRequestClick , requests, buttonnotshow} = props;
   const columns = React.useMemo(
     () => [
       {
@@ -52,6 +52,17 @@ const OutstandingRequestTableComponent = (props) => {
           </div>) : <></>}</>
         },
       },
+        {
+          Header: 'Tutee',
+          accessor: 'tutee', // accessor is the "key" in the data
+          Cell: ({ row }) => {
+            const {tutee} = row.original;
+            console.log("tutee", row, tutee);
+           return <>{tutee ? (<div>
+              <span>{tutee.first_name} {tutee.last_name} </span>
+            </div>) : <></>}</>
+          },
+        },
       {
         Header: 'Timeslots',
         accessor: 'timeslots',
@@ -77,11 +88,12 @@ const OutstandingRequestTableComponent = (props) => {
       {
         Header: () => "",
         id: 'clickselect',
-        Cell: ({ row }) => (
-          <div>
-            <Button style={{float:'right'} }onClick={() => { onRequestClick(row); }} variant="primary">Request</Button>
+        Cell: ({ row }) => {
+          if(!buttonnotshow)return <></>;
+          return <div>
+            <Button style={{float:'right'} }onClick={() => { onRequestClick(row.original); }} variant="primary">Request</Button>
           </div>
-        ),
+        },
       },
     ],
     []

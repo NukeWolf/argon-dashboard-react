@@ -247,7 +247,7 @@ const Tables = () => {
                 <h3 className="mb-0">Accepted Requests</h3>
               </CardHeader>
 
-              <AcceptedRequestTableComponent requests={accepted_requests} onRequestClick={onRequestClick} />
+              <AcceptedRequestTableComponent donedisable={false} requests={accepted_requests} onRequestClick={onRequestClick} />
               <CardFooter className="py-4">
                 <nav aria-label="...">
                   <Pagination
