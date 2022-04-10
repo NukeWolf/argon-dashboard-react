@@ -67,7 +67,7 @@ class Profile extends React.Component {
             <Container>
               <Row>
                 <Col>
-                  <a href="/tutor">
+                  <a href="/tutee">
                     <Card className="card-profile shadow mt--300">
                       <div className="px-4">
                         <div className="text-center mt-5">
@@ -84,7 +84,7 @@ class Profile extends React.Component {
                   </a>
                 </Col>
                 <Col>
-                  <a href="/tutee">
+                  <a href="/tutor">
                     <Card className="card-profile shadow mt--300">
                       <div className="px-4">
                         <div className="text-center mt-5">

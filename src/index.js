@@ -37,6 +37,7 @@ import "assets/scss/argon-dashboard-react.scss";
 import "assets/vendor/nucleo/css/nucleo.css";
 import "assets/vendor/font-awesome/css/font-awesome.min.css";
 import "assets/scss/argon-design-system-react.scss?v1.1.0";
+import Register from "views/landing/Register";
 
 ReactDOM.render(
   <Provider store={store}>
@@ -45,11 +46,17 @@ ReactDOM.render(
         <Route path="/tutor" render={(props) => <TutorLayout {...props} />} />
         <Route path="/tutee" render={(props) => <TuteeLayout {...props} />} />
         <Route path="/admin" render={(props) => <AdminLayout {...props} />} />
-
         <Route path="/auth" render={(props) => <AuthLayout {...props} />} />
+
         <Route path="/" exact render={(props) => <Landing {...props} />} />
         <Route path="/select" exact render={(props) => <Select {...props} />} />
         <Route path="/login" exact render={(props) => <Login {...props} />} />
+        <Route
+          path="/register"
+          exact
+          render={(props) => <Register {...props} />}
+        />
+
         <Redirect from="/" to="/admin" />
       </Switch>
     </BrowserRouter>

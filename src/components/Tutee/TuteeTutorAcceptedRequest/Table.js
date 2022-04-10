@@ -19,7 +19,7 @@ import {
   Row,
   UncontrolledTooltip,
 } from "reactstrap";
-import {Button} from 'react-bootstrap';
+import { Button } from 'react-bootstrap';
 
 import { useTable } from 'react-table';
 
@@ -37,63 +37,70 @@ const FakePerson = {
   ratings: 60,
 };
 
-const OutstandingRequestTableComponent = (props) => {
-  const { onRequestClick , requests, buttonnotshow} = props;
+const AcceptedRequestTableComponent = (props) => {
+  const { onRequestClick, requests, donedisable } = props;
   const columns = React.useMemo(
     () => [
       {
         Header: 'Tutor',
         accessor: 'tutor', // accessor is the "key" in the data
         Cell: ({ row }) => {
-          const {tutor} = row.values;
+          const { tutor } = row.values;
           console.log(row);
-         return <>{tutor ? (<div>
+          return <>{tutor ? (<div>
             <span>{tutor.first_name} {tutor.last_name} </span>
           </div>) : <></>}</>
         },
       },
-        {
-          Header: 'Tutee',
-          accessor: 'tutee', // accessor is the "key" in the data
-          Cell: ({ row }) => {
-            const {tutee} = row.original;
-            console.log("tutee", row, tutee);
-           return <>{tutee ? (<div>
-              <span>{tutee.first_name} {tutee.last_name} </span>
-            </div>) : <></>}</>
-          },
+      {
+        Header: 'Tutee',
+        accessor: 'tutee', // accessor is the "key" in the data
+        Cell: ({ row }) => {
+          const { tutee } = row.values;
+          console.log(row);
+          return <>{tutee ? (<div>
+            <span>{tutee.first_name} {tutee.last_name} </span>
+          </div>) : <></>}</>
         },
+      },
       {
         Header: 'Timeslots',
         accessor: 'timeslots',
         Cell: ({ row }) => {
-          const {timeslots, tutor} = row.values;
+          const { timeslots, tutor } = row.values;
           console.log(timeslots);
           const transfor = [];
-          for(let i =0;i < timeslots.length;i++){
+          for (let i = 0; i < timeslots.length; i++) {
             const ts = timeslots[i];
-            const sd = moment(ts.start).format('dddd hh:mm');
-            const ed = moment(ts.end).format('dddd hh:mm');
-            
-            transfor.push({sd, ed });
+            transfor.push({
+              sd: moment(ts.start).format('dddd hh:mm'),
+              ed: moment(ts.end).format('dddd hh:mm')
+            });
           }
           console.log(transfor);
-          const tsmapper = ()=>{
-         return <> {timeslots.map((ts)=>{<span>{moment(ts.start).format('dddd hh:mm')} {moment(ts.end).format('dddd hh:mm')} </span>})}</>
-            
+          const tsmapper = () => {
+            return <> {timeslots.map((ts) => { <span>{moment(ts.start).format('dddd hh:mm')} {moment(ts.end).format('dddd hh:mm')} </span> })}</>
+
           }
-         return <>{transfor.map((ts)=>(<span style={{marginRight:4}}>{ts.sd}-{ts.ed}</span>))} </>
+          return <>{transfor.map((ts) => (<span style={{ marginRight: 4 }}>{ts.sd}-{ts.ed}</span>))} </>
         },
+      },
+      {
+        Header: 'Zoom',
+        accessor: 'zoom_link',
       },
       {
         Header: () => "",
         id: 'clickselect',
-        Cell: ({ row }) => {
-          if(!buttonnotshow)return <></>;
-          return <div>
-            <Button style={{float:'right'} }onClick={() => { onRequestClick(row.original); }} variant="primary">Request</Button>
+        Cell: ({ row }) => 
+          {
+           const disable = donedisable(row.original);
+          
+         return <div>
+            <Button disabled={disable} style={{ float: 'right' }} onClick={() => { 
+              onRequestClick(row.original); }} variant="primary">Done</Button>
           </div>
-        },
+          },
       },
     ],
     []
@@ -112,8 +119,8 @@ const OutstandingRequestTableComponent = (props) => {
   const tutors = useSelector(selectAllTutors);
   console.log("tutors", tutors);
   return (
-    <Table className="align-items-center table-flush" 
-    responsive {...getTableProps()}>
+    <Table className="align-items-center table-flush"
+      responsive {...getTableProps()}>
       <thead>
         {headerGroups.map(headerGroup => (
           <tr className="thead-light" {...headerGroup.getHeaderGroupProps()}>
@@ -150,7 +157,7 @@ const OutstandingRequestTableComponent = (props) => {
   );
 };
 
-export default OutstandingRequestTableComponent;
+export default AcceptedRequestTableComponent;
 
 const TableRow = (props) => {
   const { cell, } = props;
