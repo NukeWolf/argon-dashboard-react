@@ -239,38 +239,10 @@ const Sidebar = (props) => {
 
           {/* Divider */}
           <hr className="my-3" />
-<<<<<<< HEAD
-          {/* Heading */}
-          
-          {/* <h6 className="navbar-heading text-muted">Documentation</h6> */}
-          {/* Navigation */}
-          {/*
-          <Nav className="mb-md-3" navbar>
-            <NavItem>
-              <NavLink href="https://demos.creative-tim.com/argon-dashboard-react/#/documentation/overview?ref=adr-admin-sidebar">
-                <i className="ni ni-spaceship" />
-                Getting started
-              </NavLink>
-            </NavItem>
-            <NavItem>
-              <NavLink href="https://demos.creative-tim.com/argon-dashboard-react/#/documentation/colors?ref=adr-admin-sidebar">
-                <i className="ni ni-palette" />
-                Foundation
-              </NavLink>
-            </NavItem>
-            <NavItem>
-              <NavLink href="https://demos.creative-tim.com/argon-dashboard-react/#/documentation/alerts?ref=adr-admin-sidebar">
-                <i className="ni ni-ui-04" />
-                Components
-              </NavLink>
-            </NavItem>
-          </Nav>
-=======
           {/* Heading 
           <h6 className="navbar-heading text-muted">Documentation</h6>*/}
           {/* Navigation */}
 
->>>>>>> 14694e86e64f0269230bc833a4d4be8ed8bc2ccb
           <Nav className="mb-md-3" navbar>
             <NavItem className="active-pro active">
               <NavLink
