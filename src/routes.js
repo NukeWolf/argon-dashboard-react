@@ -31,7 +31,7 @@ var routes = [
   {
     path: "/list",
     name: "Tutors",
-    icon: "ni ni-tv-2 text-primary",
+    icon: "ni ni-badge text-primary",
     component: Tables,
     layout: "/tutee",
   },
@@ -45,7 +45,7 @@ var routes = [
   {
     path: "/contact-us",
     name: "Contact",
-    icon: "ni ni-pin-3 text-orange",
+    icon: "ni ni-email-83 text-orange",
     component: Complaints,
     layout: "/tutee",
   },
@@ -76,7 +76,7 @@ var routes = [
     name: "User Profile",
     icon: "ni ni-single-02 text-yellow",
     component: Profile,
-    layout: "/admin",
+    layout: "/tutor",
   },
   {
     path: "/tables",

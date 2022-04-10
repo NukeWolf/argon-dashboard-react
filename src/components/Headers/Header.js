@@ -22,10 +22,9 @@ import { Card, CardBody, CardTitle, Container, Row, Col } from "reactstrap";
 const Header = () => {
   return (
     <>
-      <div className="header bg-gradient-info pb-2 pt-2 pt-md-7">
-      {/*  <Container fluid>
+      <div className="header bg-gradient-info pb-9 pt-9 pt-md-7">
+        <Container fluid>
           <div className="header-body">
-            /* Card stats *
             <Row>
               <Col lg="6" xl="3">
                 <Card className="card-stats mb-4 mb-xl-0">
@@ -144,8 +143,6 @@ const Header = () => {
             </Row>
           </div>
         </Container>
-      */}
-
       </div>
     </>
   );
