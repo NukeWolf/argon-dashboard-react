@@ -34,19 +34,17 @@ import UserHeader from "components/Headers/UserHeader.js";
 import { useState } from "react";
 import HeaderEditAccessibilityModal from "components/Headers/HeaderEditAccessibilityModal";
 const Profile = () => {
-  const [show, setShow]= useState(false);
+  const [show, setShow] = useState(false);
 
-  const SubmitRequest=()=>{
-    
-  };
+  const SubmitRequest = () => {};
 
-  const clickEdit = ()=>{
+  const clickEdit = () => {
     setShow(true);
   };
 
   return (
     <>
-      <UserHeader clickEdit={clickEdit}/>
+      <UserHeader clickEdit={clickEdit} />
       {/* Page content */}
       <Container className="mt--7" fluid>
         <Row>
@@ -71,15 +69,6 @@ const Profile = () => {
               <CardHeader className="text-center border-0 pt-8 pt-md-4 pb-0 pb-md-4">
                 <div className="d-flex justify-content-between">
                   <Button
-                    className="mr-4"
-                    color="info"
-                    href="#pablo"
-                    onClick={(e) => e.preventDefault()}
-                    size="sm"
-                  >
-                    Connect
-                  </Button>
-                  <Button
                     className="float-right"
                     color="default"
                     href="#pablo"
@@ -96,35 +85,32 @@ const Profile = () => {
                     <div className="card-profile-stats d-flex justify-content-center mt-md-5">
                       <div>
                         <span className="heading">22</span>
-                        <span className="description">Friends</span>
+                        <span className="description">Students</span>
                       </div>
                       <div>
-                        <span className="heading">10</span>
-                        <span className="description">Photos</span>
+                        <span className="heading">4.5</span>
+                        <span className="description">Rating</span>
                       </div>
                       <div>
                         <span className="heading">89</span>
-                        <span className="description">Comments</span>
+                        <span className="description">Reviews</span>
                       </div>
                     </div>
                   </div>
                 </Row>
                 <div className="text-center">
-                  <h3>
-                    Jessica Jones
-                    <span className="font-weight-light">, 27</span>
-                  </h3>
+                  <h3>Jessica Jones</h3>
                   <div className="h5 font-weight-300">
                     <i className="ni location_pin mr-2" />
                     Bucharest, Romania
                   </div>
                   <div className="h5 mt-4">
                     <i className="ni business_briefcase-24 mr-2" />
-                    Solution Manager - Creative Tim Officer
+                    Tutor
                   </div>
                   <div>
                     <i className="ni education_hat mr-2" />
-                    University of Computer Science
+                    Yale University
                   </div>
                   <hr className="my-4" />
                   <p>
@@ -336,7 +322,12 @@ const Profile = () => {
           </Col>
         </Row>
       </Container>
-      <HeaderEditAccessibilityModal show={show} tutor={{}} SubmitRequest={SubmitRequest} setShow={setShow}></HeaderEditAccessibilityModal>
+      <HeaderEditAccessibilityModal
+        show={show}
+        tutor={{}}
+        SubmitRequest={SubmitRequest}
+        setShow={setShow}
+      ></HeaderEditAccessibilityModal>
     </>
   );
 };
