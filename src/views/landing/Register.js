@@ -15,31 +15,27 @@
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 */
+import SimpleFooter from "components/Footers/SimpleFooter.js";
+// core components
+import DemoNavbar from "components/Navbars/DemoNavbar.js";
 import React from "react";
-
 // reactstrap components
 import {
   Button,
   Card,
-  CardHeader,
-  UncontrolledAlert,
   CardBody,
-  FormGroup,
+  Col,
+  Container,
   Form,
+  FormGroup,
   Input,
+  InputGroup,
   InputGroupAddon,
   InputGroupText,
-  InputGroup,
-  Container,
   Row,
-  Col,
+  UncontrolledAlert,
 } from "reactstrap";
-
 import { client } from "../../stores/client";
-
-// core components
-import DemoNavbar from "components/Navbars/DemoNavbar.js";
-import SimpleFooter from "components/Footers/SimpleFooter.js";
 
 class Register extends React.Component {
   constructor() {

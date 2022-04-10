@@ -16,37 +16,12 @@
 
 */
 // reactstrap components
-import React, { useEffect, useState } from "react";
-import sgMail from "@sendgrid/mail";
-import {
-  Badge,
-  Input,
-  Card,
-  CardHeader,
-  CardFooter,
-  DropdownMenu,
-  DropdownItem,
-  UncontrolledDropdown,
-  DropdownToggle,
-  Media,
-  Pagination,
-  PaginationItem,
-  PaginationLink,
-  Progress,
-  Table,
-  Container,
-  Row,
-  UncontrolledTooltip,
-  CardBody,
-} from "reactstrap";
-import { Modal, Button } from "react-bootstrap";
-// core components
-import { selectAllTutors, fetchTutors } from "../stores/tutorReducer";
-
-import { useSelector, useDispatch } from "react-redux";
 import Header from "components/Headers/Header.js";
-import TableComponent from "components/Tutee/TuteeTutorTable/Table";
-import TuteeTutorRequestModal from "components/Tutee/TuteeTutorRequestModal/TuteeTutorRequestModal";
+import React, { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+import { Card, CardBody, CardHeader, Container, Row } from "reactstrap";
+// core components
+import { fetchTutors } from "../stores/tutorReducer";
 
 const Tables = () => {
   const dispatch = useDispatch();
@@ -77,18 +52,19 @@ const Tables = () => {
                 <h2 className="mb-0">About Us</h2>
               </CardHeader>
               <CardBody>
-                <h3>
-                  Tuut. We’re going to revolutionize the definition of
+                <p>
+                  We aim to revolutionize the definition of
                   accessible peer tutoring for university students across the
-                  world. And it starts at Yale. At Tuut, we aim to address the
-                  need for last-minute time-sensitive tutoring by bypassing the
-                  slow processes of university tutoring center referrals and
-                  understaffed TA office hours, which often leave students
-                  helpless (and hopeless). With our web application, students
-                  who need help can select from any number of peer tutors, with
-                  flexible 10-minute slots which allow the tutor to teach with
-                  limited time commitment, and students to get help as needed.
-                </h3>
+                  world, by addressing the downfalls of convoluted processes
+                  for university organized tutoring centers and understaffed 
+                  and inflexible office hours. With our web application, tutees
+                  can select from any number of qualified peer tutors, 
+                  scheduling any number of flexible 15-minute slots on short notice.
+                  Tutors can also set availability with short notice as they find pockets
+                  of free time throughout their busy daily schedules, tapping into 
+                  a new market of quality educators who may not have the ability to make rigid
+                  time commitments as a TA/university tutor.
+                </p>
               </CardBody>
             </Card>
           </div>

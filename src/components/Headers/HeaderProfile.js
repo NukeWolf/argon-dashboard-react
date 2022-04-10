@@ -17,7 +17,7 @@
 */
 
 // reactstrap components
-import { Button, Container, Row, Col } from "reactstrap";
+import { Container } from "reactstrap";
 
 const UserHeader = (props) => {
   const { clickEdit } = props;

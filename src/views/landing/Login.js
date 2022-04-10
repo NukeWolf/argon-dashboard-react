@@ -15,36 +15,29 @@
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 */
+import SimpleFooter from "components/Footers/SimpleFooter.js";
+// core components
+import DemoNavbar from "components/Navbars/DemoNavbar.js";
 import React from "react";
 import { connect } from "react-redux";
 import { loginSubmit } from "stores/tutorReducer";
 // reactstrap components
 import {
-  UncontrolledAlert,
   Button,
   Card,
-  CardHeader,
   CardBody,
-  FormGroup,
+  Col,
+  Container,
   Form,
+  FormGroup,
   Input,
+  InputGroup,
   InputGroupAddon,
   InputGroupText,
-  InputGroup,
-  Container,
   Row,
-  Col,
+  UncontrolledAlert,
 } from "reactstrap";
-
 import { client } from "../../stores/client";
-
-// core components
-import DemoNavbar from "components/Navbars/DemoNavbar.js";
-import SimpleFooter from "components/Footers/SimpleFooter.js";
-
-import { withRouter } from "react-router-dom";
-
-import { NavLink as NavLinkRRD, Link } from "react-router-dom";
 
 class Login extends React.Component {
   constructor() {

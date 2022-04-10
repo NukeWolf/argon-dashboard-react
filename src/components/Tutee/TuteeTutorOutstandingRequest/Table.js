@@ -1,32 +1,9 @@
-import React, { useEffect, useState } from "react";
-
-import {
-  Badge,
-  Card,
-  CardHeader,
-  CardFooter,
-  DropdownMenu,
-  DropdownItem,
-  UncontrolledDropdown,
-  DropdownToggle,
-  Media,
-  Pagination,
-  PaginationItem,
-  PaginationLink,
-  Progress,
-  Table,
-  Container,
-  Row,
-  UncontrolledTooltip,
-} from "reactstrap";
-import {Button} from 'react-bootstrap';
 import ReactTableComponent from "components/ReactTableComponent/ReactTableComponent";
-import { useTable } from 'react-table';
-
-import { selectAllTutors } from '../../../stores/tutorReducer';
-
-import { useSelector } from 'react-redux';
 import moment from "moment";
+import React from "react";
+import { Button } from "react-bootstrap";
+import { useSelector } from "react-redux";
+import { selectAllTutors } from "../../../stores/tutorReducer";
 
 const FakePerson = {
   picture:
@@ -38,92 +15,131 @@ const FakePerson = {
 };
 
 const OutstandingRequestTableComponent = (props) => {
-  const { onRequestClick , requests, buttonnotshow} = props;
+  const { onRequestClick, requests, buttonnotshow } = props;
   const columns = React.useMemo(
     () => [
       {
-        Header: 'Tutor',
-        accessor: 'tutor', // accessor is the "key" in the data
+        Header: "Tutor",
+        accessor: "tutor", // accessor is the "key" in the data
         Cell: ({ row }) => {
-          const {tutor} = row.values;
+          const { tutor } = row.values;
           console.log(row);
-         return <>{tutor ? (<div>
-            <span>{tutor.first_name} {tutor.last_name} </span>
-          </div>) : <></>}</>
+          return (
+            <>
+              {tutor ? (
+                <div>
+                  <span>
+                    {tutor.first_name} {tutor.last_name}{" "}
+                  </span>
+                </div>
+              ) : (
+                <></>
+              )}
+            </>
+          );
         },
       },
-        {
-          Header: 'Tutee',
-          accessor: 'tutee', // accessor is the "key" in the data
-          Cell: ({ row }) => {
-            const {tutee} = row.original;
-            console.log("tutee", row, tutee);
-           return <>{tutee ? (<div>
-              <span>{tutee.first_name} {tutee.last_name} </span>
-            </div>) : <></>}</>
-          },
-        },
       {
-        Header: 'Timeslots',
-        accessor: 'timeslots',
+        Header: "Tutee",
+        accessor: "tutee", // accessor is the "key" in the data
         Cell: ({ row }) => {
-          const {timeslots, tutor} = row.values;
+          const { tutee } = row.original;
+          console.log("tutee", row, tutee);
+          return (
+            <>
+              {tutee ? (
+                <div>
+                  <span>
+                    {tutee.first_name} {tutee.last_name}{" "}
+                  </span>
+                </div>
+              ) : (
+                <></>
+              )}
+            </>
+          );
+        },
+      },
+      {
+        Header: "Timeslots",
+        accessor: "timeslots",
+        Cell: ({ row }) => {
+          const { timeslots, tutor } = row.values;
           console.log(timeslots);
           const transfor = [];
-          for(let i =0;i < timeslots.length;i++){
+          for (let i = 0; i < timeslots.length; i++) {
             const ts = timeslots[i];
-            const sd = moment(ts.start).format('dddd hh:mm');
-            const ed = moment(ts.end).format('dddd hh:mm');
-            
-            transfor.push({sd, ed });
+            const sd = moment(ts.start).format("dddd hh:mm");
+            const ed = moment(ts.end).format("dddd hh:mm");
+
+            transfor.push({ sd, ed });
           }
           console.log(transfor);
-          const tsmapper = ()=>{
-         return <> {timeslots.map((ts)=>{<span>{moment(ts.start).format('dddd hh:mm')} {moment(ts.end).format('dddd hh:mm')} </span>})}</>
-            
-          }
-         return <>{transfor.map((ts)=>(<span style={{marginRight:4}}>{ts.sd}-{ts.ed}</span>))} </>
+          const tsmapper = () => {
+            return (
+              <>
+                {" "}
+                {timeslots.map((ts) => {
+                  <span>
+                    {moment(ts.start).format("dddd hh:mm")}{" "}
+                    {moment(ts.end).format("dddd hh:mm")}{" "}
+                  </span>;
+                })}
+              </>
+            );
+          };
+          return (
+            <>
+              {transfor.map((ts) => (
+                <span style={{ marginRight: 4 }}>
+                  {ts.sd}-{ts.ed}
+                </span>
+              ))}{" "}
+            </>
+          );
         },
       },
       {
         Header: () => "",
-        id: 'clickselect',
+        id: "clickselect",
         Cell: ({ row }) => {
           //if(!buttonnotshow)return <></>;
-          return <div>
-            <Button style={{float:'right'} }onClick={() => { onRequestClick(row.original); }} variant="primary">Request</Button>
-          </div>
+          return (
+            <div>
+              <Button
+                style={{ float: "right" }}
+                onClick={() => {
+                  onRequestClick(row.original);
+                }}
+                variant="primary"
+              >
+                Request
+              </Button>
+            </div>
+          );
         },
       },
     ],
     []
   );
-  const data = React.useMemo(
-    () => requests,
-    [requests]
-  );
+  const data = React.useMemo(() => requests, [requests]);
   const tutors = useSelector(selectAllTutors);
   console.log("tutors", tutors);
   return (
     <ReactTableComponent data={data} columns={columns}></ReactTableComponent>
-
-
   );
 };
 
 export default OutstandingRequestTableComponent;
 
 const TableRow = (props) => {
-  const { cell, } = props;
+  const { cell } = props;
   const { col1, col2 } = cell;
   console.log(props.person);
   return (
     <tr {...cell.getCellProps()}>
-
       <td>{col1}</td>
       <td>{col2}</td>
-
-
     </tr>
   );
 };

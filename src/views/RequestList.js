@@ -16,30 +16,25 @@
 
 */
 // reactstrap components
+import Header from "components/Headers/Header.js";
+import AcceptedRequestTableComponent from "components/Tutee/TuteeTutorAcceptedRequest/Table";
+import OutstandingRequestTableComponent from "components/Tutee/TuteeTutorOutstandingRequest/Table";
+import TuteeTutorRequestModal from "components/Tutee/TuteeTutorRequestModal/TuteeTutorRequestModal";
 import React, { useEffect, useState } from "react";
-
+import { useDispatch, useSelector } from "react-redux";
 import {
-  Badge,
   Card,
-  CardHeader,
   CardFooter,
-  DropdownMenu,
-  DropdownItem,
-  UncontrolledDropdown,
-  DropdownToggle,
-  Media,
+  CardHeader,
+  Container,
   Pagination,
   PaginationItem,
   PaginationLink,
-  Progress,
-  Table,
-  Container,
   Row,
-  UncontrolledTooltip,
 } from "reactstrap";
-import { Modal, Button } from "react-bootstrap";
 // core components
 import {
+<<<<<<< HEAD
   selectAllTutors,
   finalizeRequest,
   sendDone,
@@ -47,21 +42,19 @@ import {
   patchRequest,
   selectAcceptedRequests,
   selectFinalizedRequests,
+=======
+  fetchRequests,
+>>>>>>> 6a3f1e24f255f8a131eacd8e554201503ac11194
   fetchTutees,
   fetchTutors,
+  finalizeRequest,
+  patchRequest,
+  postTutorRating,
+  selectAcceptedRequests,
   selectPendingRequests,
   sendEmailAcceptance,
-  fetchRequests,
 } from "../stores/tutorReducer";
-import OutstandingRequestTableComponent from "components/Tutee/TuteeTutorOutstandingRequest/Table";
-import AcceptedRequestTableComponent from "components/Tutee/TuteeTutorAcceptedRequest/Table";
 
-import { useSelector, useDispatch } from "react-redux";
-import Header from "components/Headers/Header.js";
-import TableComponent from "components/Tutor/TutorIncomingRequestsTable/Table";
-import TuteeTutorRequestModal from "components/Tutee/TuteeTutorRequestModal/TuteeTutorRequestModal";
-import TuteeTutorDoneModal from "components/Tutee/TuteeTutorDoneModal.js/TuteeTutorDoneModal";
-import { reduceEachLeadingCommentRange } from "typescript";
 const RequestList = () => {
   const dispatch = useDispatch();
   useEffect(() => {
@@ -118,7 +111,7 @@ const RequestList = () => {
           <div className="col">
             <Card className="shadow">
               <CardHeader className="border-0">
-                <h3 className="mb-0">Incoming Requests</h3>
+                <h3 className="mb-0">Incoming Lesson Requests</h3>
               </CardHeader>
 
               <OutstandingRequestTableComponent
@@ -130,7 +123,7 @@ const RequestList = () => {
             </Card>
             <Card className="shadow">
               <CardHeader className="border-0">
-                <h3 className="mb-0">Accepted Requests</h3>
+                <h3 className="mb-0">Upcoming Lessons</h3>
               </CardHeader>
 
               <AcceptedRequestTableComponent

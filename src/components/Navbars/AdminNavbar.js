@@ -18,20 +18,14 @@
 import { Link } from "react-router-dom";
 // reactstrap components
 import {
-  DropdownMenu,
-  DropdownItem,
-  UncontrolledDropdown,
-  DropdownToggle,
-  Form,
-  FormGroup,
-  InputGroupAddon,
-  InputGroupText,
-  Input,
-  InputGroup,
-  Navbar,
-  Nav,
   Container,
+  DropdownItem,
+  DropdownMenu,
+  DropdownToggle,
   Media,
+  Nav,
+  Navbar,
+  UncontrolledDropdown,
 } from "reactstrap";
 
 const AdminNavbar = (props) => {
@@ -45,7 +39,7 @@ const AdminNavbar = (props) => {
           >
             {props.brandText}
           </Link>
-
+          {/* 
           <Nav className="align-items-center d-none d-md-flex" navbar>
             <UncontrolledDropdown nav>
               <DropdownToggle className="pr-0" nav>
@@ -92,6 +86,7 @@ const AdminNavbar = (props) => {
               </DropdownMenu>
             </UncontrolledDropdown>
           </Nav>
+          */}
         </Container>
       </Navbar>
     </>

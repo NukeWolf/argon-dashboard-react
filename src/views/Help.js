@@ -16,37 +16,12 @@
 
 */
 // reactstrap components
-import React, { useEffect, useState } from "react";
-import sgMail from "@sendgrid/mail";
-import {
-  Badge,
-  Input,
-  Card,
-  CardHeader,
-  CardFooter,
-  DropdownMenu,
-  DropdownItem,
-  UncontrolledDropdown,
-  DropdownToggle,
-  Media,
-  Pagination,
-  PaginationItem,
-  PaginationLink,
-  Progress,
-  Table,
-  Container,
-  Row,
-  UncontrolledTooltip,
-  CardBody,
-} from "reactstrap";
-import { Modal, Button } from "react-bootstrap";
-// core components
-import { selectAllTutors, fetchTutors } from "../stores/tutorReducer";
-
-import { useSelector, useDispatch } from "react-redux";
 import Header from "components/Headers/Header.js";
-import TableComponent from "components/Tutee/TuteeTutorTable/Table";
-import TuteeTutorRequestModal from "components/Tutee/TuteeTutorRequestModal/TuteeTutorRequestModal";
+import React, { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+import { Card, CardBody, CardHeader, Container, Row } from "reactstrap";
+// core components
+import { fetchTutors } from "../stores/tutorReducer";
 
 const Tables = () => {
   const dispatch = useDispatch();
@@ -74,7 +49,7 @@ const Tables = () => {
           <div className="col">
             <Card className="shadow">
               <CardHeader className="border-0">
-                <h2 className="mb-0">Help</h2>
+                <h2 className="mb-0">Frequently Asked Questions</h2>
               </CardHeader>
               <CardBody>
                 <h3>How are tutors incentivized to join Tuut?</h3>
@@ -86,9 +61,12 @@ const Tables = () => {
 
                 <h3>How can FGLI students access Tuut?</h3>
                 <p>
-                  Tuut® will connect with university systems to reimburse low
-                  income students with proof of transaction, ensuring that we
-                  can help all students of all financial backgrounds.
+                  Tuut® connects with university systems to reimburse low
+                  income students for their lessons, ensuring that we
+                  can help all students of all financial backgrounds. Please click on
+                  our 'partner schools' sidebar option to see if your university is 
+                  partnered with us. You can also shoot us a partner request to
+                  put your university on our radar for future partnerships.
                 </p>
 
                 <h3>What separates Tuut from other tutoring platforms?</h3>

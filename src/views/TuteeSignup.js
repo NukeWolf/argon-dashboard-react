@@ -16,32 +16,18 @@
 
 */
 // reactstrap components
-import React, { useState } from "react";
-
+import TableComponent from "components/TuteeTutorTable/Table";
+import React from "react";
 import {
-  Badge,
   Card,
-  CardHeader,
   CardFooter,
-  DropdownMenu,
-  DropdownItem,
-  UncontrolledDropdown,
-  DropdownToggle,
-  Media,
+  CardHeader,
+  Container,
   Pagination,
   PaginationItem,
   PaginationLink,
-  Progress,
-  Table,
-  Container,
   Row,
-  UncontrolledTooltip,
 } from "reactstrap";
-import {Modal, Button} from 'react-bootstrap'
-// core components
-import Header from "components/Headers/Header.js";
-import TableComponent from "components/TuteeTutorTable/Table";
-
 
 const Tables = () => {
   return (
@@ -51,7 +37,7 @@ const Tables = () => {
       <Container className="mt--7" fluid>
         {/* Table */}
         {/*<Header/>*/}
-        
+
         <Row>
           <div className="col">
             <Card className="shadow">
@@ -118,9 +104,8 @@ const Tables = () => {
         </Row>
         <Row>
           <div className="col">
-          <Card className="shadow">
-
-            <Example></Example>
+            <Card className="shadow">
+              <Example></Example>
             </Card>
           </div>
         </Row>
