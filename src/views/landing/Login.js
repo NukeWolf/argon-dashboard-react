@@ -53,18 +53,18 @@ class Login extends React.Component {
   async onSubmit(e) {
     e.preventDefault();
     try {
-      this.props.loginSubmit({
+      /*this.props.loginSubmit({
         username: this.state.username,
         password: this.state.password,
-      });
-      /*const response = await client.post(
+      });*/
+      const response = await client.post(
         "http://localhost:8000/api-token-auth/",
         {
           username: this.state.username,
           password: this.state.password,
         }
-      );*/
-      //localStorage.setItem("token", response.data.token);
+      );
+      localStorage.setItem("token", response.data.token);
       this.props.history.push("/select");
     } catch (e) {
       console.log(e);

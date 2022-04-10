@@ -56,7 +56,7 @@ const AcceptedRequestTableComponent = (props) => {
         accessor: "timeslots",
         Cell: ({ row }) => {
           const { timeslots, tutor } = row.values;
-          console.log(timeslots);
+          console.log("ts",timeslots);
           const transfor = [];
           for (let i = 0; i < timeslots.length; i++) {
             const ts = timeslots[i];

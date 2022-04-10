@@ -67,7 +67,6 @@ class Profile extends React.Component {
           <section className="section">
             <Container>
               <Row>
-                {this.props.is_tutee && (
                   <Col>
                     <a href="/tutee">
                       <Card className="card-profile shadow mt--300">
@@ -85,8 +84,6 @@ class Profile extends React.Component {
                       </Card>
                     </a>
                   </Col>
-                )}
-                {this.props.is_tutor && (
                   <Col>
                     <a href="/tutor">
                       <Card className="card-profile shadow mt--300">
@@ -104,7 +101,6 @@ class Profile extends React.Component {
                       </Card>
                     </a>
                   </Col>
-                )}
               </Row>
             </Container>
           </section>
