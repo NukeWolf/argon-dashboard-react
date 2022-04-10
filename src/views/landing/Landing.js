@@ -140,7 +140,7 @@ class Landing extends React.Component {
                             color="primary"
                             href="/register"
                           >
-                            Learn more
+                            Get Started
                           </Button>
                         </CardBody>
                       </Card>
@@ -164,7 +164,7 @@ class Landing extends React.Component {
                             color="success"
                             href="/register"
                           >
-                            Learn more
+                            Get Started
                           </Button>
                         </CardBody>
                       </Card>
