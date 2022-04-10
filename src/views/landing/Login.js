@@ -58,7 +58,7 @@ class Login extends React.Component {
         password: this.state.password,
       });*/
       const response = await client.post(
-        "http://localhost:8000/api-token-auth/",
+        process.env.REACT_APP_API_URL + "/api-token-auth/",
         {
           username: this.state.username,
           password: this.state.password,

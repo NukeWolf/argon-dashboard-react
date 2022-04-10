@@ -50,13 +50,13 @@ class Register extends React.Component {
   async onSubmit(e) {
     e.preventDefault();
     try {
-      await client.post("http://localhost:8000/users/", {
+      await client.post(process.env.REACT_APP_API_URL + "/users/", {
         username: this.state.username,
         password: this.state.password,
         email: this.state.email,
       });
       const response = await client.post(
-        "http://localhost:8000/api-token-auth/",
+        process.env.REACT_APP_API_URL + "/api-token-auth/",
         {
           username: this.state.username,
           password: this.state.password,
