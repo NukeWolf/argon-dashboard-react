@@ -132,7 +132,7 @@ class Landing extends React.Component {
                           </h6>
                           <p className="description mt-3">
                             Set your own hours and start tutoring in blocks as
-                            small as 15-minutes.
+                            small as 15-minutes. Earn more as you go.
                           </p>
 
                           <Button
